@@ -1,0 +1,184 @@
+<section class="container-fluid with-maxwidth chapter margin-top50">
+    <div *ngIf="!isRequestSubmitted">
+        <form class="mat-form-auth" [formGroup]="duplicatRequestForm" name="duplicatRequestForm">
+            <fieldset>
+                <div *ngIf="!isViewOnly">
+                    <div class="form-group row col-md-12 no-padding">
+                        <div class="col-md-2 col-xs-12 bold margin-top15">
+                            Assigned Name:
+                        </div>
+                        <div class="col-md-10 col-xs-12">
+                            <mat-form-field class="full-width">
+                                <input maxlength="50" autocomplete="off" required matInput type="text" autocomplete="off" formControlName="assignedName"
+                                    name="assignedName" placeholder="First name, Lastname / Comapny /  Corporation name">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group row col-md-12 no-padding">
+                        <div class="col-md-2 col-xs-12 bold margin-top15">
+                            Date of Assignment:
+                        </div>
+
+                        <div class="col-md-2 col-xs-12">
+                            <mat-form-field class="full-width">
+                                <input maxlength="10" autocomplete="off" required matInput type="text" autocomplete="off" formControlName="assignmentDate" name="assignmentDate"
+                                    placeholder="MMDDYYYY">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row col-md-12 col-xs-12 bold margin-top15 margin-btm10">
+                        Undersigned requests that the Company forward the Duplicate Policy to the following address:
+                    </div>
+
+                    <div class="form-group row col-md-12 no-margin-bottom no-padding">
+                        <div class="col-md-3 col-xs-12">
+                            <mat-form-field class="full-width">
+                                <input maxlength="50" autocomplete="off" required matInput type="text" autocomplete="off" formControlName="address" name="address"
+                                    placeholder="Address">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <mat-form-field class="full-width">
+                                <input maxlength="50" autocomplete="off" required matInput type="text" autocomplete="off" formControlName="city" name="city"
+                                    placeholder="City">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <mat-form-field class="full-width">
+                                <input maxlength="50" autocomplete="off" required matInput type="text" autocomplete="off" formControlName="state" name="state"
+                                    placeholder="State">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <mat-form-field class="full-width">
+                                <input maxlength="5" autocomplete="off" required matInput type="text" autocomplete="off" formControlName="zipCode" name="zipCode"
+                                    placeholder="ZIP / Postal code">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div *ngIf="isViewOnly" class="margin-btm20 margin-top30">
+
+                    <div class="row col-md-12 col-xs-12 bold margin-top15">
+                        I hereby request a Duplicate of the below mentioned policy:
+                    </div>
+
+                    <div class="article-title-heading1 margin-btm5">Duplicate Policy Request summary</div>
+
+                    <div class="border-box margin-btm20">
+                        <div class="row col-md-12 margin-top5">
+                            <div class="col-md-2 col-xs-12 text-small">
+                                <span class="text-left print-view-title">Insured Name:</span>
+                            </div>
+                            <div class="col-md-3 col-xs-12 text-small">
+                                <span class="">{{model.insuredName}}</span>
+                            </div>
+                        </div>
+                        <div class="row col-md-12  margin-top5">
+                            <div class="col-md-2 col-xs-12 text-small">
+                                <span class="text-left print-view-title">Policy number:</span>
+                            </div>
+                            <div class="col-md-3 col-xs-12 text-small">
+                                <span class="">{{model.policyNumber}} </span>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 margin-top5 margin-btm5">
+                            <div class="col-md-2 col-xs-12 text-small">
+                                <span class="text-left print-view-title">Assigned Name:</span>
+                            </div>
+                            <div class="col-md-3 col-xs-12 text-small">
+                                <span class="">{{model.assignedName}} </span>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 margin-top5 margin-btm5">
+                            <div class="col-md-2 col-xs-12 text-small">
+                                <span class="text-left print-view-title">Date of Assignment:</span>
+                            </div>
+                            <div class="col-md-3 col-xs-12 text-small">
+                                <span class="">{{model.assignmentDate| date: dateFormat}} </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="bold">If you wish, you may enter a comment in the field below or use the upload document link to attach a document:</div>
+                    <textarea style="resize:none;" class="border-box" matInput placeholder="Enter comment" maxlength="2000" rows="5"></textarea>
+
+                    <div class="margin-btm20 margin-top20">
+                        <mat-checkbox [checked]="false" (change)="readTermsAndConditions($event)"></mat-checkbox> By selecting this check box, I affirm that I am the owner of this policy and agree
+                        to electronic signature. I acknowledge request is subject to the revisions and conditions of my policy
+                        and Fidelity & Guaranty Life Insurance Company may request information in order for my request to
+                        be processed.
+                    </div>
+                    <div class="margin-btm20 margin-top20">
+                        <mat-checkbox [checked]="false" (change)="confirmedPolicyHasLost($event)"></mat-checkbox>
+                        I affirm that said policy apparently has been lost, mislaid or destroyed and I have been unable to find said policy after careful search and inquiry. I agree to a fee of $25 to
+                         Fidelity & Guaranty Life Insurance Company (“Company”) to issue a Duplicate Policy.<br/>
+                         I agree to return the Duplicate Policy to the Company if the original policy is recovered, and further agrees that I will hold the Company harmless from all loss, expense and 
+                         liability for which the Company may become liable as a direct or indirect result of its act of issuing said Duplicate Policy.
+                    </div>
+
+                    <div class="form-group row text-center">
+                        <div class="col-md-4">
+                            <mat-form-field class="full-width">
+                                <input maxlength="9" required matInput type="text" name="ownerInitials" placeholder="Owner's Initials">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field class="full-width date-control">
+                                <input matInput required type="text" name="ownerDob" placeholder="Date of birth">
+                            </mat-form-field>
+                            <span class="pull-left no-margin no-padding date-format">MM/DD/YYYY</span>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field class="full-width">
+                                <input maxlength="4" required matInput type="text" name="ownerSsn" placeholder="Last 4 digits of Social Security Number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-top30 margin-btm50" *ngIf="!isViewOnly">
+                    <div class="col-md-6 col-sm-6 col-xs-12 margin-btm10">
+                        <button color="primary" (click)="cancelRequest()" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor">Cancel</button>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 margin-btm5">
+                        <button [disabled]="!duplicatRequestForm.valid" color="primary" (click)="next()" mat-raised-button type="button" class="pull-left float-md-right float-lg-right btn-fgl-bgcolor">Next</button>
+                    </div>
+                </div>
+
+                <div class="row margin-btm50" *ngIf="isViewOnly">
+                    <div class="col-md-6 col-sm-6 col-xs-12 margin-btm10">
+                        <button color="primary" (click)="previous()" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor">Previous</button>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 margin-btm5">
+                        <button [disabled]="(!isAgreedToTerms || !isPolicyLost)" color="primary" (click)="submitRequest()" mat-raised-button type="button" class="pull-left float-md-right float-lg-right btn-fgl-bgcolor">Submit request</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+    <div *ngIf="isRequestSubmitted">
+        <div class="text-center margin-top100">
+            You have created Service Request <a href="#">YYYYYYYY</a> for policy XXXXXXX. Please allow 5-10 business days
+            for us to process your request.<br/><br/>
+
+            <div class="text-center">We will contact you if more information is required, and you will receive an email upon completion.</div>
+            <br/><br/>
+            <div class="text-center">
+                <a href="#" (click)="$event.preventDefault();"><i class="material-icons dp78-fgl">print</i></a>
+            </div>
+            <br/>
+           
+            <div class="text-center"> <a href="#" (click)="$event.preventDefault();">Save/Print Service Request</a></div>
+            <br/>
+            <div class="text-center"> To protect your privacy, please note that this will not be available once you leave this page</div>
+        </div>
+    </div>
+
+</section>

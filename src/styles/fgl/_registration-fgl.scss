@@ -1,0 +1,70 @@
+@import "./src/styles/fgl/_colors-fgl.scss";
+
+.main-body-reg-auth
+{
+  @extend .main-body;
+   max-width: 1110px !important;
+   @media (min-width: map-get($grid-breakpoints, md)) {
+      padding-top: 60px !important;
+    }
+}
+
+.section-reg-fgl{
+  min-height: 325px;
+}
+
+.card-content-reg {
+   @extend .card-content;
+    padding: 5px 5px 0px 5px !important;
+}
+
+  .card-reg {
+       padding: 0px 10px 20px 10px !important;
+    }
+
+  .logo-reg {
+    padding-left: 10px  !important;  
+    margin-top: 10px !important;
+    padding-top: 0 !important;  
+    // margin-top: 40px !important;
+    // padding-top: 10px !important;  
+    // padding-left: 25px  !important;  
+    margin-bottom: .1em !important;
+  }
+
+.margin-top40 {
+  margin-top: 40px !important;
+}
+
+.reg-user-type {
+  margin-left: -5px;
+}
+
+.box{
+  margin-bottom: 0px !important;
+}
+
+.text-privacy{
+  padding: 5px 05px 0px 0px;
+}
+
+
+.mat-input-subscript-wrapper
+{
+  margin-top:0px !important;
+}
+.mat-input-hint-spacer
+{
+  flex:0 !important;
+}
+
+.question-box
+{
+  margin: 10px 0px 0px 0px;
+}
+
+.reg-complete
+{
+  padding: 20px 10px;
+  color: $color-primary; // #001A71;
+}

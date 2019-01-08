@@ -1,0 +1,7 @@
+
+    <div class="row">     
+        <div *ngFor="let doc of docuCodes" class="url-link col-md-12 margin-top5">           
+            <i class="indent-sm fa fa-file-pdf-o pdf-font-size redText" aria-hidden="true"></i>
+            <a (click)="downloadFile(doc.code)" class="col-md-12 cursorpointer link-underline bold margin-btm20">{{doc.name}}</a>
+        </div>
+    </div>

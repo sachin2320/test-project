@@ -1,0 +1,66 @@
+<div *ngIf="showBodyHeaderText" class="margin-top10 margin-btm10 pull-left col-12 no-padding z-index-99">
+        <div [innerHTML]="bodyHeaderText"></div>
+</div>
+
+<div *ngIf="showInstructions" class="col-md-12 co-sm-12 col-xs-12 mat-dialog-title-instructions no-padding text-green">Instructions</div>
+<div class="margin-top10">
+    <div *ngFor="let item of dataItems" class="margin-top10 margin-btm10 pull-left col-12 no-padding">
+        <!-- Type-6 is download -->
+        <div class="col-12 no-padding" *ngIf="item.type==6">
+            <div *ngIf="item.key" class="section-para-title"> {{item.key + ":"}} </div>
+            <download-form *ngIf="downloadFileCode.trim() !=''" [downloadfilecode]="downloadFileCode"></download-form>
+        </div>
+        <div class="col-12 no-padding" *ngIf="item.type !=6">
+            <span class="section-para-title" *ngIf="item.key"> {{item.key + ":"}} </span>
+            <div [innerHTML]="item.value" class="indent"></div>
+        </div>
+    </div>
+
+    <div class="margin-btm20 col-md-12 row no-padding" *ngIf="isUploadLinkVisible || isEmailFaxLinkVisible">
+        <div class="text-left col-md-6 no-padding" *ngIf="isUploadLinkVisible">
+            <button [class]="!isEmailFaxTabVisible && isUploadTabVisible ? 'mat-button mat-primary' : 'link-underline link-underline-blue mat-button mat-primary'"
+                (click)="displayUploadSection()">
+                {{uploadDocText}}</button>
+        </div>
+        <div class="col-md-6 no-padding text-left text-md-center" *ngIf="isEmailFaxLinkVisible">
+            <button [class]="isEmailFaxTabVisible && !isUploadTabVisible ? 'mat-button mat-primary' : 'link-underline link-underline-blue mat-button mat-primary'"
+                (click)="displayMailSection()">
+                Mail in or fax</button>
+        </div>
+    </div>
+
+    <!-- upload section -->
+    <div [class]="(!isEmailFaxTabVisible && isUploadTabVisible)?'col-md-12 pull-left no-padding':'col-md-12 pull-left no-padding displayNone'">
+        <div class="margin-btm20">
+            <mat-checkbox [(checked)]="isAgreedToTerms" (change)="readTermsAndConditions($event)">
+                Select checkbox to confirm all required signature fields have been signed and document(s) scanned for upload.
+            </mat-checkbox>
+            <br/>
+            <span class="small bold margin-left28">(File must be in PDF format and maximum of 25MB)</span>
+        </div>
+        <div class="bold margin-btm5">
+            Upload document(s)
+        </div>
+        <div>
+            <file-upload (onFileSelected)="onFileSelected($event)" (onInvalidFileSelected)="onInvalidFileSelected($event)" [model]="fileUploadModel"
+                #fileUploadComponent viewonly="false"></file-upload>
+            <fgl-message [message]="errorMessage"></fgl-message>
+            <br/>
+            <fgl-message [message]="userNotAuthorizeErrorMessage"></fgl-message>
+        </div>
+        <div class="col-md-12 margin-top20 no-padding margin-btm50">
+            <button *ngIf="!isPreviousButtonVisible" color="primary" (click)="cancelRequest($event)" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor">Cancel</button>
+            <button *ngIf="isPreviousButtonVisible" color="primary" (click)="previous($event)" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor">Previous</button>
+            <button [disabled]="!isValidBody" color="primary" (click)="onSubmitClick($event)" mat-raised-button type="button" class="pull-right btn-fgl-bgcolor">Submit request</button>
+        </div>
+    </div>
+
+    <!-- mail in or fax section -->
+    <div  [class]="(isEmailFaxTabVisible && !isUploadTabVisible)?'col-md-12 no-padding pull-left':'col-md-12 no-padding pull-left displayNone'">
+        <mail-fax-info [showlifeannuityfax]="showLifeAnnuityFax" [showlifefax]="showLifeFax" [servicetype]="serviceType"></mail-fax-info>
+        <div *ngFor="let item of emailFaxDataItems" class="margin-top20 margin-btm10">
+            <span class="section-para-title"> {{item.key +": "}}</span>
+            <span [innerHTML]="item.value"></span>
+        </div>
+    </div>
+</div>

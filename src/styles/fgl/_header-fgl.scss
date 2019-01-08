@@ -1,0 +1,93 @@
+@import "material-design-lite/src/badge/_badge.scss";
+@import "bootstrap/_navbar.scss";
+@import "./src/styles/fgl/_colors-fgl.scss";
+
+//BADGE VARIABLE //
+$badge-font-size-fgl: 12px !default;
+$badge-background-fgl: $color-error !default; // red !default;
+$badge-size-fgl : 20px !default;
+$badge-padding-fgl: 4px !default;
+$badge-overlap-fgl: 12px !default;
+
+%pseudo-block-after {
+  top: -($badge-size-fgl / 2);
+  right: -($badge-size-fgl + $badge-padding-fgl);
+
+  font-size: $badge-font-size-fgl;
+  width: $badge-size-fgl;
+  height: $badge-size-fgl;
+  background: $badge-background-fgl;
+}
+
+ %pseudo-block-overlap {
+    margin-right: ($badge-size-fgl - $badge-overlap-fgl);
+    &:after {
+      right: -($badge-size-fgl - $badge-overlap-fgl);
+    }
+  }
+
+.mdl-badge-fgl {
+  @extend .mdl-badge;
+  &[data-badge]:after { 
+    @extend %pseudo-block-after;
+  } 
+  &.mdl-badge-fgl--overlap
+  {
+    @extend %pseudo-block-overlap;   
+  }   
+}
+
+.user-logged-fgl
+{
+  @extend .navbar-brand;
+  padding-top: 1.25rem !important;
+  // font-size: 1rem !important;
+	font-size: 1.5rem !important;     // MJD per KC 2018-03-06
+}
+.dp48-fgl{
+  font-size: 48px !important;
+  width: 48px;
+  height: 48px;
+}
+
+.dp78-fgl{
+  font-size: 78px !important;
+  width: 78px;
+  height: 78px;
+  color: $color-primary !important; // #582C83 !important;
+}
+
+.left-nav-bg
+{
+  // background-color: #E5E7E8;
+  background-color: $color-background-light; // #EFF0F1;
+}
+
+.app-sidebar { 
+  .nav{
+    a {
+      color: $color-background-table-heading !important; // #7E868D !important;
+      font-size: 14px !important;
+      font-weight: bold !important;
+    }
+  }
+}
+
+.app-page-container{
+  .app-footer{
+    background-color: $color-background-light !important; // #EFF0F1 !important;
+    position: fixed;
+  }
+} 
+
+ .sidebar-footer{
+  background-color: $color-background-light !important; // #EFF0F1 !important;
+ }
+
+
+/*side nav logo white scss*/
+ .st0{fill:#FFFFFF;}
+ 
+ .enable-bg-new{ enable-background:new 0 0 566 143;}
+ 
+/*side nav logo white scss*/

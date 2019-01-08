@@ -1,0 +1,94 @@
+@import "pages/_auth.scss";
+@import "./src/styles/fgl/_colors-fgl.scss";
+
+.page-auth {
+  .card {
+    padding: 40px 40px 40px 20px !important;  // MJD per KC 2018-03-06
+    .logo {
+      padding-top:  0 !important; // MJD 2018-07-30 
+      padding-left: 0 !important; // MJD 2018-07-30 was 20px
+      padding-bottom: 0 !important;
+      margin-top: -10px !important;            // MJD per KC 2018-03-06
+      margin-bottom: 1em !important;            // MJD per KC 2018-03-06
+    }
+    .logo img {
+      max-width: 100% !important;
+    }
+    .logo-sign-out img {
+      max-width: 95% !important;
+      padding-left: 0 !important;
+      margin-left: -10px !important;
+    }
+    // @media only screen and (max-width: 767px) {
+    //   .logo {
+    //     padding-left: 0 !important;
+    //   }
+    // }
+    // @media only screen and (max-width: 380px) {
+    //   .logo {
+    //     margin-left: -20px !important;
+    //   }
+    // }
+  }
+  .logo {
+    padding-left: 10px !important;              // MJD Branding changed from 0 to 10px
+    margin-bottom: 1rem !important;             // MJD per KC 2018-03-06  2em
+    padding-top: 10px !important;
+    padding-bottom: 0 !important;
+  }
+  .additional-info {
+    background-color: $color-background-table-heading !important; // #636466 !important;
+    a {
+      color: white !important;
+      @media screen and (max-width: 375px) {
+        font-size: 0.8rem !important;
+        font-weight: normal !important;
+      }
+    }
+    .divider-h {
+      border-right: 1px solid #fff !important;
+      @media screen and (max-width: 375px) {
+        margin: 5px !important;
+      }
+    }
+  }
+  .main-body {
+    padding-top: 120px;
+    @media only screen and (max-height: 768px) {
+      padding-top: 40px !important;
+      // padding-top: 80px !important;
+    }
+  }
+  .main-body-reg-auth {
+    @media only screen and (max-height: 768px) {
+      padding-top: 5vh !important;
+    }
+  }
+}
+
+.card {
+  border:0px !important;
+  .card-content {
+    padding: 10px 20px 20px 20px !important;
+    @media only screen and (max-height: 768px) {
+      .validation-error {
+        font-size: 0.9rem;
+        line-height: 1.5rem;
+      }
+      padding: 0 !important;
+    }
+    .logo {
+      height: 140px;
+    }
+  }
+}
+
+.card-primary {
+  @include card-variant($color-primary, $color-primary);
+}
+
+@media only screen and (max-height: 667px) {
+  .margin-btm-sm {
+    margin-bottom: 30px !important;
+  }
+}

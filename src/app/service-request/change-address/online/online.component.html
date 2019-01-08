@@ -1,0 +1,156 @@
+<form class="mat-form-auth" [formGroup]="addressChangeForm" name="addressChangeForm">
+    <fieldset>
+        <div *ngIf="!isViewOnly">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding no-margin-left">
+                <div class='row row-lg'>
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-spacing-left">Fields marked with asterisk are required.</div>
+                </div>
+                <div class="row margin-top20 no-spacing-left">
+                    <div class="col-md-4 pull-left bold print-view-title">Please change the mailing address of the:</div>
+                    <div class="col-md-8 pull-right  margin-btm10">
+                        <mat-radio-group formControlName="isInsured" class="md-radio-group-spacing">
+                            <mat-radio-button value="false" class="col-md-3 col-sm-3 col-xs-12">
+                                {{changeNameForOwnerText}}
+                            </mat-radio-button>
+                            <mat-radio-button value="true" class="col-md-6 col-sm-6 col-xs-12">
+                                {{changeNameForInsuredOrAnnuitantText}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+
+                <div class="row row-lg no-padding margin-btm20 border-top2px border-bottom2px no-margin-left no-margin-right no-spacing-left">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <div class="row margin-top10 no-padding">
+                            <div class="col-md-5 col-xs-12">
+                                <mat-form-field class="full-width">
+                                    <input maxlength="50" required autocomplete="off" matInput type="text" name="firstName" formControlName="firstName" placeholder="First name">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                                <mat-form-field class="full-width">
+                                    <input maxlength="5" autocomplete="off" matInput type="text" name="middleInitials" formControlName="middleInitials" placeholder="Middle initial">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-5 col-xs-12">
+                                <mat-form-field class="full-width">
+                                    <input maxlength="50" autocomplete="off" required matInput type="text" name="lastName" formControlName="lastName" placeholder="Last name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row no-padding margin-btm10">
+                            <div class="col-md-12 bold margin-top10 margin-btm10 print-view-title">New Address</div>
+                        </div>
+
+                        <div class="row margin-btm10 margin-top10 no-padding">
+                            <div class="col-md-3 col-xs-12 ">
+                                <mat-form-field class="full-width">
+                                    <mat-select (selectionChange)="onCountryChange($event)" formControlName="country" class="full-width"
+                                        placeholder="Country/Region*">
+                                        <mat-option *ngFor="let detail of countryModel" [value]="detail.code">
+                                            {{ detail.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <mat-form-field class="full-width">
+                                    <input maxlength="50" autocomplete="off" matInput type="text" name="street" formControlName="street" placeholder="Street*">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                                <mat-form-field class="full-width">
+                                    <input maxlength="50" required autocomplete="off" matInput type="text" name="city" formControlName="city" placeholder="City">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2 col-xs-12 no-margin-bottom">
+                                <mat-form-field class="full-width" *ngIf="stateModel ==null || stateModel.length <=0">
+                                    <input maxlength="50" autocomplete="off" matInput type="text" name="state" formControlName="state" placeholder="State/Province*">
+                                </mat-form-field>
+                                <mat-form-field class="full-width" *ngIf="stateModel !=null && stateModel.length>0">
+                                    <mat-select formControlName="state" class="full-width"
+                                        placeholder="State/Province*">
+                                        <mat-option *ngFor="let state of stateModel" [value]="state.code">
+                                            {{ state.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+                            <div class="col-md-2 col-xs-12 no-margin-bottom">
+                                <mat-form-field class="full-width">
+                                    <input required [maxLength]="zipMaxLength" autocomplete="off" required matInput type="text" name="zip" formControlName="zip"
+                                        placeholder="ZIP/Postal code">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row margin-btm10 no-padding">
+                            <div class="col-md-4 col-xs-12">
+                                <mat-form-field class="full-width">
+                                    <input numericwithspecialcharinput="(,), ,+,-,x" maxlength="24" autocomplete="off" matInput type="text" name="phone" formControlName="phone"
+                                        placeholder="Phone number">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4 col-xs-12">
+                                <mat-form-field class="full-width">
+                                    <input maxlength="50" autocomplete="off" matInput type="text" name="emailAddress" formControlName="emailAddress" placeholder="Email">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<div id="bodyToBeExtract" *ngIf="isViewOnly" class="margin-btm20">
+    <div class="print-row row border-bottom no-margin">
+        <div class="col-md-12 col-sm-12 col-xs-12 article-heading-viewscreen">Mailing Address Request Summary</div>
+    </div>
+    <div class="border-box margin-top10 margin-btm20">
+        <div class="print-row row margin-top5">
+            <div class="print-col-3 col-md-2 col-sm-12 col-xs-12 text-small">
+                <span class="text-left print-view-title margin-left10">Change:</span>
+            </div>
+            <div class="print-col-7 col-md-9 col-xs-12 col-sm-12 text-small">
+                <span *ngIf="model.isInsured=='true'" class="">Insured Mailing Address</span>
+                <span *ngIf="model.isInsured=='false'" class="">Owner Mailing Address</span>
+            </div>
+        </div>
+        <div class="print-row row margin-top5">
+            <div class="print-col-3  col-md-2 col-sm-12 col-xs-12 text-small">
+                <span class="text-left print-view-title margin-left10">Name:</span>
+            </div>
+            <div class="print-col-7 col-md-9 col-xs-12 col-sm-12 text-small">
+                <span>{{getFullName}} </span>
+            </div>
+        </div>
+        <div class="print-row row margin-top5 margin-btm5">
+            <div class="print-col-3  col-md-2 col-sm-12 col-xs-12 col-sm-12  text-small">
+                <span class="text-left print-view-title margin-left10">New address:</span>
+            </div>
+            <div class="print-col-7 col-md-9 col-xs-12 col-sm-12 text-small">
+                <span>{{getAddress}}</span>
+            </div>
+        </div>
+        <div class="print-row row margin-top5 margin-btm5">
+            <div class="print-col-3  col-md-2 col-sm-12 col-xs-12 text-small">
+                <span class="text-left print-view-title margin-left10">Phone number:</span>
+            </div>
+            <div class="print-col-7 col-md-9 col-sm-12 col-xs-12 text-small">
+                <span>{{model.phone}}</span>
+            </div>
+        </div>
+        <div class="print-row row margin-top5 margin-btm5">
+            <div class="print-col-3 col-md-2 col-sm-12 col-xs-12 text-small">
+                <span class="text-left print-view-title  margin-left10">Email address:</span>
+            </div>
+            <div class="print-col-7 col-md-9 col-sm-12 col-xs-12 text-small">
+                <span data-mask="email">{{model.emailAddress}}</span>
+            </div>
+        </div>
+    </div>
+</div>

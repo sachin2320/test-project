@@ -1,0 +1,37 @@
+@import "./src/styles/fgl/_colors-fgl.scss";
+
+.main-body-forgot-auth {
+   @extend .main-body;
+   max-width: 700px !important;  
+
+//    .section-heading {
+//     color: $color-primary; // #001a71;
+//     font-weight: 500;
+//     margin: 20px 0px 20px 40px;
+//    }
+   
+.section-heading {
+    color: $color-text; // #001a71;
+    font-weight: 500;
+    margin: 0 40px 20px 40px;
+   }
+
+   .section-heading-error
+   {
+       @extend .section-heading;
+       color: $color-error !important; // red !important;
+   }
+
+   .card-content-user{
+        @extend .card-content;
+        padding: 25px 5px 30px 5px !important;
+   }
+}
+
+.page-auth {
+    .main-body-forgot-auth {
+        @media only screen and (max-height: 768px) {
+            padding-top: 5vh !important;
+        }
+    }
+}

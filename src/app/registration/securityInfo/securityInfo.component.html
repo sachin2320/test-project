@@ -1,0 +1,14 @@
+<div class="margin-top10">
+    <questionanswer customquestionname="customQuestion1" customquestionplaceholder="Custom question *" [formgroup]="securityInfoForm"
+        [questions]="securityQuestion.securityQuestion1" questionplaceholder="Select security question 1*" questionformcontrolname="securityQuestionId1"
+        answerformcontrolname="answer1" answerplaceholder="Answer"></questionanswer>
+</div>
+<questionanswer customquestionname="customQuestion2" customquestionplaceholder="Custom question *" [formgroup]="securityInfoForm"
+    [questions]="securityQuestion.securityQuestion2" questionplaceholder="Select security question 2*" questionformcontrolname="securityQuestionId2"
+    answerformcontrolname="answer2" answerplaceholder="Answer"></questionanswer>
+<questionanswer customquestionname="customQuestion3" customquestionplaceholder="Custom question *" [formgroup]="securityInfoForm"
+    [questions]="securityQuestion.securityQuestion3" questionplaceholder="Select security question 3*" questionformcontrolname="securityQuestionId3"
+    answerformcontrolname="answer3" answerplaceholder="Answer"></questionanswer>
+<div>
+    <fgl-message [message]="securityInfoErrorMessage"></fgl-message>
+</div>

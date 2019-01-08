@@ -1,0 +1,397 @@
+<form class="mat-form-auth" [formGroup]="LifeLoanForm" name="LifeLoanForm">
+    <fieldset>
+        <div *ngIf="!isViewOnly" class="margin-btm30">
+            <div class="col-md-12 col-sm-12 col-xs-12 border-bottom2px no-spacing-left">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding no-spacing-left">Payment requests will be mailed to the owner's address. Please confirm your address:</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-spacing-left">
+                        <mat-radio-group formControlName="isAddressSame" (change)="onAddressTypeChange($event)" class="md-radio-group-spacing">
+                            <div class="row">
+                                <mat-radio-button value="true">
+                                    {{ownersAddressSameText}}
+                                </mat-radio-button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-spacing-left">
+                                    <div class="row">
+                                        <mat-radio-button value="false">
+                                            {{ownersAddressNewText}}
+                                        </mat-radio-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+
+                    </div>
+
+                </div>
+                <div class="row  no-padding  margin-top10">
+                    <div class="col-md-1 col-sm-1 col-xs-1 no-padding margin-top10">New address:</div>
+                    <div class="col-md-3 col-sm-3 col-xs-3 ">
+                        <mat-form-field class="full-width">
+                            <mat-select (selectionChange)="onCountryChange($event)" [disabled]="isAddressReadonly" formControlName="country" class="full-width"
+                                placeholder="Country/Region*">
+                                <mat-option *ngFor="let detail of countryModel" [value]="detail.code">
+                                    {{ detail.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 ">
+                        <mat-form-field class="full-width">
+                            <input maxlength="50" autocomplete="off" [readonly]="isAddressReadonly" matInput type="text" name="street" formControlName="street"
+                                placeholder="Street*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 ">
+                        <mat-form-field class="full-width">
+                            <input maxlength="50" autocomplete="off" [readonly]="isAddressReadonly" matInput type="text" name="city" formControlName="city"
+                                placeholder="City*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 ">
+                        <mat-form-field class="full-width" *ngIf="stateModel ==null || stateModel.length <=0">
+                            <input maxlength="50" autocomplete="off" [readonly]="isAddressReadonly" matInput type="text" name="state" formControlName="state"
+                                placeholder="State / Province*">
+                        </mat-form-field>
+
+                        <mat-form-field class="full-width" *ngIf="stateModel !=null && stateModel.length>0">
+                            <mat-select [disabled]="isAddressReadonly" formControlName="state" class="full-width" placeholder="State / Province*">
+                                <mat-option *ngFor="let state of stateModel" [value]="state.code">
+                                    {{ state.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <mat-form-field class="full-width">
+                            <input [maxLength]="zipMaxLength" autocomplete="off" [readonly]="isAddressReadonly" matInput type="text" name="zipCode" formControlName="zipCode"
+                                placeholder="ZIP/Postal code*">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- ALM-252 Remove highlighted sentence in attachment , process in place is to update the address and leave it if they add a new address to a form.                 
+                <div class="row  no-padding  margin-top10 margin-btm10">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <span class="bold">New address option will only be applied to the processing of this form. If you will like to change
+                            your address for your FGL Policy(ies), please use the 'Change Address' form.</span>
+                    </div>
+                </div> -->
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 border-bottom2px no-spacing-left">
+                <div class="row border-bottom2px no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <div class="article-heading-viewscreen pull-left">Loan Delivery</div>
+                    </div>
+                </div>
+                <!-- ALM-256 Remove the highlighted sentence
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding  margin-top10">Payment requests will be mailed to the owner's address</div>
+                </div> -->
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Please select appropriate option</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-spacing-left">
+                        <mat-radio-group formControlName="isLoanDeliveryStandard" (change)="onLoanDeliveryTypeChange($event)" class="md-radio-group-spacing">
+                            <div class="row">
+                                <mat-radio-button value="true">
+                                    <span class="padding-left10">{{loanDeliveryOptionStandardText}}</span>
+                                </mat-radio-button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-spacing-left">
+                                    <div class="row">
+                                        <mat-radio-button value="false">
+                                            <span class="padding-left10">{{loanDeliveryOptionOvernightText}}</span>
+                                        </mat-radio-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+
+                </div>
+                <div class="row no-padding margin-top10">                 
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <mat-form-field class="full-width radio-button-child-padding-2">
+                            <input maxlength="50" autocomplete="off" [readonly]="isLoanDeliveryReadonly" matInput type="text" name="carrier" formControlName="carrier"
+                                placeholder="Carrier*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <mat-form-field class="full-width">
+                            <input maxlength="25" autocomplete="off" [readonly]="isLoanDeliveryReadonly" matInput type="text" name="accountNumber" formControlName="accountNumber"
+                                placeholder="Account number*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-5"></div>
+
+                </div>
+                <div class="row bold margin-btm3 font-italic text-small">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        If you have questions regarding this form, please&nbsp;
+                        <a [routerLink]="[config.getConfig('appContactUsUrl')]" [queryParams]="{policyNumber:policyNumber}" class="link-underline">
+                            contact us </a>.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 border-bottom2px no-spacing-left">
+                <div class="row border-bottom2px no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <div class="article-heading-viewscreen pull-left">Loan Amount Request</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding  margin-top10">Do not return policy with this request form</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Please select appropriate option</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-spacing-left">
+                        <mat-radio-group formControlName="isLoanAmountRequestMaximum" (change)="onLoanAmountRequestChange($event)" class="md-radio-group-spacing">
+                            <div class="row">
+                                <mat-radio-button value="true">
+                                    {{loanAmountRequestMaximumText}}
+                                </mat-radio-button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                    <mat-radio-button value="false">
+                                        {{loanAmountRequestSpecificText}}
+                                    </mat-radio-button>
+                                    <mat-form-field>
+                                        <input decimalinput maxlength="11" autocomplete="off" [readonly]="isLoanAmountReadonly" matInput type="text" 
+                                            name="specificLoanAmount" formControlName="specificLoanAmount" 
+                                            [(value)]="formattedSpecificLoanAmount"
+                                            (blur)="transformAmount($event)" 
+                                            (focus)="normalizeAmount($event)" 
+                                            placeholder="Specific loan amount*">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 border-bottom2px no-spacing-left">
+                <div class="row border-bottom2px no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <div class="article-heading-viewscreen pull-left">Loan Type</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding  margin-top10">Please be informed that if you select a Variable Loan and your policy does not have variable loans, we
+                        will process a fixed interest loan</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-spacing-left">
+                        <mat-radio-group formControlName="isLoanTypeFixed" class="md-radio-group-spacing">
+                            <div class="row">
+                                <mat-radio-button value="true">
+                                    {{loanTypeFixedText}}
+                                </mat-radio-button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                    <mat-radio-button value="false">
+                                        {{loanTypeVariableText}}
+                                    </mat-radio-button>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 border-bottom2px no-spacing-left">
+                <div class="row border-bottom2px no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <div class="article-heading-viewscreen pull-left">Income Tax Withholding Election </div>
+                    </div>
+                </div>
+
+                <div class="row no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Select one*:</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10">
+                        <mat-radio-group formControlName="incomeTaxWithhold" (change)="onIncomeWithHoldChanged($event)" class="md-radio-group-spacing">
+                            <div class="row">
+                                <mat-radio-button [id]="TaxWithHoldingOption.NotElect" [value]="taxWithHoldingNotElectText" [checked]="incomeTaxWithholdOption === TaxWithHoldingOption.NotElect">
+                                    <span class="padding-left10">{{taxWithHoldingNotElectText}}</span>
+                                </mat-radio-button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                    <mat-radio-button [id]="TaxWithHoldingOption.Elect" [value]="taxWithHoldingElectText" [checked]="incomeTaxWithholdOption === TaxWithHoldingOption.Elect">
+                                        <span class="padding-left10">{{taxWithHoldingElectText}} </span>
+                                    </mat-radio-button>
+                                </div>
+                            </div>
+
+                            <div class="row">                               
+                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                    <mat-form-field class="radio-button-child-padding-2 full-width">
+                                        <input decimalinput maxlength="6" [class.benefit-perc-warning]="!isValidWithHold"  autocomplete="off" [readonly]="isIncomeTaxReadOnly" matInput type="text" name="withholdFederalIncomeTax"
+                                            formControlName="withholdFederalIncomeTax"  (blur)="transformWithholdIncomeTaxAndChkValidationOnBlur($event)" (keyup)="validateWithHoldValue($event)"  placeholder="Federal %">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                    <mat-form-field class="width80 margin-left30">
+                                        <input decimalinput maxlength="6" [class.benefit-perc-warning]="!isValidWithHold" autocomplete="off" [readonly]="isIncomeTaxReadOnly" matInput type="text" name="withholdStateIncomeTax"
+                                            formControlName="withholdStateIncomeTax" (blur)="transformWithholdIncomeTaxAndChkValidationOnBlur($event)" (keyup)="validateWithHoldValue($event)" placeholder="State %">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <mat-form-field class="width90 margin-left30" *ngIf="residenceStateModel !=null && residenceStateModel.length>0">
+                                        <mat-select [disabled]="incomeTaxWithholdOption == TaxWithHoldingOption.NotElect || incomeTaxWithholdOption == TaxWithHoldingOption.NeitherElect || isDisableState"
+                                            formControlName="residenceState" class="full-width" placeholder="Your State of residence">
+                                            <mat-option *ngFor="let state of residenceStateModel" [value]="state.name">
+                                                {{ state.name }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3"></div>
+                            </div>
+                            <div class="row">
+                                <span class="col-md-12 col-sm-12 col-xs-12 padding-left35 validation-error" *ngIf="errorMessage !=null">
+                                    {{errorMessage}}
+                                </span>
+                            </div>
+                            <div class="row margin-btm30 no-padding margin-top10">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                                    <mat-radio-button class="radio-button-text-wrap" [id]="TaxWithHoldingOption.NeitherElect" [value]="taxWithHoldingNeitherElectText"
+                                        [checked]="incomeTaxWithholdOption === TaxWithHoldingOption.NeitherElect">
+                                        <span class="hanging-indent">{{taxWithHoldingNeitherElectText}}
+                                        </span>
+                                    </mat-radio-button>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<div id="bodyToBeExtract" *ngIf="isViewOnly" class=" margin-top5">
+    <div class="col-md-12 col-sm-12 col-xs-12 no-spacing-left">
+        <div class="print-row row bold article-title-heading2">Loan Request Summary</div>
+
+        <div class="print-row row margin-top5 margin-btm20">
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-btm5 no-padding">
+                <div class="print-row row margin-top5">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-2 margin-btm5">
+                        <span class="text-left print-view-title">Loan Delivery:</span>
+                    </div>
+                    <div class="print-col-8 col-md-8 col-sm-8 col-xs-8 margin-btm5">
+                        <span class="text-left">{{model.isLoanDeliveryStandard=='true'?"Standard":"Overnight"}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row" *ngIf="model.isLoanDeliveryStandard=='false'">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-2 margin-btm5"></div>
+                    <div class="print-col-8 col-md-8 col-sm-8 col-xs-8 margin-btm5" *ngIf="model.isLoanDeliveryStandard=='false'">
+                        <span class="text-left print-view-title">Carrier:</span>
+                        <span class="text-left">{{model.carrier}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row" *ngIf="model.isLoanDeliveryStandard=='false'">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-2 margin-btm5"></div>
+                    <div class="print-col-8 col-md-8 col-sm-8 col-xs-8 margin-btm5" *ngIf="model.isLoanDeliveryStandard=='false'">
+                        <span class="text-left print-view-title">Account number:</span>
+                        <span class="text-left" data-mask="account-number">{{model.accountNumber}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-2 margin-btm5">
+                        <span class="text-left print-view-title">Loan amount request:</span>
+                    </div>
+                    <div class="print-col-8 col-md-8 col-sm-8 col-xs-8 margin-btm5">
+                        <span class="text-left">{{model.isLoanAmountRequestMaximum=='true'?"Maximum loan":"Specific loan amount of"}}&nbsp;{{(model.isLoanAmountRequestMaximum=='false'
+                            && model.specificLoanAmount!='')?(model.specificLoanAmount|currency:'USD':true:'2.2-4'):""}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-2 margin-btm5">
+                        <span class="text-left print-view-title">Loan type:</span>
+                    </div>
+                    <div class="print-col-8 col-md-8 col-sm-8 col-xs-8 margin-btm5">
+                        <span class="text-left">{{model.isLoanTypeFixed=='true'?"Fixed interest loan":"Variable loan"}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-2 margin-btm5">
+                        <span class="text-left print-view-title">Tax election:</span>
+                    </div>
+                    <div class="print-col-8 col-md-10 col-sm-10 col-xs-10 margin-btm5">
+                        <span *ngIf="incomeTaxWithholdOption == TaxWithHoldingOption.NotElect">
+                            {{taxWithHoldingNotElectText}}
+                        </span>
+                        <span *ngIf="incomeTaxWithholdOption == TaxWithHoldingOption.Elect">
+                            {{taxWithHoldingElectText}}
+                        </span>
+                        <span *ngIf="incomeTaxWithholdOption == TaxWithHoldingOption.NeitherElect">
+                            {{taxWithHoldingNeitherElectText}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="print-row row margin-btm5" *ngIf="incomeTaxWithholdOption == TaxWithHoldingOption.Elect">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-2 margin-btm5">
+                    </div>
+
+                    <div class="print-col-8 col-md-10 col-sm-10 col-xs-10 margin-btm5">
+                        <span class="text-left print-view-title">Federal:</span>
+                        <span class="text-left">{{model.withholdFederalIncomeTax | decimalPipe:DecimalType.Percentage}}</span>
+                        <br/>
+                        <span class="text-left print-view-title">State:</span>
+                        <span class="text-left">{{model.withholdStateIncomeTax | decimalPipe:DecimalType.Percentage}}</span>
+                        <br/>
+                        <span class="text-left print-view-title">State of residence:</span>
+                        <span class="text-left">{{model.residenceState}}</span>
+                        <br/>
+                    </div>
+                </div>
+
+
+                <div class="print-row row">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-2 margin-btm5">
+                        <span class="text-left print-view-title"> {{model.isAddressSame=='true'? "Address": "I have a new address"}}:</span>
+                    </div>
+                    <div class="print-col-8 col-md-10 col-sm-10 col-xs-10 margin-btm5">
+                        <span class="text-left">{{model.isAddressSame=='true'?" My address is the same as above":model.street+", "+model.city+",
+                            "+model.state+" "+model.country+" "+model.zipCode}}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="print-row row">
+            <div class="article-heading-viewscreen col-md-12 margin-top10 border-bottom2px border-top2px">Income Tax Withholding Election</div>
+        </div>
+
+        <div class="print-row row col-md-12 no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding  margin-top10 margin-btm20">
+                If no tax withholding election was selected, we will withhold 10% of the taxable portion of any payment for 
+                federal income taxes. State income tax may also be required to be withheld. Even if you elect
+                not to have income tax withheld from a payment, you are liable for payment of income tax due on the taxable
+                portion of the payment. You may also be subject to tax penalties under the estimated tax payment rules if
+                your payments of estimated tax and withholding, if any, are not adequate. You should consult your tax advisor
+                regarding your situation.
+            </div>
+        </div>
+    </div>
+</div>

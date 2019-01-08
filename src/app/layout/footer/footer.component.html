@@ -1,0 +1,19 @@
+<section class="app-footer">
+  <div class="row footer-font">
+    <span class="col footer-fgl-home">
+      <a target="_blank" class="footer-anchor" [href]="AppConfig.fglHomeLink">Fidelity &amp; Guaranty Life</a>
+    </span>
+    <!-- <span class="col footer-fgl-holdings">
+      <a target="_blank" class="footer-anchor" [href]="AppConfig.fglHoldingsLink">FGL Holdings</a>
+    </span> -->
+    <span class="col footer-privacy">
+      <a target="_blank" class="footer-anchor" [routerLink]="[config.getConfig('appPrivacyPolicyUrl')]">Privacy Policy</a>
+    </span>
+    <span class="col footer-terms">
+      <a target="_blank" class="footer-anchor" [routerLink]="[config.getConfig('appRegistrationTermsConditionsUrl')]">Terms &amp; Conditions</a>
+    </span>
+    <span class="col footer-copyright">
+      © Fidelity &amp; Guaranty Life {{AppConfig.year}}
+    </span>
+  </div>
+</section>

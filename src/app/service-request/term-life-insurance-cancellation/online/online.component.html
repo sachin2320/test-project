@@ -1,0 +1,87 @@
+<form class="mat-form-auth" [formGroup]="TLICForm" name="TLICForm">
+    <fieldset>
+        <div *ngIf="!isViewOnly">
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-top10 margin-btm20 no-spacing-left">
+                <div class="row">
+                    <div class="col-md-12 pull-left no-padding bold margin-top10">Please select one:</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 pull-left margin-top10 no-padding">
+                        <mat-radio-group formControlName="isCancellationImmediate" class="md-radio-group-spacing">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                    <mat-radio-button value="true">
+                                        I would like to terminate my life insurance coverage effective immediately
+                                    </mat-radio-button>
+                                    <mat-radio-button value="false">
+                                        I would like to terminate my life insurance coverage effective
+                                        <span>
+                                            <mat-form-field class="full-width">
+                                                <input numericwithspecialcharinput="/" maxlength="10" autocomplete="off" [readonly]="isEffectiveDateReadonly" matInput type="text"
+                                                    name="effectiveDate" formControlName="effectiveDate" placeholder="MM/DD/YYYY">
+                                                <mat-hint class="color-disabled-xxx" align="start">
+                                                    The cancellation effective date cannot be more than 60 days in the future.</mat-hint>
+                                            </mat-form-field>
+                                        </span>
+                                    </mat-radio-button>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <span>If this policy has the Return of Premium (ROP)
+                        <span [ngbTooltip]="tooltipReturnOfPremiumBenefitAmount" triggers="click hover focus" position="top" container="body">
+                            <mat-icon class="material-icons mat-18-xxx {{class}}">help_outline</mat-icon>
+                        </span>rider this termination request will generate a payout of the ROP benefit to the owner.
+                        <br/> Alternatively, you may continue the policy as nonparticipating extended level term insurance by
+                        simply discontinuing the premium payment. The term period will start on the due date of the unpaid
+                        premium. The ROP benefit will be used to fund the policy through the term period. The term period
+                        is based on the ROP benefit, age, gender and risk class of the insured. At the end of that period,
+                        the insurance will terminate.</span>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<div id="bodyToBeExtract" *ngIf="isViewOnly" class="margin-btm20 no-spacing-left">
+    <div class="print-col-12 col-md-12 border-bottom article-heading-viewscreen margin-btm5">
+        Term Life Cancellation Request Summary
+    </div>
+    <div class="print-col-12 col-md-12 col-sm-12 col-xs-12 border-bottom2px">
+        <div class="print-row row margin-top10 margin-btm5 no-padding">
+            <div *ngIf="model.isCancellationImmediate=='true'" class="">
+                <span>
+                    <img src="assets/images/radio-selected.jpg" alt="" class="" /> I would like to terminate my life insurance coverage effective immediately
+                </span>
+            </div>
+            <div *ngIf="model.isCancellationImmediate=='false'" class="">
+                <span>
+                    <img src="assets/images/radio-selected.jpg" alt="" class="" /> I would like to terminate my life insurance coverage effective {{model.effectiveDate| date:dateFormat}}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="print-col-12 col-md-12 col-sm-12 col-xs-12 margin-top10">
+        <div class="print-row row">
+            <span>If this policy has the Return of Premium (ROP) rider this termination request will generate a payout of the ROP
+                benefit to the owner. Alternatively, you may continue the policy as nonparticipating extended level term
+                insurance by simply discontinuing the premium payment. The term period will start on the due date of the
+                unpaid premium. The ROP benefit will be used to fund the policy through the term period. The term period
+                is based on the ROP benefit, age, gender and risk class of the insured. At the end of that period, the insurance
+                will terminate.</span>
+            <br/>
+        </div>
+    </div>
+</div>
+
+<ng-template #tooltipReturnOfPremiumBenefitAmount>
+    The total of premiums paid on the policy (including any rider premiums) times the vesting percentage. The percentage differs
+    depending upon the term period shown under POLICY, PREMIUM, AND RIDER INFORMATION in the POLICY INFORMATION section of
+    your policy. This amount is reduced by any amount paid under any rider attached to your policy.
+</ng-template>

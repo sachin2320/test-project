@@ -1,0 +1,87 @@
+<form name="personalInfoForm" [formGroup]="personalInfoForm" class="mat-form-auth">
+    <fieldset>
+        <div class="box-body">
+            <div [hidden]='true' class="col-12">
+                <mat-form-field class="full-width mat-icon-left margin-btm10">
+                    <input matInput type="text" autocomplete="off" formControlName="honeypot" name="honeypot" placeholder="Honeypot">
+                </mat-form-field>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    <span class="reg-owner-type-spacing mat-form-field margin-right20">Owner type:</span>
+                    <mat-radio-group class="md-radio-group-spacing" (change)="onRadioStateChange($event)">
+                        <mat-radio-button value="true" checked="true" class="padding-top10">
+                            Individual
+                        </mat-radio-button>
+                        <mat-radio-button value="false">
+                            Non-natural (corporation, trust, etc.)
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+           
+            <div class="form-group row">
+                <div class="col-12">
+                    <mat-form-field class="full-width mat-icon-left margin-btm10">
+                        <input required matInput maxlength="30" type="text" autocomplete="off" formControlName="policyNumber" name="policyNumber"
+                            placeholder="Policy number">
+                            <mat-hint class="color-disabled" align="start">Your policy number can be found on your original policy/contract or on your annual, policy statement.</mat-hint>
+                    </mat-form-field>
+                    <fgl-spinner-small [requesting]="isPolicyVerifying"></fgl-spinner-small>
+                </div>
+            </div>
+            <div [hidden]="!isIndividual" class="form-group row margin-top-sm">
+                <div class="col-md-4 col-xs-12">
+                    <mat-form-field class="full-width mat-icon-left">
+                        <input maxlength="50" required matInput type="text" autocomplete="off" formControlName="ownerLastName" name="ownerLastName"
+                            placeholder="Owner's last name">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <mat-form-field class="full-width mat-icon-left">
+                        <input maxlength="50" required matInput type="text" autocomplete="off" formControlName="ownerFirstName" name="ownerFirstName"
+                            placeholder="Owner's first name" [pattern]="'^[-.A-Za-z0-9!@#$%\^&*()_+=,\' ]*$'">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <mat-form-field class="full-width mat-icon-left">
+                        <input maxlength="50" matInput type="text" autocomplete="off" formControlName="ownerMiddleName" name="ownerMiddleName" placeholder="Owner's middle initial">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div [hidden]="isIndividual" class="form-group">
+                <mat-form-field class="full-width mat-icon-left">
+                    <input maxlength="150" [required]="!isIndividual" matInput type="text" autocomplete="off" formControlName="trustName" name="trustName"
+                        placeholder="Entity name">
+                </mat-form-field>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 col-xs-12">
+                    <mat-form-field class="full-width mat-icon-left">
+                        <input fglsensitiveinput numericwithspecialcharinput="-" maxlength="11" required matInput type="text" autocomplete="new-password"
+                            formControlName="ownerSsn" name="ownerSsn" placeholder="{{ssnPlaceHolder}}">
+                        <mat-hint class="color-disabled" align="start">###-##-####</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <mat-form-field class="full-width mat-icon-left">
+                        <input numericwithspecialcharinput="(,), ,+,-,x" maxlength="24" required matInput type="text" autocomplete="off" formControlName="dayTimePhone"
+                            name="dayTimePhone" placeholder="Phone number" [(ngModel)]="dayTimePhone" (blur)="formatPhoneNumber()">
+                        <mat-hint class="color-disabled" align="start">
+                            [+##-]###-###-####[ x#####] where [+##-] is an optional international dialing prefix and [ x#####] is an optional extension.</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 col-xs-12 personal-info-margins">
+                    <mat-form-field class="full-width mat-icon-left">
+                        <input numericwithspecialcharinput="-" maxlength="12" required matInput type="text" autocomplete="off" formControlName="zip"
+                            name="zip" placeholder="ZIP / Postal code">
+                        <mat-hint class="color-disabled" align="start">#####[-####]</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="margin-top60 personal-info-error-margins">
+                <fgl-message [message]="personalInfoErrorMessage"></fgl-message>
+            </div>
+        </div>
+    </fieldset>
+</form>

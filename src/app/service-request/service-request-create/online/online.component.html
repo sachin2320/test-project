@@ -1,0 +1,95 @@
+<section *ngIf="isDataLoadCompleted" class="container-fluid with-maxwidth chapter">
+
+    <ng-container *ngIf="userNotAuthorizedMessage == ''; then userAuthorized; else userNotAuthorized">
+    </ng-container>
+
+    <ng-template #userNotAuthorized>
+        <div class="alert alert-info validation-error margin-top100" role="alert">
+            <strong>{{userNotAuthorizedMessage}}</strong>
+        </div>
+    </ng-template>
+
+    <ng-template #userAuthorized>
+        <!-- input Page -->
+        <div *ngIf="!isRequestSubmitted && (policyNumber !='' && serviceType != '0')">
+            <div *ngIf="!isViewOnly" class="article-title-heading1 margin-btm15 margin-top60 margin-right20">Service Request Details</div>
+            <form name="" class="mat-form-auth">
+                <fieldset>
+                    <div>
+                        <servicerequest-header (onheadervaluechnaged)="onRequestHeaderValueChanged($event)" [isviewonly]="isViewOnly" [issrdetailonly]="isSrDetailOnly"
+                            [model]="headerModel" [servicetype]="serviceType"></servicerequest-header>
+
+                        <servicerequest-body #serviceRequestBodyComponent [isprintonly]="isPrintOnly" [isviewonly]="isViewOnly" (onNavigationStateChange)="onNavigationStateChange($event)"
+                            (onError)="onErrorRaised($event)" (onbodyvaluechanged)="onRequestBodyValueChanged($event)" [servicetype]="serviceType"
+                            [policynumber]="policyNumber" [ownername]="ownerName"></servicerequest-body>
+
+                        <div *ngIf="isViewOnly " class="margin-btm15">
+                            <servicerequest-footer (onfootervaluechanged)="onRequestFooterValueChanged($event)" [model]="footerModel" [servicetype]="serviceType"></servicerequest-footer>
+                        </div>
+                       
+                        <div *ngIf="!hideNavigationButton" class="margin-btm50">
+                            <div class="row" *ngIf="!isViewOnly">
+                                <div class="col-md-12 col-sm-12 col-xs-12 margin-btm10 no-spacing-left">
+                                    <button *ngIf="navigationState ==null || !navigationState.isPreviousShow" color="primary" (click)="cancelRequest()" mat-raised-button
+                                        type="button" class="pull-left btn-fgl-bgcolor">Cancel</button>
+                                    <button *ngIf="navigationState !=null && navigationState.isPreviousShow" color="primary" (click)="previous()" mat-raised-button
+                                        type="button" class="pull-left btn-fgl-bgcolor padding-right30">Previous</button>
+                                    <button [disabled]="!isBodyDataValid || !isHeaderDataValid" color="primary" (click)="next()" mat-raised-button type="button"
+                                        class="pull-right btn-fgl-bgcolor">Next</button>
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="isViewOnly">
+                                <div class="col-md-4 col-sm-4 col-xs-12 margin-btm10">
+                                    <button color="primary" (click)="previous()" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor">Previous</button>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 margin-btm10 text-md-center text-lg-center ">
+                                    <button color="primary" (click)="cancelRequest()" mat-raised-button type="button" class="btn-fgl-bgcolor">Cancel</button>
+                                </div>
+
+                                <div class="col-md-4 col-sm-4 col-xs-12 margin-btm5">
+                                    <button [disabled]="!isAgreedToTerms || !isFooterValid || !isHeaderDataValid" color="primary" (click)="submitRequest()" mat-raised-button
+                                        type="button" class="pull-left float-md-right float-lg-right btn-fgl-bgcolor">Submit request</button>
+                                </div>
+                            </div>
+                            <div class="row margin-btm10" *ngIf="isViewOnly || errorMessage !=''">
+                                <fgl-message class="col-md-12 col-xs-12 col-sm-12" [message]="errorMessage"></fgl-message>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <!-- Confirmation Page -->
+        <div *ngIf="isRequestSubmitted && (policyNumber !='' && serviceType  != '0') ">
+            <div class="article-title-heading1 margin-btm15 margin-top75">Service Requests</div>
+            <div class="text-center margin-top30 url-link">                
+                <div>
+                    {{confirmationMessage}}
+                </div>
+                <div class="text-center margin-top10" *ngIf="aditionalConfirmationDisclosure">
+                    {{aditionalConfirmationDisclosure}}
+                </div>
+                <div class="text-center">
+                    <a class="mat-button" (click)="onServiceRequestPrintClick(ticketId,pdf)">
+                        <i class="material-icons dp78-fgl">print</i>
+                    </a>
+                </div>
+               
+                <div class="text-center url-link">
+                    <a class="mat-button no-padding-right no-margin-right" (click)="onServiceRequestPrintClick(ticketId,pdf)">Save/Print</a> this for your records
+                </div>
+                <br/>
+                <div class="text-center margin-btm50">To protect your privacy, please note that this will not be available once you leave this page</div>
+            </div>
+        </div>
+
+        <!-- Print container -->
+        <div class="dv-pdf1">
+            <kendo-pdf-export class="pdf-export1" #pdf>
+                <div id="printHtmlContainer" #pdfExport></div>
+            </kendo-pdf-export>
+        </div>
+    </ng-template>
+</section>

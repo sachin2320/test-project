@@ -1,0 +1,94 @@
+@import "./src/styles/fonts";
+@import "./src/styles/fgl/_colors-fgl.scss";
+
+.account-action
+{
+   margin: 20px 0 20px 0;
+
+  .account-container
+  {        
+    .account-item {   
+      font-family: "HelveticaNeueLTStd", sans-serif;     
+      // font-family: proxima-nova, sans-serif;     
+    }
+    .account-title {       
+      font-weight: 600;    
+      padding: 15px 10px 0px 0px;      
+      color: $color-primary; // #001a71;
+      text-align: left;
+      min-width:100px;
+      float: left;
+    }
+    .account-desc {     
+      font-weight: 400;
+      padding: 15px 0px 0px 10px;    
+      color: $color-text; // #5c666f;     
+      // color: $color-background-table-heading; // #5c666f;     
+    }   
+  }  
+}
+
+.acc-start-box{
+      border:1px solid #000; 
+      height:50px; 
+      padding:5px;
+
+      .acc-box-heading
+      {
+        color: $color-primary; // #001a71;
+        font-weight: 500;
+      }   
+      span
+      { 
+        color: rgba(0, 0, 0, 0.87);
+        font-size:14px;
+        font-weight: normal;
+      }  
+}
+
+.acc-box-title
+{
+  border:1px solid $color-primary; // #19A094; 
+  padding:5px;
+  background-color:$color-primary !important; // #19A094 !important;
+}
+.acc-box-detail
+{
+  background-color:$color-background-light !important; // #E5E7E8 !important;
+  border:2px solid $color-background-light; // #E4E4E4; 
+}
+
+.print-view-title
+{
+  color: $color-primary; // #19A094;
+}
+
+.acc-box-title-view
+{  
+  height:50px; 
+  padding:5px;
+  //background-color :#fff !important;
+}
+
+.border-box-view
+{
+  border-left: 1px solid #000; 
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.benefit-perc-warning
+{
+  color: $color-error !important; // red !important;
+  font-style: italic;
+}
+
+.benefit-perc-normal
+{
+  color: currentColor !important;
+}
+
+.link-underline
+{
+   text-decoration: underline !important;
+}

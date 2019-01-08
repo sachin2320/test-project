@@ -1,0 +1,34 @@
+<div *ngIf="!isDataloadCompleted">
+  <h2 class="article-title">My Policies</h2>
+  <div class="alert alert-info  text-center" role="alert">
+    <img src="assets/images/spinner.gif" />
+  </div>
+</div>
+
+<!-- Annuity Policy Table -->
+<div *ngIf="annuityDataSource.length>0 && isDataloadCompleted">
+  <h2 class="article-title">Annuity Policies</h2>
+  <div class="box box-default table-box mdl-shadow--2dp">
+    <fgl-grid baseclass="mdl-data-table-rsp" tableclasses="no-margin annuity" [datasource]="annuityDataSource" [columns]="annuityColumns"
+      [product]="'annuity'" [isproductlist]="true"></fgl-grid>
+  </div>
+</div>
+
+<!-- Life Policy Table -->
+<div *ngIf="lifeDataSource.length>0 && isDataloadCompleted">
+  <h2 class="article-title">Life Policies</h2>
+  <div class="box box-default table-box mdl-shadow--2dp">
+    <fgl-grid baseclass="mdl-data-table-rsp" tableclasses="no-margin life" [datasource]="lifeDataSource" [columns]="lifeColumns"
+      [product]="'life'" [isproductlist]="true"></fgl-grid>
+  </div>
+</div>
+
+<!-- ALM-356 Policy As-Of Date Changes - Generic Disclosure Text -->
+<div class="margin-top30">
+  <div class="col-md-12 col-sm-12 text-small no-padding">
+    The most current system update for each policy can be found on the corresponding policy detail page. Please refer to your
+    policy documentation for applicable terms and conditions or
+    <a [routerLink]="[config.getConfig('appContactUsUrl')]"
+      class="link-underline">contact us</a> for further assistance.
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<ng-container>
+    <style>
+        ul {
+            text-align: left !important;
+            margin-left: 0;
+            padding-left: 1em;
+            text-indent: 0;
+            font-size: 14px !important;
+        }
+    </style>
+    <span>
+        <ng-template #tooltipFaceAmount>
+            <p [innerHTML]='tooltipText'></p>
+        </ng-template>
+        <span [ngbTooltip]="tooltipFaceAmount" triggers="click hover focus" placement="bottom" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+</ng-container>

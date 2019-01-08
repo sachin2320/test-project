@@ -1,0 +1,416 @@
+<form class="mat-form-auth" [formGroup]="updatePaymentModeForm" name="updatePaymentModeForm">
+    <fieldset>
+        <div *ngIf="!isViewOnly">
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-top10  border-bottom no-spacing-left" *ngIf="isParentNavigationHide">
+                <div class="row">
+                    <div class="col-md-12 pull-left no-padding margin-top10 print-view-title bold">Please select appropriate option:</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-padding">
+                        <mat-radio-group formControlName="premiumType" class="md-radio-group-spacing">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                    <mat-radio-button (change)="onPremiumTypeChanged($event)" [value]="PremiumTypes.ChangePlannedPremium" [checked]="updatePaymentModeForm.controls['premiumType'].value === PremiumTypes.ChangePlannedPremium">
+                                        <span class="margin-left5">
+                                            {{changePlannedPremiumText}}
+                                        </span>
+                                    </mat-radio-button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <mat-radio-button (change)="onPremiumTypeChanged($event)" [value]="PremiumTypes.ChangePremiumModeOtherThanMonthly" [checked]="updatePaymentModeForm.controls['premiumType'].value === PremiumTypes.ChangePremiumModeOtherThanMonthly">
+                                        <span class="margin-left5">
+                                            {{changePremiumModeOtherThanMonthlyText}}
+                                        </span>
+                                    </mat-radio-button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                    <mat-radio-button (change)="onPremiumTypeChanged($event)" [value]="PremiumTypes.ChangePremiumModeMonthly" [checked]="updatePaymentModeForm.controls['premiumType'].value === PremiumTypes.ChangePremiumModeMonthly">
+                                        <span class="margin-left5">
+                                            {{changePremiumModeMonthlyText}}
+                                        </span>
+                                    </mat-radio-button>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="isParentNavigationHide && model.premiumType=='3'" class="col-md-12 col-sm-12 col-xs-12 margin-top10 border-bottom no-spacing-left">
+                <div class="row">
+                    <div class="col-md-12 pull-left no-padding bold margin-top10 print-view-title">Is the bank account holder different than the policy owner?</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-padding">
+                        <mat-radio-group formControlName="isPayorDifferentThanPolicyOwner" class="md-radio-group-spacing">
+                            <div class="row">
+                                <div class="col-md-2 col-sm-2 col-xs-2 ">
+                                    <mat-radio-button value="true" (change)="onPayorDifferentChanged($event)" [checked]="updatePaymentModeForm.controls['isPayorDifferentThanPolicyOwner'].value === 'true'">
+                                        {{isPayorDifferentYesText}}
+                                    </mat-radio-button>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-2 ">
+                                    <mat-radio-button value="false" (change)="onPayorDifferentChanged($event)" [checked]="updatePaymentModeForm.controls['isPayorDifferentThanPolicyOwner'].value === 'false'">
+                                        {{isPayorDifferentNoText}}
+                                    </mat-radio-button>
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-8 ">
+                                </div>
+                            </div>
+
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+
+            <div id="formsegment" *ngIf="!isParentNavigationHide && (model.premiumType=='1' ||model.premiumType=='2' ||(model.premiumType=='3' && model.isPayorDifferentThanPolicyOwner=='false'))"
+                 class="margin-btm20 no-margin-top">
+                <div id="premiumModeform" *ngIf="model.premiumType=='2'||model.premiumType=='3'" class="col-md-12 col-sm-12 col-xs-12 border-bottom2px no-spacing-left">
+                    <div class="row bold article-title-heading2 border-bottom2px no-padding">New premium mode</div>
+                    <div class="row">
+                        Select the mode of payment to receive a premium notice annually, semiannually, quarterly or monthly bank draft from your
+                        checking or savings account.
+                    </div>
+                    <div class="row margin-top10">
+                        <div class="col-md-2 col-sm-2 col-xs-2 pull-left no-padding bold">Change to:</div>
+
+                        <div class="col-md-10 col-sm-10 col-xs-10"></div>
+                    </div>
+                    <div class="row margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-padding">
+                            <mat-radio-group formControlName="paymentMode" class="md-radio-group-spacing">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 ">
+                                        <mat-radio-button value="1" [disabled]="model.premiumType!='2'">
+                                            {{annualPaymentModeText}}
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 "></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-7 col-xs-7">
+                                        <mat-radio-button value="2" [disabled]="model.premiumType!='2'">
+                                            {{semiannualPaymentModeText}}
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="col-md-5 col-sm-5 col-xs-5"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 ">
+                                        <mat-radio-button value="3" [disabled]="model.premiumType!='2'">
+                                            {{quarterlyPaymentModeText}}
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 "></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 ">
+                                        <mat-radio-button value="4" [disabled]="model.premiumType!='3'">
+                                            {{monthlyPaymentModeText}}
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 "></div>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <div id="premiumplannedform" *ngIf="model.premiumType=='1'||model.premiumType=='2'||(model.premiumType=='3'&&model.isPayorDifferentThanPolicyOwner=='false')"
+                     class="col-md-12 col-sm-12 col-xs-12 border-bottom2px no-spacing-left">
+                    <div class="row bold article-title-heading2 border-bottom2px no-padding margin-top-5-mjd">Change planned premium</div>
+                    <div class="row">
+                        Use this form to update the planned premium amount with respect to your universal life insurance policy. Indicate the amount
+                        of premium you plan to pay.*
+                    </div>
+                    <div class="row margin-top20">
+                        <div class="col-md-4 col-sm-6 col-xs-6 pull-left no-padding bold margin-top10-xxx no-spacing-left print-view-title bold-xxx">Change universal life planned premium to:</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 no-padding plannedPremium">
+                            <span>$</span>
+                            <mat-form-field>
+                                <!-- Format currency values -->
+                                <input decimalinput maxlength="11" autocomplete="off" matInput type="text"
+                                       [(value)]="formattedPlannedPremium"
+                                       (blur)="transformAmount($event)"
+                                       (focus)="normalizeAmount($event)"
+                                       name="premiumPlanned" formControlName="premiumPlanned" placeholder="Planned premium*">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row margin-top20  margin-btm10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding bold-xxx">
+                            *The planned premium must meet the minimum premium requirements and you will be notified if the
+                            premium selected does not meet the requirements.
+                        </div>
+                    </div>
+                </div>
+                <div id="premiumplannedformMonthly" *ngIf="(model.premiumType=='3'&&model.isPayorDifferentThanPolicyOwner=='false')" class="col-md-12 col-sm-12 col-xs-12 border-bottom2px no-spacing-left">
+                    <div class="row bold article-title-heading2 border-bottom2px no-padding">Change automatic premium bank information</div>
+
+                    <!-- Temporary Hide -->
+                    <div style="display:none" class="row margin-top20 border-bottom2px">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <mat-checkbox [ngModel]="model.isBankingInformationChanged" [disabled]='model.isBankingInformationChanged' formControlName="isBankingInformationChanged"></mat-checkbox>
+                                This form is being submitted to change banking information on my existing policy
+                            </div>
+                            <div class="row col-md-12 margin-btm10 no-padding margin-top5">
+                                <div class="col-md-4 col-xs-12 text-small">
+                                    <span class="text-left print-view-title">Policy number:</span>
+                                    <span class="text-right">{{policyNumber}}</span>
+                                </div>
+
+                                <div class="col-md-4 col-xs-12 text-small">
+                                    <span class="text-left print-view-title">Insured's name:</span>
+                                    <span class="text-right">{{ownerName}}</span>
+                                </div>
+
+                                <div class="col-md-4 col-xs-12 text-small">
+                                    <span class="text-left print-view-title">Owner:</span>
+                                    <span class="text-right">{{ownerName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding bold margin-top10 ">Please provide banking information below.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding  margin-top10 ">Routing and account numbers MUST be taken from a check and not a deposit slip.</div>
+                    </div>
+                    <div class="row no-padding margin-btm20 margin-top20 border-bottom1px">
+                        <span class="bold print-view-title">Financial institution</span>
+                    </div>
+                    <div class="no-padding row  margin-top10">
+                        <div class="col-md-3 col-sm-3 col-xs-3 no-padding bold margin-top10 print-view-title bold">
+                            Name of financial institution:
+                        </div>
+
+                        <div class="col-md-9 col-sm-9 col-xs-9 no-padding">
+                            <mat-form-field class="full-width">
+                                <input maxlength="100" autocomplete="off" matInput type="text" name="financialInstitutionName" formControlName="financialInstitutionName"
+                                       placeholder="Financial institution name*">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="no-padding row  margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="row no-padding">
+                                <div class="col-md-3 col-sm-3 col-xs-3 no-padding margin-top10">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 bold print-view-title">
+                                            Account holder:
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top20">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <span class="small bold position_below_text">Print as it appears on bank records</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3 no-padding">
+                                    <mat-form-field class="full-width">
+                                        <input maxlength="50" autocomplete="off" matInput type="text" name="payorFirstName" formControlName="payorFirstName" placeholder="First Name*">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <mat-form-field class="full-width">
+                                        <input maxlength="5" autocomplete="off" matInput type="text" name="payorMiddleInitials" formControlName="payorMiddleInitials"
+                                               placeholder="Initial">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <mat-form-field class="full-width">
+                                        <input maxlength="50" autocomplete="off" matInput type="text" name="payorLastName" formControlName="payorLastName" placeholder="Last Name*">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class=" no-padding row margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="row no-padding">
+                                <div class="col-md-2 col-sm-2 col-xs-2 bold no-padding print-view-title">
+                                    Account type:
+                                </div>
+                                <div class="col-md-10 col-sm-10 col-xs-10 "></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" no-padding row no-padding">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="row no-padding bold">
+                                <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-padding">
+                                    <mat-radio-group formControlName="accountType" class="md-radio-group-spacing">
+                                        <div class="row margin-left10 no-padding">
+                                            <div class="col-md-2 col-sm-2 col-xs-2 no-padding margin-left5">
+                                                <mat-radio-button value="1">
+                                                    {{checkingAccountText}}
+                                                </mat-radio-button>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3 no-padding margin-left5">
+                                                <mat-radio-button value="2">
+                                                    {{savingAccountText}}
+                                                </mat-radio-button>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6"></div>
+                                        </div>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" no-padding row margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-3 bold-xxx">
+                                    <mat-form-field class="full-width">
+                                        <input maxlength="9" fglsensitiveinput numericinput autocomplete="off" matInput type="text" name="routingNumber" formControlName="routingNumber"
+                                               placeholder="Routing number*">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3 bold-xxx">
+                                    <mat-form-field class="full-width">
+                                        <input maxlength="9" fglsensitiveinput numericinput autocomplete="off" matInput type="text" name="confirmRoutingNumber" formControlName="confirmRoutingNumber"
+                                               placeholder="Re-enter routing number">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <fgl-message isalignleft="true" message="The routing number and re-enter routing number do not match. Please verify and re-enter the information again."
+                                                 *ngIf="updatePaymentModeForm.controls.confirmRoutingNumber.errors?.confirmControlNotMatch"></fgl-message>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" no-padding row col-md-12 margin-top10 no-padding">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-3 bold-xxx">
+                                    <mat-form-field class="full-width">
+                                        <input maxlength="34" fglsensitiveinput autocomplete="off" matInput type="text" name="accountNumber" formControlName="accountNumber"
+                                               placeholder="Account number*">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3 bold-xxx">
+                                    <mat-form-field class="full-width">
+                                        <input maxlength="34" fglsensitiveinput autocomplete="off" matInput type="text" name="confirmAccountNumber"
+                                               formControlName="confirmAccountNumber" placeholder="Re-enter account number">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <fgl-message isalignleft="true" message="The account number and re-enter account number do not match. Please verify and re-enter the information again. "
+                                                 *ngIf="updatePaymentModeForm.controls.confirmAccountNumber.errors?.confirmControlNotMatch"></fgl-message>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row margin-top10 margin-btm60" *ngIf="isParentNavigationHide">
+                <div class="col-md-6 col-sm-6 col-xs-6 width50">
+                    <button color="primary" (click)="cancelRequest()" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor">Cancel</button>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 width50">
+                    <button [disabled]="!model.premiumType || (model.premiumType=='3'&& !model.isPayorDifferentThanPolicyOwner)" color="primary"
+                            (click)="next()" mat-raised-button type="button" class="pull-right btn-fgl-bgcolor">
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<div id="bodyToBeExtract" *ngIf="isViewOnly" class="margin-btm20  margin-top10-xxx">
+    <div *ngIf="model.premiumType=='2'||model.premiumType=='3'" class="print-col-12 col-md-12 col-sm-12 col-xs-12 border-bottom2px no-spacing-left">
+        <div *ngIf="model.premiumType=='2'" class="row border-bottom2px">Please change planned premium information on my existing policy displayed above.</div>
+        <div [class]="model.premiumType=='2'?'row bold article-title-heading2 margin-btm10 margin-top-15 border-bottom2px':'row bold article-title-heading2 margin-top-15 border-bottom2px'">New premium mode request summary</div>
+
+        <div class="print-row row border-box-xxx margin-btm20">
+            <div class="col-md-10 col-sm-10 col-xs-10 no-padding">
+                <span class="text-left print-view-title padding-left5-xxx">Change to:</span>
+                <span class="text-left"> {{getPremiumMode}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="model.premiumType=='1' || model.premiumType=='2'|| model.premiumType=='3'" class="col-md-12 col-sm-12 col-xs-12 no-spacing-left">
+        <div [class]="model.premiumType=='3' && model.paymentMode=='4'?'row bold article-title-heading2 border-bottom2px margin-top-5':'row bold article-title-heading2 border-bottom2px margin-top-15'">Planned premium request summary</div>
+        <div class="print-row row border-box-xxx margin-btm20">
+            <div class="col-md-10 col-sm-10 col-xs-10 no-padding">
+                <span class="text-left print-view-title padding-left5-xxx bold-xxx">Change universal life planned premium to:</span>
+                <span class="text-left"> {{model.premiumPlanned | currency:'USD':true:'2.2-4'}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="model.premiumType=='3'" class="print-col-12 col-md-12 col-sm-12 col-xs-12 border-top2px no-spacing-left">
+        <div class="print-row row bold article-title-heading2 border-bottom2px margin-top-5">Pre-authorized check (PAC) authorization summary</div>
+        <div class="row margin-top10"></div>
+        <div class="print-row row border-top-xxx border-bottom-xxx">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="print-row row">
+                    <div class="print-col-4 col-md-4 col-sm-4 col-xs-4">
+                        <span class="text-left print-view-title ">Institution name:</span>
+                    </div>
+                    <div class="print-col-6 col-md-8 col-sm-4 col-xs-4">
+                        <span class="text-left">{{model.financialInstitutionName}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row margin-top10">
+                    <div class="print-col-4 col-md-4 col-sm-4 col-xs-4">
+                        <span class="text-left print-view-title ">Account holder:</span>
+                    </div>
+                    <div class="print-col-6 col-md-8 col-sm-4 col-xs-4">
+                        <span class="text-left">{{getFullName}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row margin-top10">
+                    <div class="print-col-4 col-md-4 col-sm-4 col-xs-4">
+                        <span class="text-left print-view-title ">Account type:</span>
+                    </div>
+                    <div class="print-col-6 col-md-8 col-sm-4 col-xs-4">
+                        <span class="text-left">{{getAccountType}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row margin-top10">
+                    <div class="print-col-4 col-md-4 col-sm-4 col-xs-4">
+                        <span class="text-left print-view-title ">Routing number:</span>
+                    </div>
+                    <div class="print-col-6 col-md-8 col-sm-4 col-xs-4">
+                        <span class="text-left">{{model.routingNumber}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row margin-top10">
+                    <div class="print-col-4 col-md-4 col-sm-4 col-xs-4">
+                        <span class="text-left print-view-title ">Account number:</span>
+                    </div>
+                    <div class="print-col-6 col-md-8 col-sm-4 col-xs-4">
+                        <span class="text-left" data-mask="account-number">{{model.accountNumber}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

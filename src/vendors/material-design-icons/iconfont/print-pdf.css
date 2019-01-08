@@ -1,0 +1,72 @@
+
+@media only screen and (min-width : 480px) {
+   
+    .print-row{
+        width:670px !important;
+    }
+    .print-col-1{
+        max-width:8.3% !important;  
+        flex: 0 0 8.3% !important; 
+    }
+    .print-col-2{
+        max-width:16.6% !important;  
+        flex: 0 0 16.6% !important; 
+    }
+    .print-col-3{
+        max-width:25% !important; 
+        flex: 0 0 25% !important;  
+    }
+    .print-col-4{
+        max-width:33.3% !important;  
+        flex: 0 0 33.3% !important; 
+    }
+    .print-col-5{
+        max-width:40% !important;  
+        flex: 0 0 40% !important; 
+    }
+    .print-col-6{
+        max-width:50% !important;  
+        flex: 0 0 50% !important; 
+    }
+    .print-col-7{
+        max-width:66.6% !important;  
+        flex: 0 0 66.6% !important; 
+    }
+    
+    .print-col-8{
+        max-width:75% !important;  
+        flex: 0 0 75% !important; 
+    }
+
+    .print-col-9{
+        max-width:80% !important;  
+        flex: 0 0 80% !important; 
+    }
+
+    .print-col-10{
+        max-width:90% !important;  
+        flex: 0 0 90% !important; 
+    }
+    .print-col-11{
+        max-width:95% !important;  
+        flex: 0 0 95% !important; 
+    }
+    .print-col-12{
+        max-width:100% !important;  
+        flex: 0 0 100% !important; 
+    }   
+
+    #div-print-label .mat-form-field-label
+    {
+        font-size: 11px !important;  
+        line-height: 2.46;  
+    }   
+
+    .print-padding-right1{
+     padding-right: 5px !important;         
+    }
+    .print-padding-left1{
+        padding-left: 5px !important;         
+    }
+}       
+         

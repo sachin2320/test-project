@@ -1,0 +1,142 @@
+<div *ngIf="!isViewOnly" class='bold-xxx'>Do not use this form when transferring ownership rights. Use this form only if owner remains the same.
+    <br/>Include one (1) copy of legal evidence that supports the name change. Acceptable documents include: Marriage license,
+    divorce decree, unexpired U.S. Passport, Social Security card, valid U.S. driver's license, unexpired Green Card.
+    <br/>
+    <br/>Other unexpired government issued ID may also be accepted. If you have questions whether an alternate form of ID will
+    be accepted, please contact Customer Service.
+    <br/>
+    <br/>Corporate name changes require proof filed with the state in which corporation is domiciled.
+    <br/>
+    <br/>Fields marked with asterisk are required.
+</div>
+
+<form class="mat-form-auth" [formGroup]="nameChangeForm" name="nameChangeForm">
+    <fieldset>
+        <div *ngIf="!isViewOnly">
+            <div class="margin-top5">
+                <div class="col-md-4 pull-left no-padding bold margin-top10 print-view-title">Please update the name of the:</div>
+                <div class="col-md-8 pull-right margin-top10 no-padding margin-btm10">
+                    <mat-radio-group formControlName="isInsured" class="md-radio-group-spacing">
+                        <mat-radio-button value="false" class="col-md-3 col-sm-3 col-xs-12">
+                            {{changeNameForOwnerText}}
+                        </mat-radio-button>
+                        <mat-radio-button value="true" class="col-md-6 col-sm-6 col-xs-12">
+                            {{changeNameForInsuredOrAnnuitantText}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+
+            <div class="row col-md-12 margin-btm20 border-top2px border-bottom2px no-margin-left no-padding ">
+                <div class="form-group row margin-top10 col-md-12">
+                    <div class="col-md-2 col-xs-12 bold margin-top15 print-view-title no-padding-left">
+                        Former name:
+                    </div>
+
+                    <div class="col-md-4 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input maxlength="50" required autocomplete="off" matInput type="text" name="formerFirstName" formControlName="formerFirstName"
+                                placeholder="First name">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input maxlength="5" autocomplete="off" matInput type="text" name="formerMiddleInitials" formControlName="formerMiddleInitials"
+                                placeholder="Middle initial">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input maxlength="50" autocomplete="off" required matInput type="text" name="formerLastName" formControlName="formerLastName"
+                                placeholder="Last name">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-group row col-md-12 margin-btm10">
+                    <div class="col-md-2 col-xs-12 bold margin-top15 print-view-title no-padding-left">
+                        New name:
+                    </div>
+
+                    <div class="col-md-4 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input maxlength="50" required autocomplete="off" matInput type="text" name="newFirstName" formControlName="newFirstName"
+                                placeholder="First name">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input maxlength="5" autocomplete="off" matInput type="text" name="newMiddleInitials" formControlName="newMiddleInitials"
+                                placeholder="Middle initial">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 col-xs-12 no-margin-bottom">
+                        <mat-form-field class="full-width">
+                            <input maxlength="50" autocomplete="off" required matInput type="text" name="newLastName" formControlName="newLastName" placeholder="Last name">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-group row col-md-12 margin-btm20 margin-top5">
+                    <div class="col-md-12 col-xs-12 text-small font-italic-xxx no-padding-left">
+                        <span class="print-view-title">Former name</span> and
+                        <span class="print-view-title">New name</span> must be different.
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top5 margin-btm10 row no-spacing-left">
+                <div class="col-md-12 pull-left article-title-heading2 margin-btm10-xxx">Upload documents</div>
+                <div class="col-md-12 small pull-left print-view-title margin-left15-xxx">(File must be in PDF format and maximum of 25MB)</div>
+            </div>
+            <div class="no-spacing-left">
+                <file-upload (onFileSelected)="onFileSelected($event)" (onInvalidFileSelected)="onInvalidFileSelected($event)" [model]="fileUploadModel"
+                    #fileUploadComponent viewonly="false"></file-upload>
+            </div>
+
+        </div>
+    </fieldset>
+</form>
+
+<div id="bodyToBeExtract" *ngIf="isViewOnly" class="margin-btm20 margin-top10">
+    <div class="print-row row border-bottom padding-bottom10 no-margin">
+        <div class="col-md-12 col-sm-12 col-xs-12 article-heading-viewscreen">Name Change Request Summary</div>
+    </div>
+
+    <div class="print-row row border-box margin-btm20 margin-top30 text-small no-margin-left no-margin-right">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="row print-row margin-top5">
+                <div class="print-col-4 col-md-3 col-sm-6 col-xs-12 print-view-title">
+                    Change:
+                </div>
+                <div class="print-col-6 col-md-8 col-sm-6 col-xs-12">
+                    {{changeNameFor}} name
+                </div>
+            </div>
+
+            <div class="row print-row margin-top5">
+                <div class="print-col-4 col-md-3 col-sm-6 col-xs-12 print-view-title">
+                    Former name:
+                </div>
+                <div class="print-col-6 col-md-8 col-sm-6 col-xs-12">
+                    {{getFormerFullName}}
+                </div>
+            </div>
+            <div class="row print-row margin-top5">
+                <div class="print-col-4 col-md-3 col-sm-6 col-xs-12 print-view-title">
+                    New name:
+                </div>
+                <div class="print-col-6 col-md-8 col-sm-6 col-xs-12">
+                    {{getNewFullName}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isViewOnly" class="margin-top10">
+    <div class="col-md-12 no-padding article-title-heading2 margin-top10 margin-btm5">Document</div>
+    <div class="col-md-12 no-padding">
+        <file-upload (onFileSelected)="onFileSelected($event)" (onInvalidFileSelected)="onInvalidFileSelected($event)" [model]="fileUploadModel"
+            #fileUploadComponent viewonly="true"></file-upload>
+    </div>
+</div>

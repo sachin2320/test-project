@@ -1,0 +1,284 @@
+<ng-container [ngSwitch]="title">
+    <style>
+        ul {
+            text-align: left !important;
+            margin-left: 0;
+            padding-left: 1em;
+            text-indent: 0;
+            font-size: 14px !important;
+        }
+    </style>
+    <span *ngSwitchCase="'Face amount - DISABLED FOR NOW'">
+        <ng-template #tooltipFaceAmount>
+            The face amount is ...
+        </ng-template>
+        <span [ngbTooltip]="tooltipFaceAmount" triggers="click hover focus" placement="bottom" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Base policy face amount - DISABLED FOR NOW'">
+        <ng-template #tooltipBasePolicyFaceAmount>
+            The base policy face amount is ...
+        </ng-template>
+        <span [ngbTooltip]="tooltipBasePolicyFaceAmount" triggers="click hover focus" placement="bottom" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Associated index - DISABLED FOR NOW'">
+        <ng-template #tooltipAssociatedIndex>
+            The associated index is ...
+        </ng-template>
+        <span [ngbTooltip]="tooltipAssociatedIndex" triggers="click hover focus" placement="bottom" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Interest crediting method - DISABLED FOR NOW'">
+        <ng-template #tooltipInterestCreditingMethod>
+            The interest crediting method is ...
+        </ng-template>
+        <span [ngbTooltip]="tooltipInterestCreditingMethod" triggers="click hover focus" placement="bottom" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Death benefit'">
+        <ng-template #tooltipDeathBenefit>
+            The death benefit to be paid at the Insured's death will be:
+            <ul>
+                <li>The amount payable under the death benefit option in effect on the date of death; less</li>
+                <!-- ALM-281 LIfe- Death Benefit Help Text -->
+                <!-- <li>any additional benefit provided by rider; less</li> -->
+                <li>any unpaid loans and loan interest; less</li>
+                <li>
+                    any amount required to cover the monthly deduction through the month in which death occurred, unless that
+                    monthly deduction was waived by rider.
+                </li>
+            </ul>
+            This amount does not include any death benefit from the Level Term Rider.
+        </ng-template>
+        <span [ngbTooltip]="tooltipDeathBenefit" triggers="click hover focus" placement="bottom" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Base policy death benefit'">
+        <ng-template #tooltipBasePolicyDeathBenefit>
+            The death benefit to be paid at the Insured's death will be:
+            <ul>
+                <li>The amount payable under the death benefit option in effect on the date of death; less</li>
+                <li>any unpaid loans and loan interest; less</li>
+                <li>
+                    any amount required to cover the monthly deduction through the month in which death occurred, unless that
+                    monthly deduction was waived by rider.
+                </li>
+            </ul>
+            This amount does not include any death benefit from the Level Term Rider.
+        </ng-template>
+        <span [ngbTooltip]="tooltipBasePolicyDeathBenefit" triggers="click hover focus" placement="bottom" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Death benefit (lump sum)'">
+        <ng-template #tooltipDeathBenefit>
+            The death benefit to be paid at the Insured's death will be:
+            <ul>
+                <li>The amount payable under the death benefit option in effect on the date of death; less</li>
+                <li>any additional benefit provided by rider; less</li>
+                <li>any unpaid loans and loan interest; less</li>
+                <li>
+                    any amount required to cover the monthly deduction through the month in which death occurred, unless that
+                    monthly deduction was waived by rider.
+                </li>
+            </ul>
+        </ng-template>
+        <span [ngbTooltip]="tooltipDeathBenefit" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Death benefit option'">
+        <ng-template #tooltipDeathBenefitOption>
+            <strong>Level death benefit:</strong> The death benefit is the greater of the face amount or the account value multiplied
+            by the death benefit ratio.
+            <strong>Increasing death benefit:</strong> The death benefit is the greater of the face amount plus the account value
+            or the account value multiplied by the death benefit ratio.
+        </ng-template>
+        <span [ngbTooltip]="tooltipDeathBenefitOption" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Death benefit (payable over time)'">
+        <ng-template #tooltipDeathBenefitOption>
+            For the death benefit payable over time (alternative death benefit rider option): ***THIS OPTION IS ONLY AVAILABLE IF ALL
+            BENEFICIARIES AGREE IN WRITING BEFORE THIS OPTION IS PROCESSED. IF YOU ARE INTERESTED IN THIS OPTION PLEASE CONTACT
+            FGL CLAIMS DEPARTMENT.*** All beneficiaries will receive the alternative death benefit payable in equal installments
+            over a period no less than 5 years.
+        </ng-template>
+        <span [ngbTooltip]="tooltipDeathBenefitOption" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Vested account value'">
+        <ng-template #tooltipVestedAccountValue>
+            The vested account value equals:
+            <ul>
+                <li>The total account value; less</li>
+                <li>non-vested bonus account value.</li>
+            </ul>
+            (Refer to your policy pages for your vesting schedule).
+        </ng-template>
+        <span [ngbTooltip]="tooltipVestedAccountValue" triggers="click hover focus" placement="bottom" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngIf="product=='life' || product=='annuity'">
+        <span *ngSwitchCase="'Primary beneficiaries'">
+            <ng-template #tooltipPrimaryBeneficiaries>
+                <strong>Primary beneficiaries:</strong> The person(s) named in the application or in the most recent change on record
+                to receive the death benefit, in the event of the {{ product =='life'?'Insured\'s':'Owner\'s' }} death.
+            </ng-template>
+            <span [ngbTooltip]="tooltipPrimaryBeneficiaries" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+                <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+            </span>
+        </span>
+        <span *ngSwitchCase="'Contingent beneficiaries'">
+            <ng-template #tooltipContingentBeneficiaries>
+                <strong>Contingent beneficiaries:</strong> The person(s) named in the application or in the most recent change on
+                record to receive the death benefit, if the primary beneficiary is not alive at the time of the {{
+ product
+                =='life'?'Insured\'s':'Owner\'s'
+                }} death.
+            </ng-template>
+            <span [ngbTooltip]="tooltipContingentBeneficiaries" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+                <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+            </span>
+        </span>
+    </span>
+    <span *ngIf="product==''">
+        <span *ngSwitchCase="'Primary beneficiaries'">
+            <ng-template #tooltipPrimaryBeneficiaries>
+                <strong>Primary beneficiaries:</strong> The person(s) named in the application or in the most recent change on record
+                to receive the death benefit, in the event of the Insured's/Owner's death.
+            </ng-template>
+            <span [ngbTooltip]="tooltipPrimaryBeneficiaries" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+                <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+            </span>
+        </span>
+        <span *ngSwitchCase="'Contingent beneficiaries'">
+            <ng-template #tooltipContingentBeneficiaries>
+                <strong>Contingent beneficiaries:</strong> The person(s) named in the application or in the most recent change on
+                record to receive the death benefit, if the primary beneficiary is not alive at the time of the Insured's/Owner's
+                death.
+            </ng-template>
+            <span [ngbTooltip]="tooltipContingentBeneficiaries" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+                <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+            </span>
+        </span>
+    </span>
+    <span *ngIf="product=='life'">
+        <span *ngSwitchCase="'Surrender value'">
+            <ng-template #tooltipSurrenderValue>
+                The surrender value at any time will be:
+                <ul>
+                    <li>the total account value; less</li>
+                    <li>any unpaid loans and loan interest; less</li>
+                    <li>any surrender charge.</li>
+                </ul>
+            </ng-template>
+            <span [ngbTooltip]="tooltipSurrenderValue" triggers="click hover focus" placement="bottom" container="body" class="span-info-icon">
+                <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+            </span>
+        </span>
+    </span>
+    <span *ngIf="product=='annuity'">
+        <span *ngIf="!policy || (policy && !policy.hasVestingBonus && !policy.hasPartialIndexCreditOnSurrender)">
+            <span *ngSwitchCase="'Surrender value'">
+                <!-- General annuity surrender value for Annuity Policies table
+                     and non-specific annuities, such as, Performance Pro and FG Index-Choice, handled below. -->
+                <ng-template #tooltipEstimatedSurrenderValue>
+                    The surrender value equals:
+                    <ul>
+                        <li>the vested account value; less</li>
+                        <li>applicable surrender charges; less</li>
+                        <li>other fees, if applicable; +/-.</li>
+                        <li>market value adjustments, if applicable.</li>
+                    </ul>
+                </ng-template>
+                <span [ngbTooltip]="tooltipEstimatedSurrenderValue" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+                    <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+                </span>
+            </span>
+        </span>
+        <span *ngIf="policy && policy.hasPartialIndexCreditOnSurrender">
+            <span *ngSwitchCase="'Surrender value'">
+                <!-- Performance Pro (partial index credit) annuity surrender value -->
+                <ng-template #tooltipEstimatedSurrenderValue>
+                    The surrender value equals:
+                    <ul>
+                        <li>the vested account value; less</li>
+                        <li>applicable surrender charges; less</li>
+                        <li>other fees, if applicable; +/-.</li>
+                        <li>market value adjustments, if applicable.</li>
+                    </ul>
+                </ng-template>
+                <span [ngbTooltip]="tooltipEstimatedSurrenderValue" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+                    <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+                </span>
+            </span>
+        </span>
+        <span *ngIf="policy && policy.hasVestingBonus">
+            <span *ngSwitchCase="'Surrender value'">
+                <!-- FG Index-Choice 10 (vesting bonus) annuity surrender value -->
+                <ng-template #tooltipEstimatedSurrenderValue>
+                    The FG Index-Choice vesting bonus surrender value equals:
+                    <ul>
+                        <li>the vested account value; less</li>
+                        <li>applicable surrender charges; less</li>
+                        <li>other fees, if applicable; +/-.</li>
+                        <li>market value adjustments, if applicable.</li>
+                    </ul>
+                </ng-template>
+                <span [ngbTooltip]="tooltipEstimatedSurrenderValue" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+                    <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+                </span>
+            </span>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Penalty free amount'">
+        <ng-template #tooltipPenaltyFreeAmount>
+            Withdrawals that may be taken from an annuity's values that are not subject to surrender or other charges.
+        </ng-template>
+        <span [ngbTooltip]="tooltipPenaltyFreeAmount" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Surrender charge waiver amount'">
+        <ng-template #tooltipSurrenderChargeWaiverAmount>
+            No surrender charge applies to premium added to the account value in excess of the annual target premium in any policy year.
+        </ng-template>
+        <span [ngbTooltip]="tooltipSurrenderChargeWaiverAmount" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Beneficiary type'">
+        <ng-template #tooltipBeneficiaryType>
+            <strong>Primary beneficiary: </strong>The person(s) named in the application or in the most recent change on record to
+            receive the death benefit, in the event of the Insured's/Owner's death.
+            <br>
+            <strong>Contingent beneficiary: </strong>The person(s) named in the application or in the most recent change on record
+            to receive the death benefit, if the primary beneficiary is not alive at the time of the Insured's/Owner's death.
+        </ng-template>
+        <span [ngbTooltip]="tooltipBeneficiaryType" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchCase="'Return of premium benefit amount'">
+        <ng-template #tooltipReturnOfPremiumBenefitAmount>
+            The total of premiums paid on the policy (including any rider premiums) times the vesting percentage. The percentage differs
+            depending upon the term period shown under POLICY, PREMIUM, AND RIDER INFORMATION in the POLICY INFORMATION section
+            of your policy. This amount is reduced by any amount paid under any rider attached to your policy.
+        </ng-template>
+        <span [ngbTooltip]="tooltipReturnOfPremiumBenefitAmount" triggers="click hover focus" placement="top" container="body" class="span-info-icon">
+            <mat-icon class="material-icons {{class}}">help_outline</mat-icon>
+        </span>
+    </span>
+    <span *ngSwitchDefault>
+    </span>
+</ng-container>

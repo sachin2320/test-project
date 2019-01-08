@@ -1,0 +1,26 @@
+img {
+  &.img30_30 {
+    width: 30px;
+    height: 30px;
+  }
+  &.img40_40 {
+    width: 40px;
+    height: 40px;
+  }  
+  &.img64_64 {
+    width: 64px;
+    height: 64px;
+  }
+  &.img80_80 {
+    width: 80px;
+    height: 80px;    
+  }
+  &.img160_70 {
+    width: 160px;
+    height: 70px;    
+  }
+   &.img200_80 {
+    width: 200px;
+    height: 80px;    
+  }
+}

@@ -1,0 +1,218 @@
+<form class="mat-form-auth" [formGroup]="automaticPremiumBankInformationForm" class="no-padding no-margin" name="addressChangeForm">
+    <fieldset>
+        <div *ngIf="!isViewOnly" [class]="isParentNavigationHide ? 'no-padding margin-btm20' : 'no-padding margin-btm20 border-bottom2px' ">
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-top30" *ngIf="isParentNavigationHide">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-3"></div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <span class="bold">Is the bank account holder different than the policy owner?</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <mat-radio-group formControlName="isPayorDifferent" class="md-radio-group-spacing">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4 col-xs-4">
+                                            <mat-radio-button value="true">
+                                                Yes
+                                            </mat-radio-button>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-2">
+                                            <mat-radio-button value="false">
+                                                No
+                                            </mat-radio-button>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8 col-xs-8 ">
+                                        </div>
+                                    </div>
+
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3"></div>
+                </div>
+
+            </div>
+            <div *ngIf="!isParentNavigationHide" class="no-spacing-left">
+             
+                <div class="row col-md-12 margin-btm10 bold margin-top5">
+                    <span>Please provide banking information below.</span>
+                </div>
+                <div class="row col-md-12 margin-btm10 margin-top5">
+                    <span>Routing and account numbers MUST be taken from a check and not a deposit slip</span>
+                </div>
+                <div class="no-padding margin-btm20 margin-top20 border-bottom1px">
+                    <span class="bold print-view-title">Financial Institution</span>
+                </div>
+                <div class="form-group no-padding row col-md-12 margin-top10">
+                    <div class="col-md-3 col-xs-12 bold margin-top10 print-view-title">
+                        Name of financial institution:
+                    </div>
+
+                    <div class="col-md-8 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input maxlength="100" autocomplete="off" matInput type="text" name="financialInstitutionName" formControlName="financialInstitutionName"
+                                placeholder="Financial institution name*">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-group no-padding row col-md-12 margin-top10">
+                    <div class="col-md-3 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 bold print-view-title">
+                                Account holder:
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <span class="small bold">Print as it appears on bank records</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input maxlength="50" autocomplete="off" matInput type="text" name="payorFirstName" formControlName="payorFirstName" placeholder="First name*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input maxlength="5" autocomplete="off" matInput type="text" name="payorMiddleInitials" formControlName="payorMiddleInitials"
+                                placeholder="Initial">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input maxlength="50" autocomplete="off" matInput type="text" name="payorLastName" formControlName="payorLastName" placeholder="Last name*">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-group no-padding row col-md-12 margin-top10">
+                    <div class="col-md-12 col-xs-12 bold print-view-title">
+                        Account type:
+                    </div>
+                </div>
+                <div class="form-group no-padding row col-md-12">
+                    <div class="col-md-12 col-xs-12 no-padding bold">
+                        <mat-radio-group required formControlName="isAccountTypeCheckings" class="md-radio-group-spacing">
+                            <mat-radio-button value="true" class="col-md-2 col-sm-2 col-xs-12">
+                                Checking
+                            </mat-radio-button>
+                            <mat-radio-button value="false" class="col-md-2 col-sm-2 col-xs-12">
+                                Savings
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div class="form-group no-padding row col-md-12 margin-top10 no-margin-btm">
+                    <div class="col-md-3 col-xs-3 bold-xxx">
+                        <mat-form-field class="full-width">
+                            <input maxlength="9" fglsensitiveinput numericinput autocomplete="off" matInput type="text" name="routingNumber" formControlName="routingNumber"
+                                placeholder="Routing number*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3 col-xs-3 bold-xxx">
+                        <mat-form-field class="full-width">
+                            <input maxlength="9" fglsensitiveinput numericinput autocomplete="off" matInput type="text" name="confirmRoutingNumber" formControlName="confirmRoutingNumber"
+                                placeholder="Re-enter routing number">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <fgl-message isalignleft="true" message="The routing number and re-enter routing number do not match. Please verify and re-enter the information again."
+                            *ngIf="automaticPremiumBankInformationForm.controls.confirmRoutingNumber.errors?.confirmControlNotMatch"></fgl-message>
+                    </div>
+                </div>
+                <div class="form-group no-padding row col-md-12 margin-top10 no-margin-btm">
+                    <div class="col-md-3 col-xs-3 bold-xxx">
+                        <mat-form-field class="full-width">
+                            <input maxlength="34" fglsensitiveinput autocomplete="off" matInput type="text" name="accountNumber" formControlName="accountNumber"
+                                placeholder="Account number*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3 col-xs-3 bold-xxx">
+                        <mat-form-field class="full-width">
+                            <input maxlength="34" fglsensitiveinput autocomplete="off" matInput type="text" name="confirmAccountNumber" formControlName="confirmAccountNumber"
+                                placeholder="Re-enter account number">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <fgl-message isalignleft="true" message="The account number and re-enter account number do not match. Please verify and re-enter the information again. "
+                            *ngIf="automaticPremiumBankInformationForm.controls.confirmAccountNumber.errors?.confirmControlNotMatch"></fgl-message>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row margin-top10 margin-btm60" *ngIf="isParentNavigationHide">
+                <div class="col-md-6 col-sm-6 col-xs-6 width50">
+                    <button color="primary" (click)="cancelRequest()" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor">Cancel</button>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 width50">
+                    <button [disabled]="model.isPayorDifferent==''" color="primary" (click)="next()" mat-raised-button type="button" class="pull-right btn-fgl-bgcolor">Next</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<div id="bodyToBeExtract" *ngIf="isViewOnly" class="margin-btm20 no-spacing-left">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="print-row row border-bottom2px bold article-title-heading2">Automatic Premium Bank Information Summary</div>
+
+        <div class="print-row row">
+            <div class="print-row col-md-12 col-sm-12 col-xs-12 margin-top5 margin-btm5 no-padding">
+                <div class="print-row row">
+                    <div class="print-col-3 col-md-3 col-sm-5 col-xs-6">
+                        <span class="text-left  print-view-title">Institution name:</span>
+                    </div>
+                    <div class="print-col-8 col-md-9 col-sm-7 col-xs-6">
+                        <span class="text-left">{{model.financialInstitutionName}}</span>
+                    </div>
+                </div>
+                <div class="print-row row margin-top10">
+                    <div class="print-col-3 col-md-3 col-sm-5 col-xs-6">
+                        <span class="text-left  print-view-title">Account holder:</span>
+                    </div>
+                    <div class="print-col-8 col-md-9 col-sm-7 col-xs-6">
+                        <span class="text-left">{{model.payorFirstName + " " + model.payorMiddleInitials + " " + model.payorLastName}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row margin-top10">
+                    <div class="print-col-3 col-md-3 col-sm-5 col-xs-6">
+                        <span class="text-left  print-view-title">Account type:</span>
+                    </div>
+                    <div class="print-col-8 col-md-9 col-sm-7 col-xs-6">
+                        <span class="text-left">{{model.isAccountTypeCheckings=='true'?"Checking account":"Savings account"}} </span>
+                    </div>
+                </div>
+
+                <div class="print-row row margin-top10">
+                    <div class="print-col-3 col-md-3 col-sm-5 col-xs-6">
+                        <span class="text-left  print-view-title">Routing number:</span>
+                    </div>
+                    <div class="print-col-8 col-md-9 col-sm-7 col-xs-6">
+                        <span class="text-left">{{model.routingNumber}}</span>
+                    </div>
+                </div>
+
+                <div class="print-row row margin-top10">
+                    <div class="print-col-3 col-md-3 col-sm-5 col-xs-6">
+                        <span class="text-left  print-view-title">Account number:</span>
+                    </div>
+                    <div class="print-col-8 col-md-9 col-sm-7 col-xs-6">
+                        <span class="text-left" data-mask="account-number">{{model.accountNumber}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

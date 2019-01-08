@@ -1,0 +1,82 @@
+<div class="page-auth">
+    <div class="main-body-forgot-auth">
+        <div class="card-reg card-white">
+            <div class="card-content-user">
+                <div class="logo-reg">
+                    <fgl-logo [isWhiteLogo]="false" [height]="60"></fgl-logo>
+                </div>
+                <div *ngIf="!isPhoneChanged">
+                    <div class="profile article-title-heading5">Change Phone Number</div>
+                    <form name="phoneInfoForm" class="mat-form-auth form-validation" [formGroup]="phoneInfoForm">
+                        <fieldset>
+                            <div class="no-margin-bottom form-group col-11 margin-left-m15">
+                                <mat-form-field class="full-width mat-icon-left no-margin-bottom">
+                                    <input readonly maxlength="50" matInput type="text" autocomplete="off" onCopy="return false" onPaste="return false" formControlName="currentPhoneNumber"
+                                        name="currentPhoneNumber" placeholder="Current phone number">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="no-margin-bottom form-group col-11 margin-left-m15">
+                                <mat-form-field class="full-width mat-icon-left no-margin-bottom">
+                                    <input required numericwithspecialcharinput="(,), ,+,-,x" maxlength="24" matInput type="text" formControlName="phone" onCopy="return false"
+                                        onPaste="return false" autocomplete="off" name="phone" placeholder="New phone number">
+                                    <mat-hint class="color-disabled" align="start">
+                                        [+##-]###-###-####[ x#####] where [+##-] is an optional international dialing prefix and [ x#####] is an optional extension.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group  no-margin-bottom col-11 margin-left-m15 margin-top30">
+                                <mat-form-field class="full-width mat-icon-left no-margin-bottom">
+                                    <input required numericwithspecialcharinput="(,), ,+,-,x" maxlength="24" matInput type="text" formControlName="confirmPhone"
+                                        autocomplete="off" name="confirmPhone" onCopy="return false" onPaste="return false" placeholder="Re-enter phone number">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="margin-top10 padding-left40 no-margin-bottom">
+                                <div class="full-width margin-top10">Would you like to save this number as your primary contact for your FGL policy(ies)?</div>
+                                <div class="full-width margin-top5">
+                                    <mat-radio-group formControlName="isPrimaryContact" class="md-radio-group-spacing">
+                                        <mat-radio-button value="true">
+                                            Yes
+                                        </mat-radio-button>
+                                        <mat-radio-button value="false" class="margin-left40">
+                                            No
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="margin-btm10">
+                                    <fgl-message message="The new phone number and re-enter phone number do not match. Please verify and re-enter the information again."
+                                        *ngIf="phoneInfoForm.controls.confirmPhone.errors?.confirmPhoneNotMatch"></fgl-message>
+                                    <fgl-message message="The new phone number and old phone number can't be the same. Please verify and re-enter the information again."
+                                        *ngIf="phoneInfoForm.controls.phone.errors?.newControlMatch"></fgl-message>
+                                </div>
+                            </div>
+                            <div class="margin-btm5">
+                                <fgl-message [message]="errorMessage"></fgl-message>
+                            </div>
+                            <div class="row">
+                                <div class="pull-left float-md-left float-lg-left margin-left20 col-6">
+                                    <button [routerLink]="[config.getConfig('appAccountActionUrl')]" color="primary" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor margin-left15">Cancel</button>
+                                </div>
+                                <div class="pull-right float-md-left float-lg-right col-5">
+                                    <button [disabled]="!phoneInfoForm.valid" (click)="changePhone()" color="primary" mat-raised-button type="button" class="pull-right btn-fgl-bgcolor margin-left-m40">Submit</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div *ngIf="isPhoneChanged" class="margin-btm30">
+                <div class="section-heading text-center">
+                    <span [innerHTML]="successMessage"></span>
+                </div>
+                <div class="col-11 no-padding">
+                    <button [routerLink]="[config.getConfig('appAccountActionUrl')]" color="primary" mat-raised-button type="button" class="pull-right btn-fgl-bgcolor no-padding width150px">Continue</button>
+                </div>
+                <div class="col-1 no-padding"></div>
+            </div>
+        </div>
+    </div>
+</div>

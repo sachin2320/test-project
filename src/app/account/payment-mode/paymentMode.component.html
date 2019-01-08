@@ -1,0 +1,283 @@
+<section class="container-fluid with-maxwidth chapter">
+    <div>
+        <form class="mat-form-auth">
+            <fieldset>
+                <div id="paymentModeStep1" *ngIf="paymentModeStep1">
+                    <div class="article-title-heading1">Change of Mode Premium Payment / Planned Premium
+                        <mat-icon class="material-icons" (click)="openDialog('Change of mode premium request.', 
+                        'Use this form to update the mode of payment with respect to your life insurance policy.')">
+                            help
+                        </mat-icon>
+                    </div>
+                    <div class="account-action">
+                        <div class="no-margin-bottom form-group row">
+                            <div class="col-md-3">
+                                <div class="width90">
+                                    <mat-select class="full-width" placeholder="Policy number">
+                                        <mat-option *ngFor="let policy of policies" [value]="policy.id">
+                                            {{ policy.number }}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width">
+                                    <input required matInput type="text" name="ownerFirstName" placeholder="Owner's first name">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width">
+                                    <input matInput type="text" name="ownerMiddleName" placeholder="Middle initial">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width">
+                                    <input class="" required matInput type="text" name="ownerLastName" placeholder="Owner's last name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="no-margin-bottom form-group row">
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width">
+                                    <input class="" required matInput type="text" name="dayTimePhone" placeholder="Daytime phone number">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width no-margin-bottom">
+                                    <input required matInput type="email" name="email" placeholder="Email address">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-title-heading2">New Premium Mode</div>
+                    <div class="account-action">
+                        <div class="row account-container margin-btm10">
+                            <div class="col-md-12">
+                                Select the mode of payment to receive a premium notice annually, semi-annually, quarterly or monthly bank draft from your checking
+                            </div>
+                        </div>
+                        <div class="row account-container">
+                            <div class="padding-top3 col-md-1 col-sm-1 col-xs-12"><span>Change to:</span></div>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <mat-radio-group class="md-radio-group-spacing">
+                                    <mat-radio-button class="col-md-2 col-sm-4 col-xs-12 no-padding" value="Annual">Annual</mat-radio-button>
+                                    <mat-radio-button class="col-md-2 col-sm-4 col-xs-12 no-padding" value="SemiAnnual">Semi Annual</mat-radio-button>
+                                    <mat-radio-button class="col-md-2 col-sm-4 col-xs-12 no-padding" value="Quarterly">Quarterly</mat-radio-button>
+                                    <mat-radio-button class="col-md-2 col-sm-4 col-xs-12 no-padding" value="Monthly">Monthly*</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="row account-container">
+                            <div class="col-md-12">
+                                <span>*If you have selected monthly payments, you must also complete the <a href="#">Pre-Authoriized Check (PAC) Authorization Form.</a></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-title-heading2">Changed Planned Premium</div>
+                    <div class="account-action">
+                        <div class="row account-container margin-btm10">
+                            <div class="col-md-12">
+                                Use this form to update the planned premium amount with respect to your Universal Life Insurance policy. Indicate the amount
+                                of premium you plan to pay.*
+                            </div>
+                        </div>
+                        <div class="row account-container margin-btm10">
+                            <div class="col-md-12 print-view-title bold">
+                                Change universal life planned premium to: $
+
+                                <mat-form-field>
+                                    <input required matInput type="text" name="plannedPremium" />
+                                </mat-form-field>
+                                 <mat-icon class="material-icons" (click)="openDialog('Change planned premium.', 'Reburn delicata
+                                 pro id, sint autem labitur eam er.')">help</mat-icon>                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row account-container margin-btm10">
+                        <div class="col-md-12">
+                            *The planned premium must meet minimum premium requirements and you will be notified if the premium selected does not meet
+                            them.
+                        </div>
+                    </div>
+                    <div class="row account-container pull-right margin-btm20">
+                        <div class="col-md-12">
+                            <button color="primary" (click)="navigate('paymentModeStep1')" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!-- --------------Page 2 Start ---------------------------->
+                <div id="paymentModeStep2" *ngIf="paymentModeStep2">
+                    <div class="article-title-heading1">Confirmation (Individual)</div>
+                    <div class="account-action">
+                        <div class="row account-container margin-btm10">
+                            <div class="col-md-12">
+                                By selecting the below checkbox, I acknowledge this request is subject to the provisions and conditions of my policy and
+                                Fidelity & Guaranty Life Insurance Company may reqquest additional information in order for
+                                my request to be processed. I understand by submitting this change, I revoke any existing
+                                beneficiary designations and settlement agreement and request Fidelity & Guaranty Life to
+                                change the beneficary for the listed policy and / or contract.
+                            </div>
+                        </div>
+                        <div class="row account-container margin-btm10">
+                            <div class="col-md-12">
+                                <div>
+                                    <mat-radio-button value="Annual"> <span class="margin-left5">Click here if you are the owner of this policy and confirm this change.</span></mat-radio-button>
+                                    <mat-form-field class="col-md-2">
+                                        <input class="" required matInput type="text" name="ownerInitial" placeholder="Owner(s) Initials">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-title-heading2">Confirmation (Joint Owner)</div>
+                    <div class="account-action">
+                        <div class="row account-container margin-btm10">
+                            <div class="col-md-12">
+                                By selecting the below checkbox, I acknowledge this request is subject to the provisions and conditions of my policy and
+                                Fidelity & Guaranty Life Insurance Company may reqquest additional information in order for
+                                my request to be processed. I understand by submitting this change, I revoke any existing
+                                beneficiary designations and settlement agreement and request Fidelity & Guaranty Life to
+                                change the beneficary for the listed policy and / or contract.
+                            </div>
+                        </div>
+                        <div class="row account-container margin-btm10">
+                            <div class="col-md-12">
+                                <div class="">
+                                    <mat-radio-button value="Annual"> <span class="margin-left5">Click here if you are the owner of this policy and confirm this change.</span></mat-radio-button>
+                                    <mat-form-field class="col-md-2">
+                                        <input class="" required matInput type="text" name="ownerInitial" placeholder="Owner(s) Initials">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-title-heading2">Corporation, Partnership, Trust</div>
+                    <div class="account-action">
+                        <div class="row account-container margin-btm10">
+                            <div class="col-md-12">
+                                If you are acknowledging on behalf of the owner, type your name below. Check the box that applies to the capcity in which
+                                you are signing. If you have not already done so, provide your
+                                <a href="#">
+                                    Power of Attorney, Conservatorship, or Guardianship documents</a> to verify you are authorized act on behalf of the owner.
+                            </div>
+                        </div>
+                        <div class="row account-container margin-btm10">
+                            <div class="col-md-12 no-padding">
+                                <mat-radio-group class="md-radio-group-spacing">
+                                    <mat-radio-button value="Annual" class="col-md-3 col-sm-4 col-xs-12 no-margin">Corportaion, LLC.
+                                        <mat-icon class="material-icons" (click)="openDialog('Corportaion, LLC.','')">help</mat-icon>
+                                    </mat-radio-button>
+
+                                    <mat-radio-button value="Annual" class="col-md-3 col-sm-4 col-xs-12 no-margin">Partnership
+                                        <mat-icon class="material-icons" (click)="openDialog('Partnership','Partnership')">help</mat-icon>
+                                    </mat-radio-button>
+
+                                    <mat-radio-button value="Annual" class="col-md-3 col-sm-4 col-xs-12 no-margin">Trust
+                                        <mat-icon class="material-icons" (click)="openDialog('Trust','Trust')">help</mat-icon>
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="account-action">
+                        <div class="no-margin-bottom form-group row">
+                            <div class="col-md-3">
+                                <div class="width90">
+                                    <mat-form-field class="full-width">
+                                        <input required matInput type="text" name="officer1FirstName" placeholder="Officer 1">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width">
+                                    <input required matInput type="text" name="officer1MiddleInitial" placeholder="Middle initial">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width">
+                                    <input matInput type="text" name="officer1LastName" placeholder="Last">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width">
+                                    <input class="" required matInput type="text" name="officer1Title" placeholder="Title">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="no-margin-bottom form-group row">
+                            <div class="col-md-3">
+                                <div class="width90">
+                                    <mat-form-field class="full-width">
+                                        <input required matInput type="text" name="officer2FirstName" placeholder="Officer 2">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width">
+                                    <input required matInput type="text" name="officer2MiddleInitial" placeholder="Middle initial">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width">
+                                    <input matInput type="text" name="officer2LastName" placeholder="Last">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="full-width">
+                                    <input class="" required matInput type="text" name="officer2Title" placeholder="Title">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row account-container margin-btm20">
+                        <div class="col-md-12">
+                            <div class="pull-left">
+                                <mat-radio-button value="Annual">
+                                    <span class="margin-left10"> Under penalties of perjury, I certify that the information provided above is correct and true. CLick to confrim.</span>
+                                </mat-radio-button>
+                            </div>
+                            <div class="pull-left no-padding margin-left15 float-md-left float-lg-right">
+                                <button (click)="navigate('paymentModeStep2')" color="primary" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ----------------------------------------------Page 3 Start ---------------------------->
+                <div id="paymentModeStep3" *ngIf="paymentModeStep3">
+                    <div class="article-title-heading1">Disclosures / Terms / Conditions</div>
+                    <div class="account-action">
+                        <div class="row account-container margin-btm10">
+                            <div class="col-md-12">
+                                This request is subject to provisions and conditions of my contract / policy. I understand additional infomration be required
+                                to process this change and I further understand if this form is in good order, this submission
+                                revokes all prior designations.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row account-container margin-btm20">
+                        <div class="col-md-12">
+                            <div class="pull-left">
+                                <mat-radio-button value="Annual"><span class="margin-left10">Under penality of prejury, I certify that the infomration provided is correct and true. 
+                                    Click here if you have read and understand the terms and conditions for this change.</span>
+                                </mat-radio-button>
+                            </div>
+                            <div class="pull-left no-padding margin-left15 float-md-left float-lg-right">
+                                <button color="primary" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor">Submit Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</section>

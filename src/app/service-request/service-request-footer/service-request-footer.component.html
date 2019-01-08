@@ -1,0 +1,55 @@
+<div class="print-col-12 col-md-12 border-top2px border-bottom2px article-heading-viewscreen margin-btm5 margin-top10">
+    Electronic Signature
+</div>
+
+<div class="margin-btm15 margin-top20" *ngIf="model !=null">
+    <form name="footerForm" [formGroup]="footerForm" class="mat-form-auth">
+        <fieldset>
+            <div class="form-group row print-row text-left no-spacing-left">
+                <div class="col-md-12 margin-btm20">
+                    <input type="hidden" name="authorizationChkBoxItems" formControlName="authorizationChkBoxItems" [(ngModel)]="authorizationChkBoxItems">
+                    <div *ngFor="let item of authorizationChkBoxItems">
+                        <div class="margin-btm20">
+                            <mat-checkbox *ngIf="!isPrintOnly" required [checked]="item.isDisclosureAccepted" [disabled]="isViewOnly" (change)="item.isDisclosureAccepted = $event.checked;agreementAccepted($event)">
+                            </mat-checkbox>
+                            <img class="print-padding-right" *ngIf="isPrintOnly" src="assets/images/chk-tick.png" alt="" />
+                            <span [innerHTML]="item.disclosureText"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="div-print-label" class="form-group row print-row text-center">
+                <div class="print-col-3 col-md-4">
+                    <mat-form-field class="full-width">
+                        <input [readonly]="isViewOnly" 
+                        [ngModel]="model.ownerInitials" autocomplete="off" 
+                        formControlName="ownerInitials" maxlength="9"
+                            matInput alphawithspecialcharinput="., " type="text" 
+                            name="ownerInitials" placeholder="Owner's Initials*">
+                    </mat-form-field>
+                </div>
+                <div id="dvOwnerDob" class="print-col-3 col-md-4">
+                    <mat-form-field class="full-width date-control margin-btm-20">
+                        <input numericwithspecialcharinput="/" 
+                        [readonly]="isViewOnly" 
+                        [ngModel]="!isViewOnly?model.ownerDob:model.ownerDob | date:dateFormat" 
+                        autocomplete="off" formControlName="ownerDob" maxlength="10" matInput type="text"
+                        (keyup) = "onOwnerInfoKeyup($event)" 
+                        name="ownerDob" placeholder="Date of birth*">
+                    </mat-form-field>
+                    <span class="pull-left no-margin no-padding date-format">MM/DD/YYYY</span>
+                </div>
+                <div id="dvOwnerSsn" class="print-col-6 col-md-4">
+                    <mat-form-field class="full-width">
+                        <input numericinput [readonly]="isViewOnly" 
+                        [ngModel]="model.last4DigitSsn" 
+                         autocomplete="off" formControlName="last4DigitSsn" 
+                         maxlength="4" matInput type="text" name="ownerSsn" 
+                         (keyup) = "onOwnerInfoKeyup($event)" 
+                         placeholder="Last 4 digits of Social Security Number*">
+                    </mat-form-field>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

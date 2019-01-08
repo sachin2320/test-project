@@ -1,0 +1,814 @@
+<form *ngIf="!isViewOnly" class="mat-form-auth" [formGroup]="rmdFormGroup" name="rmdFormGroup">
+    <fieldset>
+        <div class="margin-btm30">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-spacing-left">
+                <div class="row border-bottom2px no-spacing-left">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding-left no-padding-right padding-bottom10 no-spacing-left">
+                        This form can be used to waive or to request required minimum distribution (RMD) payouts from
+                        your Individual Retirement
+                        Annuity (IRA), Simplified Employee Pension (SEP) Plan or 403(b) Tax Sheltered Annuity (TSA).
+                        Please
+                        use a separate form for each annuity contract. Not for use with beneficiary annuity contracts.
+                    </div>
+                </div>
+
+                <!-- NO ELECTION -->
+                <div class="row no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row border-bottom1px no-padding">
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <div class="article-heading-viewscreen pull-left">No Election</div>
+                            </div>
+                        </div>
+
+                        <div class="row padding-top10">
+                            <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                                        Choosing either option below, will waive the RMD attributable to the annuity
+                                        referenced above and will apply to future years
+                                        unless we are notified otherwise. Please proceed to signature section once your
+                                        selection
+                                        is marked.
+                                    </div>
+                                </div>
+                                <div class="row margin-top10 padding-bottom10">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                                        <mat-radio-group formControlName="noElectionType" class="md-radio-group-spacing">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                                    <mat-radio-button (change)="onNoElectionRadioStateChanged($event)"
+                                                        [value]="NoElectionType.SponsorByOtherQualifiedFund" [checked]="rmdFormGroup.controls['noElectionType'].value === NoElectionType.SponsorByOtherQualifiedFund">
+                                                        <span class="margin-left10">
+                                                            {{sponsorByOtherQualifiedFundText}}
+                                                        </span>
+                                                    </mat-radio-button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <mat-radio-button class="radio-button-text-wrap" (change)="onNoElectionRadioStateChanged($event)"
+                                                        [value]="NoElectionType.SponsorByCurrentEmployer" [checked]="rmdFormGroup.controls['noElectionType'].value === NoElectionType.SponsorByCurrentEmployer">
+                                                        <span class="margin-left10">
+                                                            {{sponsorByCurrentEmployerText}}
+                                                        </span>
+                                                    </mat-radio-button>
+                                                </div>
+                                            </div>
+                                        </mat-radio-group>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DISTRIBUTED ELECTION -->
+                <div class="row no-padding border-top2px ">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row border-bottom1px no-padding">
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <div class="article-heading-viewscreen pull-left">Distribution Election</div>
+                            </div>
+                        </div>
+
+                        <div class="row padding-top10 padding-bottom10">
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                                <mat-radio-group formControlName="distributedElectionType" class="md-radio-group-spacing">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                            <mat-radio-button (change)="onDistributedElectionRadioStateChanged($event)"
+                                                [value]="DistributedElectionType.New" [checked]="rmdFormGroup.controls['distributedElectionType'].value === DistributedElectionType.New">
+                                                {{newDistributionElectionText}}
+                                            </mat-radio-button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <mat-radio-button (change)="onDistributedElectionRadioStateChanged($event)"
+                                                [value]="DistributedElectionType.Existing" [checked]="rmdFormGroup.controls['distributedElectionType'].value === DistributedElectionType.Existing">
+                                                {{updateDistributionElectionText}}
+                                            </mat-radio-button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <mat-radio-button (change)="onDistributedElectionRadioStateChanged($event)"
+                                                [value]="DistributedElectionType.Terminate" [checked]="rmdFormGroup.controls['distributedElectionType'].value === DistributedElectionType.Terminate">
+                                                {{terminateDistributionElectionText}}
+                                            </mat-radio-button>
+                                        </div>
+                                    </div>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div [hidden]="!rmdFormGroup.controls['distributedElectionType'].value || rmdFormGroup.controls['distributedElectionType'].value == DistributedElectionType.None || rmdFormGroup.controls['distributedElectionType'].value == DistributedElectionType.Terminate"
+                    class="row no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <!-- PAYMENT OPTION -->
+                        <div class="row no-padding">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="row border-bottom1px padding-bottom10 no-padding-top no-padding-left no-padding-right">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <div class="pull-left print-view-title">Payment option</div>
+                                    </div>
+                                </div>
+                                <div class="row no-padding">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <div class="pull-left bold margin-top5">Select one:</div>
+                                    </div>
+                                </div>
+                                <div class="row margin-top10 padding-bottom10 border-bottom1px">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                                        <mat-radio-group formControlName="paymentOption" class="md-radio-group-spacing">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                                    <mat-radio-button (change)="onPaymentOptionRadioStateChanged($event)"
+                                                        [value]="PaymentOption.CurrentYearOnly" [checked]="rmdFormGroup.controls['paymentOption'].value === PaymentOption.CurrentYearOnly">
+                                                        {{currentYearPaymentOptionText}}
+                                                    </mat-radio-button>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                                    <mat-radio-button (change)="onPaymentOptionRadioStateChanged($event)"
+                                                        [value]="PaymentOption.Monthly" [checked]="rmdFormGroup.controls['paymentOption'].value === PaymentOption.Monthly">
+                                                        {{monthlyPaymentOptionText}}
+                                                    </mat-radio-button>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                                    <mat-radio-button (change)="onPaymentOptionRadioStateChanged($event)"
+                                                        [value]="PaymentOption.SemiAnnual" [checked]="rmdFormGroup.controls['paymentOption'].value === PaymentOption.SemiAnnual">
+                                                        {{semiannualPaymentOptionText}}
+                                                    </mat-radio-button>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                                    <mat-radio-button (change)="onPaymentOptionRadioStateChanged($event)"
+                                                        [value]="PaymentOption.Annual" [checked]="rmdFormGroup.controls['paymentOption'].value === PaymentOption.Annual">
+                                                        {{annualPaymentOptionText}}
+                                                    </mat-radio-button>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                                    <mat-radio-button class="radio-button-text-wrap" (change)="onPaymentOptionRadioStateChanged($event)"
+                                                        [value]="PaymentOption.OwnCalculation" [checked]="rmdFormGroup.controls['paymentOption'].value === PaymentOption.OwnCalculation">
+                                                        {{ownCalculationPaymentOptionText}}
+                                                    </mat-radio-button>
+
+                                                </div>
+                                            </div>
+
+                                            <div [class.div-overlay]="rmdFormGroup.controls['paymentOption'].value != PaymentOption.OwnCalculation"
+                                                class="row margin-left10">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 pull-left">
+                                                    <div class="row">
+                                                        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                                            <mat-form-field class="full-width">
+                                                                <input decimalinput maxlength="11" autocomplete="off"
+                                                                    matInput type="text" [(value)]="formattedOwnCalculationDollarAmt"
+                                                                    (blur)="transformOwnCalculationDollarAmt($event)"
+                                                                    (focus)="normalizeOwnCalculationDollarAmt($event)"
+                                                                    name="ownCalculationDollarAmt" formControlName="ownCalculationDollarAmt"
+                                                                    placeholder="Specific Dollar Amount $">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row padding-bottom10">
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                            <mat-hint class="small" align="start">
+                                                                <i>
+                                                                    (This option is not available for use with 403(b)
+                                                                    TSA contracts. Only the calculated RMD amount will
+                                                                    be paid with this request.
+                                                                    Please submit a 403(b) TSA distribution request
+                                                                    form
+                                                                    for amounts in excess of the calculated RMD)
+                                                                </i>
+                                                            </mat-hint>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row padding-bottom20">
+                                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                            <mat-hint class="small" align="start">
+                                                                <i>
+                                                                    <b>Note: </b>To withdraw funds from one contract to
+                                                                    satisfy
+                                                                    required minimum distribution requirements for
+                                                                    other
+                                                                    contracts, the contracts must be the same contract
+                                                                    type
+                                                                    (e.g., all contracts must be IRAs or all must be
+                                                                    403(b)
+                                                                    contracts).
+                                                                </i>
+                                                            </mat-hint>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                                            <mat-radio-button (change)="onPaymentOptionRadioStateChanged($event)"
+                                                                [value]="PaymentOption.JointLifeExpectancy" [checked]="rmdFormGroup.controls['paymentOption'].value === PaymentOption.JointLifeExpectancy">
+                                                                <span class="margin-left10">
+                                                                    {{jointLifeExpectancyPaymentOptionText}}
+                                                                </span>
+                                                            </mat-radio-button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-left10">
+                                                        <div [class.div-overlay]="rmdFormGroup.controls['paymentOption'].value != PaymentOption.JointLifeExpectancy"
+                                                            class="col-md-2 col-lg-2 col-sm-12 col-xs-12 line-height45px">
+                                                            Spouse's date of birth
+                                                        </div>
+                                                        <div [class.div-overlay]="rmdFormGroup.controls['paymentOption'].value != PaymentOption.JointLifeExpectancy"
+                                                            class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                                            <mat-form-field class="full-width">
+                                                                <input numericwithspecialcharinput="/" maxlength="10"
+                                                                    autocomplete="off" matInput type="text" name="jointLifeExpectancyDob"
+                                                                    formControlName="jointLifeExpectancyDob"
+                                                                    placeholder="MM/DD/YYYY">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-radio-group>
+                                    </div>
+                                </div>
+                                <div class="row border-bottom1px">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 padding-top20 no-padding-left no-padding-right pull-left">
+                                        In certain instances you must provide us with a December 31 account value or an
+                                        adjustment to your December 31 account value
+                                        in order for us to calculate your RMD. If your Fidelity & Guaranty Life annuity
+                                        did
+                                        not have an account value on December 31 of the year prior to your minimum
+                                        distribution
+                                        year, please provide the December 31 fair market value (account value). <br />
+                                        <strong>Fair market value (account value):</strong> $
+                                        <mat-form-field style="margin-top:-12px !important">
+                                            <input decimalinput maxlength="11" autocomplete="off" matInput type="text"
+                                                [(value)]="formattedFairMarketValue" (blur)="transformFairMarketValue($event)"
+                                                (focus)="normalizeFairMarketValue($event)" name="fairMarketValue"
+                                                formControlName="fairMarketValue">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NOTICE & ELECTION OF TAX WITHHOLDING -->
+                        <div class="row no-padding">
+                            <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                <div class="row border-bottom1px no-padding">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <div class="article-heading-viewscreen pull-left">Notice & Election of Tax
+                                            Withholding</div>
+                                    </div>
+                                </div>
+
+                                <div class="row padding-top10 margin-left10">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                                        <div class="row no-padding">
+                                            All, or part, of the distribution you receive may be included in your gross
+                                            income for tax purposes. The taxable portion
+                                            of the distribution is subject to federal (and potentially state)
+                                            withholding
+                                            unless you elect not to have withholding apply. You may elect not to have
+                                            withholding
+                                            apply by marking the appropriate box below.
+                                        </div>
+                                        <div class="row no-padding margin-top10">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Select
+                                                one:</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10">
+                                                <mat-radio-group formControlName="incomeTaxWithhold" (change)="onIncomeWithHoldChanged($event)"
+                                                    class="md-radio-group-spacing">
+                                                    <div class="row">
+                                                        <mat-radio-button [id]="taxWithHoldingOption.NotElect" [value]="taxWithHoldingNotElectText"
+                                                            [checked]="incomeTaxWithholdOption === taxWithHoldingOption.NotElect">
+                                                            <span class="padding-left10">{{taxWithHoldingNotElectText}}</span>
+                                                        </mat-radio-button>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                            <mat-radio-button [id]="taxWithHoldingOption.Elect" [value]="taxWithHoldingElectText"
+                                                                [checked]="incomeTaxWithholdOption === taxWithHoldingOption.Elect">
+                                                                <span class="padding-left10">
+                                                                    {{taxWithHoldingElectText}}
+                                                                </span>
+                                                            </mat-radio-button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span class="col-md-1 col-sm-1 col-xs-1 padding-left35 margin-top20">
+                                                            Federal
+                                                        </span>
+                                                        <span class="col-md-2 col-sm-2 col-xs-2">
+                                                            <mat-form-field class="width70" *ngIf="currencySignModel !=null && currencySignModel.length>0">
+                                                                <mat-select (selectionChange)="onCurrencyChangedFederal($event)"
+                                                                    formControlName="currenySignFederal">
+                                                                    <mat-option *ngFor="let currency of currencySignModel"
+                                                                        [value]="currency.value">
+                                                                        {{ currency.value }}
+                                                                    </mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </span>
+                                                        <span class="col-md-2 col-sm-2 col-xs-2">
+                                                            <mat-form-field>
+                                                                <input decimalinput [maxlength]="maxFederalLength"
+                                                                    autocomplete="off" [readonly]="isIncomeTaxReadOnly"
+                                                                    matInput type="text" [(value)]="formattedWithholdFederalIncomeTax"
+                                                                    (blur)="transformWithholdFederalIncomeTaxAndChkValidationOnBlur($event)"
+                                                                    (focus)="normalizeWithholdFederalIncomeTaxAndChkValidationOnFocus($event)"
+                                                                    name="withholdFederalIncomeTax" formControlName="withholdFederalIncomeTax">
+                                                            </mat-form-field>
+                                                        </span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span class="col-md-1 col-sm-1 col-xs-1 padding-left35 margin-top20">
+                                                            State
+                                                        </span>
+                                                        <span class="col-md-2 col-sm-2 col-xs-2">
+                                                            <mat-form-field class="width70" *ngIf="currencySignModel !=null && currencySignModel.length>0">
+                                                                <mat-select (selectionChange)="onCurrencyChangedState($event)"
+                                                                    formControlName="currenySignState">
+                                                                    <mat-option *ngFor="let currency of currencySignModel"
+                                                                        [value]="currency.value">
+                                                                        {{ currency.value }}
+                                                                    </mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </span>
+                                                        <span class="col-md-2 col-sm-2 col-xs-2 margin-right15">
+                                                            <mat-form-field>
+                                                                <input decimalinput [maxlength]="maxStateLength"
+                                                                    autocomplete="off" [readonly]="isIncomeTaxReadOnly"
+                                                                    matInput type="text" [(value)]="formattedWithholdStateIncomeTax"
+                                                                    (blur)="transformWithholdStateIncomeTaxAndChkValidationOnBlur($event)"
+                                                                    (focus)="normalizeWithholdStateIncomeTaxAndChkValidationOnFocus($event)"
+                                                                    (keyup)="resetResidenceState()"
+                                                                    name="withholdStateIncomeTax" formControlName="withholdStateIncomeTax">
+                                                            </mat-form-field>
+                                                        </span>
+                                                        <span class="col-md-4 col-sm-4 col-xs-4">
+                                                            <mat-form-field class="full-width"  *ngIf="residenceStateModel !=null && residenceStateModel.length>0">
+                                                                <mat-select (selectionChange)="onCurrencyChanged($event)"                                                                   
+                                                                    formControlName="residenceState" class="full-width"
+                                                                    placeholder="Your State of residence">
+                                                                    <mat-option *ngFor="let state of residenceStateModel"
+                                                                        [value]="state.name">
+                                                                        {{ state.name }}
+                                                                    </mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xs-12 padding-left35">
+                                                            <fgl-message isalignleft="true" message="The combined total of Federal and State withholdings must be greater than zero."
+                                                                *ngIf="(rmdFormGroup.controls.withholdFederalIncomeTax.errors?.ControlValuesSumEqualsZero) || (rmdFormGroup.controls.withholdStateIncomeTax.errors?.ControlValuesSumEqualsZero)"></fgl-message>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xs-12 padding-left35">
+                                                            <fgl-message isalignleft="true" message="The percentage total must not be greater than 100."
+                                                                *ngIf="(rmdFormGroup.controls.withholdFederalIncomeTax.errors?.ControlValuesSumGreaterThanHundred) || (rmdFormGroup.controls.withholdStateIncomeTax.errors?.ControlValuesSumGreaterThanHundred)"></fgl-message>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row no-padding margin-top10">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                                                            *If you elect federal tax withholding, some states may
+                                                            require state tax withholding. Please consult your state
+                                                            taxing authority
+                                                            regarding state tax withholding.
+                                                            <br />
+                                                            <br />
+                                                            <mat-radio-button class="radio-button-text-wrap" [id]="taxWithHoldingOption.NeitherElect"
+                                                                [value]="taxWithHoldingNeitherElectText" [checked]="incomeTaxWithholdOption === taxWithHoldingOption.NeitherElect">
+                                                                <span class="hanging-indent">
+                                                                    {{taxWithHoldingNeitherElectText}}
+                                                                </span>
+                                                            </mat-radio-button>
+                                                        </div>
+                                                    </div>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PAYMENT INSTRUCTIONS -->
+                        <div class="row padding-bottom10">
+                            <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                <div class="row border-bottom1px no-padding">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <div class="article-heading-viewscreen pull-left">Payment Instructions</div>
+                                    </div>
+                                </div>
+                                <div class="row no-padding">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <div class="pull-left bold margin-top5">Select one:</div>
+                                    </div>
+                                </div>
+                                <div class="row margin-top10 padding-bottom20">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                                        <mat-radio-group formControlName="paymentType" class="md-radio-group-spacing">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <mat-radio-button (change)="onPaymentRadioStateChanged($event)"
+                                                                [value]="PaymentType.ElectronicPayment" [checked]="rmdFormGroup.controls['paymentType'].value === PaymentType.ElectronicPayment">
+                                                            </mat-radio-button>
+                                                            {{electronicPaymentTypeOptionText}}
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- ACCOUNT TYPE -->
+                                                    <div class="row margin-left10">
+
+                                                        <div class="no-padding margin-left25 margin-top10 col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="bold">Select one:</div>
+                                                        </div>
+                                                        <div [class.div-overlay]="rmdFormGroup.controls['paymentType'].value != PaymentType.ElectronicPayment"
+                                                            class="margin-left10">
+                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                <mat-radio-group formControlName="accountType" class="md-radio-group-spacing">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                            <mat-radio-button [value]="AccountType.CheckingAccount"
+                                                                                [checked]="rmdFormGroup.controls['accountType'].value === AccountType.CheckingAccount">
+                                                                                {{checkingAccountTypeOptionText}}
+                                                                            </mat-radio-button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                            <mat-radio-button [value]="AccountType.SavingAccount"
+                                                                                (change)="onAccountTypeRadioStateChanged($event)"
+                                                                                [checked]="rmdFormGroup.controls['accountType'].value === AccountType.SavingAccount">
+                                                                                {{savingAccountTypeOptionText}}
+                                                                            </mat-radio-button>
+                                                                        </div>
+                                                                    </div>
+                                                                </mat-radio-group>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="col-md-8 col-sm-8 col-xs-8 pull-left">
+                                                                <div [class.div-overlay]="rmdFormGroup.controls['paymentType'].value != PaymentType.ElectronicPayment"
+                                                                    class="row margin-left10">
+                                                                    <div class="col-md-4 col-sm-12 col-xs-12">
+                                                                        <mat-form-field class="full-width">
+                                                                            <input maxlength="100" autocomplete="off"
+                                                                                matInput type="text" name="accountBankName"
+                                                                                formControlName="accountBankName"
+                                                                                placeholder="Bank name">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-12 col-xs-12">
+                                                                        <mat-form-field class="full-width">
+                                                                            <input numericwithspecialcharinput="(,), ,+,-"
+                                                                                maxlength="24" autocomplete="off"
+                                                                                matInput type="text" name="accountTelephoneNumber"
+                                                                                formControlName="accountTelephoneNumber"
+                                                                                placeholder="Telephone number">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                </div>
+                                                                <div [class.div-overlay]="rmdFormGroup.controls['paymentType'].value != PaymentType.ElectronicPayment"
+                                                                    class="row margin-left10">
+                                                                    <div class="col-md-4 col-sm-12 col-xs-12">
+                                                                        <mat-form-field class="full-width">
+                                                                            <input maxlength="34" fglsensitiveinput
+                                                                                autocomplete="off" matInput type="text"
+                                                                                name="accountNumber" formControlName="accountNumber"
+                                                                                placeholder="Account Number">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-12 col-xs-12">
+                                                                        <mat-form-field class="full-width">
+                                                                            <input maxlength="9" fglsensitiveinput
+                                                                                numericinput autocomplete="off"
+                                                                                matInput type="text" name="accountBankRoutingNumber"
+                                                                                formControlName="accountBankRoutingNumber"
+                                                                                placeholder="Bank Routing Number">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-12 col-xs-12 font-italic text-left pull-left padding-top5 text-small">
+                                                                Please attach below a copy of voided check for checking
+                                                                accounts or Deposit slip for savings – Type of account
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 margin-top5">
+                                                            <div [class.div-overlay]="rmdFormGroup.controls['paymentType'].value != PaymentType.ElectronicPayment"
+                                                                class="row margin-left10">
+                                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                    <file-upload (onFileSelected)="onFileSelected($event)"
+                                                                        (onInvalidFileSelected)="onInvalidFileSelected($event)"
+                                                                        [model]="fileUploadModel" #fileUploadComponent
+                                                                        viewonly="false" showInstructions="true"></file-upload>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                                    <mat-radio-button (change)="onPaymentRadioStateChanged($event)"
+                                                        [value]="PaymentType.ChequePayment" [checked]="rmdFormGroup.controls['paymentType'].value === PaymentType.ChequePayment">
+                                                        <span class="margin-left10" innerHtml={{chequePaymentTypeOptionText}}>
+
+                                                        </span>
+                                                    </mat-radio-button>
+                                                </div>
+                                            </div>
+                                        </mat-radio-group>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<!-- VIEW DISPLAY -->
+<div id="bodyToBeExtract" *ngIf="isViewOnly">
+    <div class="col-md-12 col-sm-12 col-xs-12 no-spacing-left">
+        <div class="row print-row">
+            <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding-left no-padding-right padding-bottom10">
+                <strong>I hereby request a required minimum distribution as follows:</strong>
+            </div>
+        </div>
+
+        <div class="row print-row border-bottom1px no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="article-heading-viewscreen pull-left">Required Minimum Distribution Request Summary</div>
+            </div>
+        </div>
+
+        <!-- ELECTION -->
+        <div class="row print-row no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <!-- NO ELECTION -->
+                <div *ngIf="model.noElectionType && model.noElectionType !== NoElectionType.None" class="row print-row padding-bottom10">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left article-heading-viewscreen">
+                        No Election :
+                        <span *ngIf="model.noElectionType==NoElectionType.SponsorByOtherQualifiedFund" class="bold font-black">
+                            {{sponsorByOtherQualifiedFundText}}
+                        </span>
+                        <span *ngIf="model.noElectionType==NoElectionType.SponsorByCurrentEmployer" class="bold font-black">
+                            {{sponsorByCurrentEmployerText}}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- DISTRIBUTED ELECTION -->
+                <div *ngIf="model.distributedElectionType && model.distributedElectionType !== DistributedElectionType.None"
+                    class="row print-row padding-bottom10">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row print-row">
+                            <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen">
+                                Distribution election :
+                            </div>
+                            <div *ngIf="model.distributedElectionType==DistributedElectionType.Terminate" class="print-col-7 col-md-10 col-sm-12 col-xs-12 pull-left margin-top5 no-padding">
+                                {{terminateDistributionElectionText}}
+                            </div>
+                            <div *ngIf="model.distributedElectionType==DistributedElectionType.Existing" class="print-col-7 col-md-10 col-sm-12 col-xs-12 pull-left margin-top5 no-padding">
+                                {{updateDistributionElectionText}}
+                            </div>
+                            <div *ngIf="model.distributedElectionType==DistributedElectionType.New" class="print-col-7 col-md-10 col-sm-12 col-xs-12 pull-left margin-top5 no-padding">
+                                {{newDistributionElectionText}}
+                            </div>
+                        </div>
+
+                        <div *ngIf="model.distributedElectionType != DistributedElectionType.Terminate" class="row print-row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="row print-row">
+                                    <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen">
+                                        Payment option :
+                                    </div>
+                                    <div class="print-col-7 col-md-10 col-sm-12 col-xs-12 pull-left margin-top5 no-padding">
+                                        {{getPaymentOptionText(model.paymentOption)}}
+                                    </div>
+                                </div>
+                                <div *ngIf="getPaymentOptionSubText(model.paymentOption).length>0" class="row print-row">
+                                    <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen">
+                                        {{getPaymentOptionSubText(model.paymentOption)}} :
+                                    </div>
+                                    <div *ngIf="model.paymentOption == PaymentOption.JointLifeExpectancy">
+                                        <div class="print-col-7 col-md-10 col-sm-12 col-xs-12 pull-left margin-top5 no-padding">
+                                            <span data-mask="dob">{{getPaymentOptionSubTextValue(model.paymentOption)}}</span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="model.paymentOption == PaymentOption.OwnCalculation">
+                                        <div class="print-col-7 col-md-10 col-sm-12 col-xs-12 pull-left margin-top5 no-padding">
+                                            <span>{{getPaymentOptionSubTextValue(model.paymentOption)}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row print-row" *ngIf="model.fairMarketValue>0">
+                                    <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen">
+                                        Fair market account value :
+                                    </div>
+                                    <div class="print-col-7 col-md-10 col-sm-12 col-xs-12 pull-left margin-top5 no-padding">
+                                        {{model.fairMarketValue | currency:'USD':true:'2.2-4'}}
+                                    </div>
+                                </div>
+
+                                <div class="row print-row">
+                                    <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen">
+                                        Method of distribution :
+                                    </div>
+                                    <div class=" print-col-7 col-md-10 col-sm-12 col-xs-12 pull-left margin-top5 no-padding">
+                                        <b>{{getMethodDistributionText(model.paymentType)}}</b>
+                                    </div>
+                                </div>
+                                <div *ngIf="model.paymentType==PaymentType.ElectronicPayment" class="row print-row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                        <div class="row print-row">
+                                            <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen"></div>
+                                            <div class="print-col-3 col-md-2 col-sm-12 col-xs-12 pull-left no-padding-left article-heading-viewscreen">
+                                                Account type :
+                                            </div>
+                                            <div class="print-col-4 col-md-8 col-sm-12 col-xs-12 pull-left no-padding margin-top5">
+                                                {{getAccountTypeText(model.accountType)}}
+                                            </div>
+                                        </div>
+                                        <div class="row print-row">
+                                            <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen"></div>
+                                            <div class="print-col-3 col-md-2 col-sm-12 col-xs-12 pull-left no-padding-left article-heading-viewscreen">
+                                                Bank name :
+                                            </div>
+                                            <div class="print-col-4 col-md-8 col-sm-12 col-xs-12 pull-left no-padding margin-top5">
+                                                {{model.accountBankName}}
+                                            </div>
+                                        </div>
+                                        <div class="row print-row">
+                                            <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen"></div>
+                                            <div class="print-col-3 col-md-2 col-sm-12 col-xs-12 pull-left no-padding-left article-heading-viewscreen">
+                                                Telephone number :
+                                            </div>
+                                            <div class="print-col-4 col-md-8 col-sm-12 col-xs-12 pull-left no-padding margin-top5">
+                                                {{model.accountTelephoneNumber}}
+                                            </div>
+                                        </div>
+                                        <div class="row print-row">
+                                            <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen"></div>
+                                            <div class="print-col-3 col-md-2 col-sm-12 col-xs-12 pull-left no-padding-left article-heading-viewscreen">
+                                                Account number :
+                                            </div>
+                                            <div class="print-col-4 col-md-8 col-sm-12 col-xs-12 pull-left no-padding margin-top5">
+                                                <span data-mask="account-number">{{model.accountNumber}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row print-row">
+                                            <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen"></div>
+                                            <div class="print-col-3 col-md-2 col-sm-12 col-xs-12 pull-left no-padding-left article-heading-viewscreen">
+                                                Bank routing number :
+                                            </div>
+                                            <div class="print-col-4 col-md-8 col-sm-12 col-xs-12 pull-left no-padding margin-top5">
+                                                {{model.accountBankRoutingNumber}}
+                                            </div>
+                                        </div>
+
+                                        <div class="row print-row">
+                                            <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 pull-left article-heading-viewscreen"></div>
+                                            <div class="print-col-3 col-md-2 col-sm-12 col-xs-12 pull-left no-padding-left article-heading-viewscreen">
+                                                Selected file :
+                                            </div>
+                                            <div class="print-col-4 col-md-8 col-sm-12 col-xs-12 pull-left no-padding margin-top5 wrap">
+                                                {{fileUploadModel[0]?.fileName}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                    <div class="print-row row margin-top10">
+                                        <div class="print-col-4 col-md-2 col-sm-12 col-xs-12 no-padding-left">
+                                            <span class="text-green bold">Tax election :</span>
+                                        </div>
+                                        <div class="print-col-7 col-md-10 col-sm-12 col-xs-12 no-padding-left">
+                                            <span *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.NotElect">
+                                                {{taxWithHoldingNotElectText}}
+                                            </span>
+                                            <span *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.Elect">
+                                                {{taxWithHoldingElectText}}
+                                            </span>
+                                            <span *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.NeitherElect">
+                                                {{taxWithHoldingNeitherElectText}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="print-row row margin-btm5" *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.Elect">
+                                        <div class="print-col-4 col-md-2 col-sm-6 col-xs-6"> </div>
+                                        <div class="print-col-7 col-md-10 col-sm-6 col-xs-6 no-padding-left">
+                                            <span *ngIf="model.withholdFederalIncomeTax !='' && model.withholdFederalIncomeTax != undefined">
+                                                <span class="text-left print-view-title">Federal:</span>
+                                                <span class="text-left">
+                                                    {{ model.currenySignFederal == '%' ?
+                                                    (model.withholdFederalIncomeTax |
+                                                    decimalPipe:DecimalType.Percentage) :
+                                                    (model.withholdFederalIncomeTax
+                                                    | currency:'USD':true:'2.2-4')}}
+                                                </span>
+                                                <br />
+                                            </span>
+                                            <span *ngIf="model.withholdStateIncomeTax !='' && model.withholdStateIncomeTax != undefined">
+                                                <span class="text-left print-view-title">State:</span>
+                                                <span class="text-left">
+                                                    {{ model.currenySignState == '%' ? (model.withholdStateIncomeTax |
+                                                    decimalPipe:DecimalType.Percentage) : (model.withholdStateIncomeTax
+                                                    | currency:'USD':true:'2.2-4')}}
+                                                </span>
+                                                <br />
+                                            </span>
+                                            <span *ngIf="model.residenceState !='' && model.residenceState != undefined">
+                                                <span class="text-left print-view-title">State of residence:</span>
+                                                <span class="text-left">{{model.residenceState}}</span>
+                                                <br />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTICE & ELECTION OF TAX WITHHOLDING -->
+        <div class="row print-row border-top2px no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                <div class="row print-row border-bottom1px no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <div class="article-heading-viewscreen pull-left">Notice of Tax Withholding Election</div>
+                    </div>
+                </div>
+                <!-- NOTICE -->
+                <div class="row print-row padding-top10 border-bottom1px">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                        If no tax withholding election was selected, we will withhold 10% of the taxable portion of any
+                        payment for federal income
+                        taxes. State income tax may also be required to be withheld. If you elect not to have
+                        withholding
+                        apply or if you do not have enough federal income tax withheld, you may be responsible for
+                        payment
+                        of estimated tax. You may incur penalties under the estimated tax rules if your withholding and
+                        estimated
+                        tax payments are not sufficient. You may wish to consult your tax advisor regarding your tax
+                        situation.
+                    </div>
+                </div>
+                <div class="row print-row padding-top10">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                        <strong>
+                            The Internal Revenue Service does not require your consent to any provision of this
+                            document other than the certification
+                            required to avoid backup withholding.
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

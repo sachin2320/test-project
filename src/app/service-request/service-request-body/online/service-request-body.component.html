@@ -1,0 +1,64 @@
+<!-- Change Beneficiary -->
+<div *ngIf="serviceType==1">
+    <beneficary-list #beneficiaryListComponent [isprintonly]="isPrintOnly" [isviewonly]="isViewOnly" (onvaluechanged)="onBodyValueChanged($event)"></beneficary-list>
+</div>
+
+<!-- Change Name -->
+<div *ngIf="serviceType==2">
+    <change-name [isprintonly]="isPrintOnly" [isviewonly]="isViewOnly" (onError)="onErrorRaised($event)"  (onvaluechanged)="onBodyValueChanged($event)"></change-name>
+</div>
+
+<!-- Change Mailing Address -->
+<div *ngIf="serviceType==3">
+    <change-address [isviewonly]="isViewOnly" (onvaluechanged)="onBodyValueChanged($event)"></change-address>
+</div>
+
+<!-- Term Life Insurance Cancellation -->
+<div *ngIf="serviceType==4">
+    <term-life-insurance-cancellation [isviewonly]="isViewOnly" (onvaluechanged)="onBodyValueChanged($event)"></term-life-insurance-cancellation>
+</div>
+
+<!-- Required Minimum Distribution -->
+<div *ngIf="serviceType==7">
+    <required-minimum-distribution [isViewOnly]="isViewOnly" (onError)="onErrorRaised($event)" (onValueChanged)="onBodyValueChanged($event)">
+    </required-minimum-distribution>
+</div>
+
+<!-- Interest Crediting Reallocation -->
+<div *ngIf="serviceType==8">
+    <interest-crediting-reallocation [isviewonly]="isViewOnly" (onvaluechanged)="onBodyValueChanged($event)"></interest-crediting-reallocation>
+</div>
+
+<!-- Automatic Premium Bank Information -->
+<div *ngIf="serviceType==9">
+    <automatic-premium-bank-information [servicetype]="serviceType" [isviewonly]="isViewOnly" (onvaluechanged)="onBodyValueChanged($event)" [policynumber]="policyNumber"
+        [ownername]="ownerName" (onNavigationStateChange)="onNavigationStateChange($event)"></automatic-premium-bank-information>
+</div>
+
+<!-- Automatic Premium Bank Information -->
+<div *ngIf="serviceType==10">
+    <disbursement-of-life-insurance [isviewonly]="isViewOnly" (onvaluechanged)="onBodyValueChanged($event)"></disbursement-of-life-insurance>
+</div>
+
+<!-- Life loan -->
+<div *ngIf="serviceType==11">
+    <life-loan [isviewonly]="isViewOnly" (onvaluechanged)="onBodyValueChanged($event)"></life-loan>
+</div>
+
+<!-- update-payment-mode -->
+<div *ngIf="serviceType==13">
+    <update-payment-mode [isviewonly]="isViewOnly" [servicetype]="serviceType" (onvaluechanged)="onBodyValueChanged($event)"
+        (onNavigationStateChange)="onNavigationStateChange($event)" [policynumber]="policyNumber" [ownername]="ownerName"></update-payment-mode>
+</div>
+
+<!-- qualified disbursment and systamatic withdrawl -->
+<div *ngIf="serviceType==16">
+    <qualified-disbursement-systematic-withdrawl-online [isviewonly]="isViewOnly" [servicetype]="serviceType" (onError)="onErrorRaised($event)" (onvaluechanged)="onBodyValueChanged($event)"
+        [policynumber]="policyNumber" [ownername]="ownerName"></qualified-disbursement-systematic-withdrawl-online>
+</div>
+
+<!-- non-qualified disbursment and systamatic withdrawl -->
+<div *ngIf="serviceType==17">
+        <non-qualified-disbursement-systematic-withdrawl-online [isviewonly]="isViewOnly" [servicetype]="serviceType" (onError)="onErrorRaised($event)" (onvaluechanged)="onBodyValueChanged($event)"
+            [policynumber]="policyNumber" [ownername]="ownerName"></non-qualified-disbursement-systematic-withdrawl-online>
+    </div>

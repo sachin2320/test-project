@@ -1,0 +1,72 @@
+<div class="page-auth">
+    <div class="main-body-reg-auth">
+        <div class="card-reg card-white">
+            <div class="card-content-reg">
+                <div class="logo-reg">
+                    <fgl-logo [isWhiteLogo]="false" [height]="40"></fgl-logo>
+                    <!-- <fgl-logo [isWhiteLogo]="false" [height]="60" [width]="238"></fgl-logo> -->
+                </div>
+                <div class="box-body-fgl" *ngIf="!isRegistrationComplete">
+                    <mat-tab-group [selectedIndex]="currentTabIndex" (selectedIndexChange)="tabIndexChange($event)">
+                        <mat-tab label="Welcome">
+                            <section class="box box-transparent section-reg-fgl">
+                                <regsitration-welcome></regsitration-welcome>
+                            </section>
+                        </mat-tab>
+
+                        <mat-tab label="Personal and policy information" [disabled]="!isPersonalInfoTabEnable">
+                            <section class="box box-transparent section-reg-fgl">
+                                <user-personalinfo [personalInfoErrorMessage]="errorMessage" [personalinfoform]="personalInfoForm" [isPolicyVerifying]="isPolicyVerifying"></user-personalinfo>
+
+                            </section>
+                        </mat-tab>
+
+                        <mat-tab label="Username and password" [disabled]="!isUserIdInfoTabEnable">
+                            <section class="box box-transparent section-reg-fgl margin-btm200-xxx">
+                                <user-credentialinfo [credentialInfoErrorMessage]="errorMessage" [isUserIdVerifying]="isUserIdVerifying" [isStrongUsername]="isStrongUsername"
+                                    [credentialinfoform]="userInfoForm"></user-credentialinfo>
+                            </section>
+                        </mat-tab>
+
+                        <mat-tab label="Security questions" [disabled]="!isSecurityInfoTabEnable">
+                            <section class="box box-transparent section-reg-fgl">
+                                <user-securityinfo [securityInfoErrorMessage]="errorMessage" [securityinfoform]="securityInfoForm" [questions]="securityQuestion"></user-securityinfo>
+                            </section>
+                        </mat-tab>
+                    </mat-tab-group>
+
+                    <div *ngIf="isRegisterVisible" class="text-small text-privacy col-md-12 no-padding margin-btm20">
+                        <mat-checkbox [ngModel]="isAgreementAccepted" [checked]="isAgreementAccepted" (change)="onAgreementAccepted($event)"></mat-checkbox>
+                        You must read the
+                        <a target="_blank" (click)="onTermAndConditionClick($event)" [routerLink]="[config.getConfig('appRegistrationTermsConditionsUrl')]">terms and conditions</a> and indicate your agreement by selecting the checkbox to continue.
+                    </div>
+
+                    <div [hidden]="isCaptchaValid || !isCaptchaAvailable" class="captcha"> 
+                        <re-captcha (resolved)="resolved($event)" siteKey="{{recaptchaPublicKey}}" data-size="normal"></re-captcha>
+                    </div>
+
+                    <button (click)="navigationClick(false)" mat-raised-button type="button" color="primary" *ngIf="isPrevVisible" class="pull-left btn-fgl-bgcolor">Previous</button>
+                    <button (click)="cancelRequest()" mat-raised-button type="button" color="primary" *ngIf="isCancelVisible" class="pull-left btn-fgl-bgcolor">Cancel</button>
+                    <button (click)="navigationClick(true)" mat-raised-button type="button" color="primary" *ngIf="isNextVisible || !isRegisterVisible"
+                        [disabled]="!isNextButtonEnable" class="pull-right btn-fgl-bgcolor">Next</button>
+                    <button (click)="submit()" mat-raised-button type="button" color="primary" *ngIf="isRegisterVisible" [disabled]="!isNextButtonEnable"
+                        class="pull-right btn-fgl-bgcolor">Register</button>                 
+                </div>
+
+                <div *ngIf="isRegistrationComplete">
+                    <section class="box box-transparent  reg-complete">
+                        <div class="col-12 margin-top30 text-center"> {{successMessage}} </div>
+                        <div class="col-12 margin-top20 text-center">
+                            Click continue to log into your account.
+                        </div>
+                        <div class="col-12 margin-top20 text-right">
+                            <a [routerLink]="[config.getConfig('appLoginUrl')]">
+                                <button color="primary" mat-raised-button type="button" class="btn-fgl-bgcolor">Continue</button>
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

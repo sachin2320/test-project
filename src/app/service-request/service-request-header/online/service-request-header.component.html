@@ -1,0 +1,120 @@
+<div *ngIf="!isViewOnly && !isPrintOnly" class="article-title-heading2 margin-btm10 margin-top20">
+    {{headerModel.serviceName}}
+
+    <!-- 3.0 Wireframe - Remove Instruction Icon -->
+    <!-- <a target="_blank" [routerLink]="[config.getConfig('serviceRequestInstructionsUrl')+'/'+serviceType]">
+        <mat-icon class="material-icons">help</mat-icon>
+    </a> -->
+</div>
+
+<div *ngIf="!isSrDetailOnly && (isViewOnly || isPrintOnly)">
+    <div class="article-title-heading1 margin-btm10 margin-top60">Service Request: {{headerModel.serviceName}}</div>
+</div>
+
+<div *ngIf="isViewOnly || isPrintOnly" class="article-title-heading2 margin-btm10">{{disclosureText}}</div>
+
+<div *ngIf="!isSrDetailOnly" class="border-box-xxx border-bottom-none article-title-heading3 acc-box-title col-md-12">
+    Owner's Information
+</div>
+
+<div *ngIf="isPrintOnly" class="margin-top10 margin-btm10 margin-left25-lg border-bottom2px text-small padding-left15">
+    
+    <div *ngIf="headerModel.showSsn==true" class="print-row row margin-btm5 margin-top5">
+        <div class="print-col-3 print-view-title no-padding-right">Social security no*:</div>
+        <div class="print-col-8 no-padding">
+            {{headerModel.ssn | numberMaskingPipe}}
+        </div>
+    </div>
+
+    <div class="print-row row margin-btm5">
+        <div class="print-col-3 print-view-title no-padding-right">Policy number:</div>
+        <div class="print-col-3 no-padding"> {{headerModel.policyNumber}}</div>
+
+        <div class="print-col-2 print-view-title no-padding-right">Name:</div>
+        <div class="print-col-4 no-padding"> {{headerModel.owner}}</div>
+    </div>
+
+    <div class="print-row row margin-btm3">
+        <div class="print-col-3 print-view-title no-padding-right">Phone number:</div>
+        <div class="print-col-3 no-padding">{{headerModel.phone}}</div>
+
+        <div class="print-col-2 print-view-title no-padding-right">Email address:</div>
+        <div class="print-col-4 no-padding wrap">{{headerModel.email}}</div>
+    </div>
+
+    <div *ngIf="headerModel.showAddress==true" class="print-row row margin-btm5 margin-top15">
+        <div class="print-col-3 print-view-title no-padding-right">Address:</div>
+        <div class="print-col-8 no-padding">{{headerModel.address}}</div>
+    </div>  
+</div>
+
+<div *ngIf="!isPrintOnly" class="margin-top10 margin-left25-lg border-bottom2px no-margin-btm">
+    <div class="row margin-btm10 no-padding margin-top5">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 text-small no-padding-right">
+            <span class="text-left print-view-title">Policy number:</span>
+        </div>
+        <div [ngClass]="{'col-md-4': !headerModel.showSsn, 'col-md-2': headerModel.showSsn,'col-lg-4':!headerModel.showSsn,'col-lg-2':headerModel.showSsn}"
+            class="col-sm-6 col-xs-6 text-small">
+            <span class="text-right">{{headerModel.policyNumber}}</span>
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 text-small no-padding-right">
+            <span class="text-left print-view-title">Name:</span>
+        </div>
+        <div [ngClass]="{'col-md-4': !headerModel.showSsn, 'col-md-2': headerModel.showSsn,'col-lg-4':!headerModel.showSsn,'col-lg-2':headerModel.showSsn}"
+            class="col-sm-6 col-xs-6 text-small no-padding-right">
+            <span class="text-right">{{headerModel.owner}}</span>
+        </div>
+
+        <div *ngIf="headerModel.showSsn==true" class="col-lg-2 col-md-2 col-sm-6 col-xs-6 text-small no-padding-right">
+            <span class="text-left print-view-title">Social Security No*:</span>
+        </div>
+        <div *ngIf="headerModel.showSsn==true" class="col-lg-2 col-md-2 col-sm-6 col-xs-6 text-small no-padding-right">
+            <form name="headerFormGroup" [formGroup]="headerFormGroup" class="mat-form-auth" autocomplete="off">
+                <fieldset>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 text-small no-padding-left">
+                        <input *ngIf="(!isViewOnly && !isPrintOnly)" [class.border-bottom1px-green]="isSsnValid" fglsensitiveinput numericwithspecialcharinput="-"
+                            [class.border-bottom2px-red]="!isSsnValid" formControlName="ssn" class="border-bottom width80" maxlength="11"
+                            autocomplete="new-password" type="text" name="ssn">
+                    </div>
+                </fieldset>
+            </form>
+            <span *ngIf="isViewOnly" class="text-right" data-mask="ssn">{{headerModel.ssn}}</span>
+        </div>
+    </div>
+
+    <div class="row no-padding margin-btm3">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 text-small no-padding-right">
+            <span class="text-left print-view-title">Phone number:</span>
+        </div>
+        <div [ngClass]="{'col-md-4': !headerModel.showSsn, 'col-md-2': headerModel.showSsn,'col-lg-4':!headerModel.showSsn,'col-lg-2':headerModel.showSsn}"
+            class="col-xs-6 col-sm-6 text-small no-padding-right">
+            <span class="text-right">{{headerModel.phone}}</span>
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-6 col-sm-6 text-small no-padding-right">
+            <span class="text-left print-view-title">Email address:</span>
+        </div>
+        <div [ngClass]="{'col-md-4': !headerModel.showSsn, 'col-md-2': headerModel.showSsn,'col-lg-4':!headerModel.showSsn,'col-lg-2':headerModel.showSsn}"
+            class="col-xs-6 col-sm-6 text-small no-padding-right">
+            <span class="text-right wrap">{{headerModel.email}}</span>
+        </div>
+    </div>
+
+    <div *ngIf="headerModel.showAddress==true" class="row margin-btm10 no-padding margin-top15">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 text-small no-padding-right">
+            <span class="text-left print-view-title">Address:</span>
+        </div>
+        <div class="col-lg-10 col-md-10 col-sm-6 col-xs-12 text-small no-padding-right">
+            <span class="text-right">{{headerModel.address}}</span>
+        </div>
+    </div>
+    
+    <div *ngIf="!isViewOnly" class="row no-padding margin-top10 margin-btm3">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 font-italic-xxx text-small margin-btm10">To update phone number or email address, please go to <span class="print-view-title font-blue">My Profile</span>.</div>
+    </div> 
+</div>
+
+<div *ngIf="headerModel.noneViewOnlyHeaderText !='' || headerModel.viewOnlyHeaderText !=''" class="form-group row row-lg col-md-12"
+    [innerHTML]="!isViewOnly && !isPrintOnly ? headerModel.noneViewOnlyHeaderText : headerModel.viewOnlyHeaderText">
+</div>

@@ -1,0 +1,30 @@
+md-backdrop.mat-sidenav-backdrop,
+.mat-sidenav-right {
+  z-index: $l_zindex_sidebar;
+}
+
+.mat-sidenav-right {
+  .mat-sidenav-inner {
+    height: 100%;
+
+    > mat-tabs {
+      height: 100%;
+    }
+  }
+
+  mat-tabs-canvas {
+    > mat-pagination-wrapper {
+      // background-color: $gray-lighter;
+      width: 100% !important;
+
+      > mat-tab-item {
+        width: 50%;
+      }
+
+      mat-ink-bar {
+        color: $brand-primary;
+        background: $brand-primary;
+      }
+    }
+  }
+}

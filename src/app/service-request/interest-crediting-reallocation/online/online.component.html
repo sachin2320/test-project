@@ -1,0 +1,37 @@
+<div *ngIf="!isViewOnly" class="margin-btm20">
+    <div class="col-md-12 col-sm-12 no-padding margin-top5 bold-xxx">
+        <div class="col-md-12 col-sm-12 no-padding">Please indicate desired interest crediting option allocation below.</div>
+
+        <div class="col-md-12 col-sm-12 no-padding font-italic-xxx margin-top10">Account value segment may be reallocated between any interest crediting options within the policy. The changes to
+            the index crediting option allocation percentages will be effective on the next available account allocation
+            date that falls 30 days after we receive the change request.</div>
+
+        <div class="col-md-12 col-sm-12 no-padding margin-top10">Total percentage allocation must equal 100%</div>
+    </div>
+
+    <div class="margin-top20 margin-btm30 box box-default table-box table-responsive mdl-shadow--2dp">
+        <fgl-grid tableclasses="no-margin" [datasource]="dataSource" [columns]="columns" (ontextboxvaluechanged)="onRateChange($event)"></fgl-grid>
+    </div>
+    <div class="col-md-12 col-xs-12 text-left text-md-right text-lg-right">
+
+        <div *ngIf="!isInterestCreditOptionValid && (interestCreditOption > 0 )" class="benefit-perc-warning">Your total interest crediting option percentage currently equals {{interestCreditOption}}
+            <br/> Total interest crediting option percentage must equal 100% </div>
+    </div>
+</div>
+
+
+<div id="bodyToBeExtract" *ngIf="isViewOnly" class="margin-btm20 margin-top10 no-padding">
+    <div class="article-heading-viewscreen padding-top5">
+        Interest Crediting Reallocation Request Summary
+    </div>
+    <div class="margin-top20 margin-btm30 box box-default table-box table-responsive mdl-shadow--2dp">
+        <div class="print-row">
+            <fgl-grid tableclasses="no-margin" [isviewonly]="isViewOnly" [datasource]="dataSource" [columns]="columns"></fgl-grid>
+        </div>
+    </div>
+    <div class="font-italic">
+       <strong>Account value segment may be reallocated between any interest crediting options within the policy. The changes to the index
+        crediting option allocation percentages will be effective on the next available account allocation date that falls
+        30 days after we receive the change request.</strong>
+    </div>
+</div>

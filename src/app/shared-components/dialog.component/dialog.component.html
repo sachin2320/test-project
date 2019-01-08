@@ -1,0 +1,7 @@
+<div mat-dialog-title>{{title}}</div>
+<div mat-dialog-content>{{body}}</div>
+<div mat-dialog-actions class="pull-right">
+    <button *ngIf="firstButtonCaption!=''" (click)="dialogRef.close(firstButtonReturnValue)" color="primary" mat-raised-button type="button" class="btn-fgl-bgcolor margin-right10">{{firstButtonCaption}}</button>
+    <button *ngIf="secondButtonCaption!=''" (click)="dialogRef.close(secondButtonReturnValue)" color="primary" mat-raised-button type="button" class="btn-fgl-bgcolor" [disabled]="isUserNotAuthorize">{{secondButtonCaption}}</button>
+   
+</div>

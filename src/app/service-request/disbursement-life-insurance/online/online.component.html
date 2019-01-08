@@ -1,0 +1,626 @@
+<form class="mat-form-auth" [formGroup]="disbursementLifeInsuranceForm" name="disbursementLifeInsuranceForm">
+    <fieldset>
+        <div *ngIf="!isViewOnly" class="margin-btm30 no-spacing-left">
+            <div class="col-md-12 col-sm-12 col-xs-12 border-bottom2px">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding no-spacing-left">Payment requests will be mailed to the owner's address. Please confirm your address:</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-spacing-left">
+                        <mat-radio-group formControlName="isAddressSame" (change)="onAddressTypeChange($event)" class="md-radio-group-spacing">
+                            <div class="row">
+                                <mat-radio-button value="true">
+                                    <span class="padding-left10">{{ownersAddressSameText}}</span>
+                                </mat-radio-button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        <mat-radio-button value="false">
+                                            <span class="padding-left10">{{ownersAddressNewText}}</span>
+                                        </mat-radio-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div class="row no-padding  margin-top10">
+                    <div class="col-md-1 col-sm-1 col-xs-12 no-padding margin-top10 print-view-title bold">New address:</div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <mat-form-field class="full-width">
+                            <mat-select (selectionChange)="onCountryChange($event)" [disabled]="isAddressReadOnly" formControlName="country" class="full-width"
+                                placeholder="Country/Region*">
+                                <mat-option *ngFor="let detail of countryModel" [value]="detail.code">
+                                    {{ detail.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input maxlength="50" autocomplete="off" [readonly]="isAddressReadOnly" matInput type="text" name="street" formControlName="street"
+                                placeholder="Street*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <mat-form-field class="full-width">
+                            <input maxlength="50" autocomplete="off" [readonly]="isAddressReadOnly" matInput type="text" name="city" formControlName="city"
+                                placeholder="City*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                        <mat-form-field class="full-width" *ngIf="stateModel ==null || stateModel.length <=0">
+                            <input maxlength="50" autocomplete="off" [readonly]="isAddressReadOnly" matInput type="text" name="state" formControlName="state"
+                                placeholder="State/Province*">
+                        </mat-form-field>
+                        <mat-form-field class="full-width" *ngIf="stateModel !=null && stateModel.length>0">
+                            <mat-select [disabled]="isAddressReadOnly" formControlName="state" class="full-width" placeholder="State/Province*">
+                                <mat-option *ngFor="let state of stateModel" [value]="state.code">
+                                    {{ state.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                        <mat-form-field class="full-width">
+                            <input [maxLength]="zipMaxLength" autocomplete="off" [readonly]="isAddressReadOnly" matInput type="text" name="zipCode" formControlName="zipCode"
+                                placeholder="ZIP/Postal code*">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- ALM-252 Remove highlighted sentence in attachment , process in place is to update the address and leave it if they add a new address to a form.
+                <div class="row  no-padding  margin-top10">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding margin-btm5">
+                        <span class="bold">New address option will only be applied to the processing of this form. If you will like to change
+                            your address for your FGL policy(ies), please use the 'Change Address' form.</span>
+                    </div>
+                </div> -->
+            </div>
+
+            <!-- Delivery Method -->
+            <div class="col-md-12 col-sm-12 col-xs-12 border-bottom2px">
+                <div class="row border-bottom2px no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <div class="article-heading-viewscreen pull-left">Delivery method</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding  margin-top10">If your check is to be mailed overnight select “Overnight mailing” and fill in the carrier and provide
+                        an account number to charge the overnight fee to</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-spacing-left">
+                        <mat-radio-group formControlName="isLoanDeliveryStandard" (change)="onLoanDeliveryTypeChange($event)" class="md-radio-group-spacing">
+                            <div class="row">
+                                <mat-radio-button value="true">
+                                    <span class="padding-left10">{{deliveryOptionStandardText}}</span>
+                                </mat-radio-button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                    <div class="row">
+                                        <mat-radio-button value="false">
+                                            <span class="padding-left10">{{deliveryOptionOvernightText}}</span>
+                                        </mat-radio-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+
+                </div>
+                <div class="row margin-top10 padding-left20">
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <mat-form-field class="full-width radio-button-child-padding-1">
+                            <input maxlength="50" autocomplete="off" [readonly]="isLoanDeliveryReadOnly" matInput type="text" name="carrier" formControlName="carrier"
+                                placeholder="Carrier*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <mat-form-field class="full-width">
+                            <input maxlength="25" autocomplete="off" [readonly]="isLoanDeliveryReadOnly" matInput type="text" name="accountNumber" formControlName="accountNumber"
+                                placeholder="Account number*">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-5"></div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-top10  border-bottom2px">
+                <div class="row">
+                    <div class="article-heading-viewscreen col-md-12 pull-left no-padding">I would like to request a:</div>
+                </div>
+                <div class="row no-padding margin-top10">
+                    <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Check one:</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-padding margin-btm20">
+                        <mat-radio-group (change)="onSurrenderTypeChange($event)" formControlName="surrenderType" class="md-radio-group-spacing">
+                            <div class="row">
+                                <div class="col-md-7 col-sm-7 col-xs-7">
+                                    <mat-radio-button value="1">
+                                        <span class="padding-left10">{{partialSurrenderTypeText}}</span>
+                                    </mat-radio-button>
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-5"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 ">
+                                    <mat-radio-button value="2">
+                                        <span class="padding-left10">{{fullSurrenderTypeText}}</span>
+                                    </mat-radio-button>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 "></div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+                </div>
+
+                <!--  PartialSurrender -->
+                <div *ngIf="model.surrenderType=='1'">
+                    <div class="row article-heading-viewscreen border-bottom2px border-top2px">Partial Surrender</div>
+                    <div class="row">
+                        Do not return policy with this request.
+                    </div>
+                    <div>
+                        <div class="row no-padding">
+                            <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Please select one</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 ">
+                                <mat-radio-group formControlName="partialSurrenderType" (change)="onPartialSurrenderChanged($event)" class="md-radio-group-spacing">
+                                    <div class="row">
+                                        <mat-radio-button value="1">
+                                            <span class="padding-left10">{{partialSurrenderMaximumAmountText}}</span>
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                            <mat-radio-button value="2">
+                                                <span class="padding-left10">{{partialSurrenderAmountText}}</span>
+                                            </mat-radio-button>$
+                                            <mat-form-field>
+                                                <input decimalinput class="width200px" [readonly]="isPartialSurrenderAmountReadOnly" 
+                                                    maxlength="11" autocomplete="off"
+                                                    [(value)]="formattedPartialSurrenderAmount"
+                                                    (blur)="transformAmount($event)" 
+                                                    (focus)="normalizeAmount($event)" 
+                                                    matInput type="text" name="partialSurrenderAmount" formControlName="partialSurrenderAmount"
+                                                    placeholder="">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <mat-radio-button value="3">
+                                            <span class="padding-left10">{{partialSurrenderMaximumAvailableAmountText}}</span>
+                                        </mat-radio-button>
+                                    </div>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="row no-padding margin-top10">
+                            <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Select one:</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 ">
+                                <mat-radio-group formControlName="isGrossAmountForPartialSurrender" class="md-radio-group-spacing">
+                                    <div class="row">
+                                        <mat-radio-button value="true">
+                                            <span class="padding-left10" [innerHtml]="grossAmountForPartialSurrenderText"></span>
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="row">
+                                        <mat-radio-button value="false">
+                                            <span class="padding-left10" [innerHtml]="netAmountForPartialSurrenderText"> </span>
+                                        </mat-radio-button>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-3"></div>
+
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="row margin-btm10">
+                            <strong>This partial surrender is to be in accordance with and is subject to the provisions of the policy</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  FullSurrender -->
+                <div *ngIf="model.surrenderType=='2'">
+                    <div class="row article-heading-viewscreen border-bottom2px border-top2px">Full Surrender</div>
+                    <div class="row no-padding margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <mat-checkbox [ngModel]="model.isAgreeForFullSurrenderCharges" formControlName="isAgreeForFullSurrenderCharges">
+                            </mat-checkbox>{{agreeToSurrenderChargesText}}
+                        </div>
+                    </div>
+                    <div class="row no-padding margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 margin-left10">
+                            Your proceeds will be placed in an asset account established in your name. Your money will earn a competitive rate of interest
+                            and you will receive a checkbook for the account. The asset account is not available in Arkansas,
+                            Kansas, Nevada, North Carolina and North Dakota.
+                        </div>
+                    </div>
+
+                    <div class="row no-padding margin-top20">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <mat-checkbox [ngModel]="model.isAgreeToOptOutOfAssetAccount" formControlName="isAgreeToOptOutOfAssetAccount">
+                            </mat-checkbox>{{agreeToOptOutOfAssessmentAccountText}}
+                        </div>
+                    </div>
+
+                    <div class="row no-padding margin-top30 margin-btm10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            Except for payment of the surrender value less any indebtedness to the Company under this policy, the Company is hereby released
+                            from all liability under this policy.
+                        </div>
+                    </div>
+
+                    <div class="row article-heading-viewscreen border-top2px border-bottom2px">POLICY RETURN</div>
+                    <div class="row no-padding">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 border-bottom">
+                            <mat-radio-group formControlName="isAgreeToReturnPolicyByEmail" class="md-radio-group-spacing">
+                                <div class="row margin-btm10">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <mat-radio-button value="true">
+                                        </mat-radio-button>{{agreeToReturnPolicyText}}
+                                    </div>
+                                </div>
+                                <div class="row margin-btm10">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <mat-radio-button value="false">
+                                        </mat-radio-button>{{policyLostText}}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-sm-3 col-xs-3"></div>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 ">
+                            <div class="row">Has the policy or any interest thereon has at any time been assigned, transferred or pledged
+                                to any person, company or corporation? </div>
+
+                            <mat-radio-group formControlName="isPolicyOrInterestTransferred" (change)="onPolicyOrInterestTransferredChanged()" class="md-radio-group-spacing">
+                                <div class="row">
+                                    <mat-radio-button value="true">
+                                        <span class="padding-left10">{{policyInterestNotTransferredText}}</span>
+                                    </mat-radio-button>
+                                </div>
+                                <div class="row">
+                                    <mat-radio-button value="false">
+                                        <span class="padding-left10">{{policyInterestTransferredText}}</span>
+                                    </mat-radio-button>
+                                </div>
+                            </mat-radio-group>
+
+                            <div class="row padding-left20" [class.div-overlay]="disbursementLifeInsuranceForm.controls['isPolicyOrInterestTransferred'].value != 'false'">
+                                <div class="col-md-12 col-sm-12 col-xs-12">Please indicate to whom the policy was assigned and the date of the assignment:</div>
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <mat-form-field class="full-width radio-button-child-padding-1">
+                                        <input maxlength="100" autocomplete="off" matInput [readonly]="isPolicyOrInterestTransferredReadOnly" type="text" name="nameOfAssignee"
+                                            formControlName="nameOfAssignee" placeholder="Name of Assignee">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="full-width">
+                                        <input numericwithspecialcharinput="/" autocomplete="off" matInput [readonly]="isPolicyOrInterestTransferredReadOnly" type="text"
+                                            name="dateOfAssignment" formControlName="dateOfAssignment" placeholder="Date of Assignment MM/DD/YYYY">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row padding-left20" [class.div-overlay]="disbursementLifeInsuranceForm.controls['isPolicyOrInterestTransferred'].value != 'false'">
+                                <div class="col-md-2 col-sm-2 col-xs-12 bold">Assignment type:</div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 padding-left20">
+                                    <mat-radio-group formControlName="isAbsoluteAssignmentType" class="md-radio-group-spacing">
+                                        <div class="row">
+                                            <mat-radio-button value="true">
+                                                {{absoluteAssignmentTypeText}}
+                                            </mat-radio-button>
+                                        </div>
+                                        <div class="row">
+                                            <mat-radio-button value="false">
+                                                {{collateralAssignmentTypeText}}
+                                            </mat-radio-button>
+                                        </div>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTICE OF TAX WITHHOLDING ELECTION -->
+            <div *ngIf="(model.surrenderType=='1' || model.surrenderType=='2')" class="col-md-12 col-sm-12 col-xs-12 border-bottom2px">
+                <div class="row border-bottom2px no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <div class="article-heading-viewscreen pull-left">Notice of Tax Withholding Election </div>
+                    </div>
+                </div>
+
+                <div class="row no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Select one*:</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 ">
+                        <mat-radio-group formControlName="incomeTaxWithhold" (change)="onIncomeWithHoldChanged($event)" class="md-radio-group-spacing">
+                            <div class="row">
+                                <mat-radio-button [id]="taxWithHoldingOption.NotElect" [value]="taxWithHoldingNotElectText" [checked]="incomeTaxWithholdOption === taxWithHoldingOption.NotElect">
+                                    <span class="padding-left10">{{taxWithHoldingNotElectText}}</span>
+                                </mat-radio-button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                    <mat-radio-button [id]="taxWithHoldingOption.Elect" [value]="taxWithHoldingElectText" [checked]="incomeTaxWithholdOption === taxWithHoldingOption.Elect">
+                                        <span class="padding-left10">{{taxWithHoldingElectText}}
+                                        </span>
+                                    </mat-radio-button>
+                                </div>
+                            </div>
+                            <div class="row margin-left30">
+                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                    <mat-form-field class="radio-button-child-padding-1 full-width">
+                                        <input decimalinput maxlength="6" [class.benefit-perc-warning]="!isValidWithHold" autocomplete="off" [readonly]="isIncomeTaxReadOnly" matInput type="text" name="withholdFederalIncomeTax"
+                                            formControlName="withholdFederalIncomeTax" (blur)="transformWithholdIncomeTaxAndChkValidationOnBlur($event)" (keyup)="validateWithHoldValue($event)" placeholder="Federal %">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                    <mat-form-field class="width80 margin-left30">
+                                        <input decimalinput maxlength="6" [class.benefit-perc-warning]="!isValidWithHold" autocomplete="off" [readonly]="isIncomeTaxReadOnly" matInput type="text" name="withholdStateIncomeTax"
+                                            formControlName="withholdStateIncomeTax" (blur)="transformWithholdIncomeTaxAndChkValidationOnBlur($event)" (keyup)="validateWithHoldValue($event)" placeholder="State %">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <mat-form-field class="width90 margin-left30" *ngIf="residenceStateModel !=null && residenceStateModel.length>0">
+                                        <mat-select [disabled]="incomeTaxWithholdOption== taxWithHoldingOption.NotElect || incomeTaxWithholdOption== taxWithHoldingOption.NeitherElect || isDisableState"
+                                            formControlName="residenceState" class="full-width" placeholder="Your State of residence">
+                                            <mat-option *ngFor="let state of residenceStateModel" [value]="state.name">
+                                                {{ state.name }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3"></div>
+							</div>
+                            <div class="row">
+                                <span class="col-md-12 col-sm-12 col-xs-12 padding-left35 validation-error" *ngIf="errorMessage !=null">
+                                    {{errorMessage}}
+                                </span>
+                            </div>
+                            <div class="row margin-btm30 no-padding margin-top10">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                                    <mat-radio-button class="radio-button-text-wrap" [id]="taxWithHoldingOption.NeitherElect" [value]="taxWithHoldingNeitherElectText"
+                                        [checked]="incomeTaxWithholdOption === taxWithHoldingOption.NeitherElect">
+                                        <span class="hanging-indent">{{taxWithHoldingNeitherElectText}}
+                                        </span>
+                                    </mat-radio-button>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div id="bodyToBeExtract" *ngIf="isViewOnly" class="margin-btm20 margin-top5 col-md-12 no-spacing-left">
+        <div class="print-row row">
+            <span class="col-md-12 col-sm-12 col-xs-12 no-padding"><strong>I hereby request a {{model.surrenderType=='1'?"partial":"full"}} surrender of the above mentioned policy.</strong></span>
+        </div>
+
+        <div class="print-row row">
+            <div class="article-heading-viewscreen print-col-12 col-md-12 margin-top5 border-bottom">{{model.surrenderType=='1'?"Partial":"Full"}} Surrender Request Summary</div>
+
+            <!-- PARTIAL SURRENDER-->
+            <div *ngIf="model.surrenderType=='1'" class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="print-row row margin-top5">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-12 print-view-title ">
+                        Partial surrender:
+                    </div>
+                    <div class="print-col-8 col-md-10 col-sm-10 col-xs-12">
+                        <div *ngIf="model.partialSurrenderType=='1'" class="print-row row">
+                            <div class="print-col-8 col-md-12 col-sm-12 col-xs-12">
+                                Maximum partial surrender (payment will equal the surrender value minus the amount contractually required to keep the policy
+                                in force).
+                            </div>
+                        </div>
+                        <div *ngIf="model.partialSurrenderType=='2'" class="print-row row">
+                            <div class="print-col-8 col-md-12 col-sm-12 col-xs-12">
+                                Partial surrender of {{(model.partialSurrenderAmount | currency:'USD':true:'2.2-4')}}.
+                            </div>
+                        </div>
+                        <div *ngIf="model.partialSurrenderType=='3'" class="print-row row">
+                            <div class="print-col-8 col-md-12 col-sm-12 col-xs-12">
+                                Maximum available "surrender charge free" partial surrender (if applicable).
+                            </div>
+                        </div>
+                        <div *ngIf="model.isGrossAmountForPartialSurrender=='true'" class="print-row row">
+                            <div class="print-col-8 col-md-12 col-sm-12 col-xs-12" [innerHtml]="grossAmountForPartialSurrenderText">
+                            </div>
+                        </div>
+                        <div *ngIf="model.isGrossAmountForPartialSurrender=='false'" class="print-row row">
+                            <div class="print-col-8 col-md-12 col-sm-12 col-xs-12" [innerHtml]="netAmountForPartialSurrenderText">
+                            </div>
+                        </div>
+
+                        <div class="print-row row">
+                            <div class="print-col-8 col-md-12 col-sm-12 col-xs-12">
+                               <strong>This partial surrender is to be in accordance with and is subject to the provisions of the policy.</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FULL SURRENDER -->
+            <div *ngIf="model.surrenderType=='2'" class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="print-row row margin-top5">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-12 print-view-title ">
+                        Full surrender:
+                    </div>
+
+                    <div class="print-col-8 col-md-10 col-sm-10 col-xs-12">
+                        <div *ngIf="model.isAgreeForFullSurrenderCharges" class="print-row row">
+                            <div class="print-col-8 col-md-12 col-sm-12 col-xs-12">
+                                {{agreeToSurrenderChargesText}}
+                            </div>
+                        </div>
+                        <div *ngIf="model.isAgreeToOptOutOfAssetAccount" class="print-row row">
+                            <div class="print-col-8 col-md-12 col-sm-12 col-xs-12">
+                                {{agreeToOptOutOfAssessmentAccountText}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="print-row row margin-top10">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-12 print-view-title ">
+                        Policy return:
+                    </div>
+                    <div class="print-col-8 col-md-10 col-sm-10 col-xs-12 no-padding">
+                        <div *ngIf="model.isAgreeToReturnPolicyByEmail=='true'" class="print-col-8 col-md-12 col-sm-12 col-xs-12">
+                            {{agreeToReturnPolicyText}}
+                        </div>
+                        <div *ngIf="model.isAgreeToReturnPolicyByEmail=='false'" class="print-col-8 col-md-12 col-sm-12 col-xs-12">
+                            {{policyLostText}}
+                        </div>
+                        <div *ngIf="model.isPolicyOrInterestTransferred=='false'" class="print-col-8 col-md-12 col-sm-12 col-xs-12 margin-top10">
+                            <div class="print-row row">
+                                <div class="print-col-8 col-md-12 col-sm-12 col-xs-12">
+                                    Has the policy or any interest thereon has at any time been assigned, transferred or pledged to any person, company or corporation?
+                                    <b>Yes</b>
+                                </div>
+                            </div>
+                            <div class="print-row row">
+                                <div class="print-col-8 col-md-12 col-sm-12 col-xs-12">
+                                    Please indicate to whom the policy was assigned and the date of the assignment:
+                                </div>
+                            </div>
+                            <div class="print-row row">
+                                <div class="print-col-3 col-md-3 col-sm-3 col-xs-12 print-view-title ">
+                                    Name of assignee:
+                                </div>
+                                <div class="print-col-6 col-md-9 col-sm-9 col-xs-12">
+                                    {{model.nameOfAssignee}}
+                                </div>
+                            </div>
+                            <div class="print-row row">
+                                <div class="print-col-3 col-md-3 col-sm-3 col-xs-12 print-view-title ">
+                                    Date of assignment:
+                                </div>
+                                <div class="print-col-6 col-md-9 col-sm-9 col-xs-12">
+                                    {{model.dateOfAssignment}}
+                                </div>
+                            </div>
+                            <div class="print-row row">
+                                <div class="print-col-3 col-md-3 col-sm-3 col-xs-12 print-view-title ">
+                                    Assignment type:
+                                </div>
+                                <div class="print-col-6 col-md-9 col-sm-9 col-xs-12">
+                                    {{model.isAbsoluteAssignmentType=='true'? absoluteAssignmentTypeText: collateralAssignmentTypeText}}
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="model.isPolicyOrInterestTransferred=='true'" class="print-col-8 col-md-12 col-sm-12 col-xs-12 margin-top10">
+                            Has the policy or any interest thereon has at any time been assigned, transferred or pledged to any person, company or corporation?
+                            <b>No</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="print-row row margin-top10">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-12 print-view-title ">
+                        Tax Election:
+                    </div>
+                    <div class="print-col-8 col-md-10 col-sm-10 col-xs-12">
+                        <span *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.NotElect">
+                            {{taxWithHoldingNotElectText}}
+                        </span>
+                        <span *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.Elect">
+                            {{taxWithHoldingElectText}}
+                        </span>
+                        <span *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.NeitherElect">
+                            {{taxWithHoldingNeitherElectText}}
+                        </span>
+                    </div>
+                </div>
+                <div class="print-row row margin-btm5" *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.Elect">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-12"> </div>
+                    <div class="print-col-8 col-md-10 col-sm-10 col-xs-12 ">
+                        <span class="text-left print-view-title">Federal:</span>
+                        <span class="text-left">{{model.withholdFederalIncomeTax | decimalPipe:DecimalType.Percentage}}</span>
+                        <br/>
+                        <span class="text-left print-view-title">State:</span>
+                        <span class="text-left">{{model.withholdStateIncomeTax | decimalPipe:DecimalType.Percentage}}</span>
+                        <br/>
+                        <span class="text-left print-view-title">State of residence:</span>
+                        <span class="text-left">{{model.residenceState}}</span>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="print-row row margin-top10">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-12 print-view-title ">
+                        Delivery method:
+                    </div>
+                    <div class="print-col-8 col-md-10 col-sm-10 col-xs-12">
+                        <span class="text-left">{{model.isLoanDeliveryStandard=='true'? deliveryOptionStandardText : deliveryOptionOvernightText}}</span>
+                    </div>
+                </div>
+                <div class="print-row row">
+                    <div class="print-col-3 col-md-2 col-sm-2 col-xs-12"> </div>
+                    <div *ngIf="model.isLoanDeliveryStandard!='true'" class="print-col-8 col-md-10 col-sm-10 col-xs-12 no-padding">
+                        <div class="print-col-8 col-md-4 col-sm-4 col-xs-12">
+                            <span class="print-view-title">Carrier: </span> {{model.carrier}}
+                        </div>
+                        <div class="print-col-8 col-md-4 col-sm-4 col-xs-12">
+                            <span class="print-view-title">Account no: </span><span data-mask="account-number">{{model.accountNumber}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="print-row row margin-top10">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row margin-top10">
+                            <div class="print-col-3 col-md-2 col-sm-2 col-xs-12 print-view-title">
+                                {{model.isAddressSame=='true'? "Address": "I have a new address"}}:
+                            </div>
+                            <div class="print-col-8 col-md-10 col-sm-10 col-xs-12">
+                                {{model.isAddressSame=='true'? "My address is the same as above": ""+model.street+", "+model.city+" "+model.state+" "+model.country+"
+                                "+model.zipCode+" (This request will be processed 10 days after address change)"}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="print-row row">
+            <div class="article-heading-viewscreen print-col-12 col-md-12 margin-top10 border-bottom2px border-top2px">Notice of Tax Withholding Election</div>
+        </div>
+
+        <div class="print-row row col-md-12 no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding  margin-top10 margin-btm20">
+                If no tax withholding election was selected, we will withhold 10% of the taxable portion of any payment for federal income
+                taxes. State income tax may also be required to be withheld. Even if you elect not to have income tax withheld
+                from a payment, you are liable for payment of income tax due on the taxable portion of the payment. You may
+                also be subject to tax penalties under the estimated tax payment rules if your payments of estimated tax
+                and withholding, if any, are not adequate. You should consult your tax advisor regarding your situation.
+            </div>
+        </div>
+    </div>
+</form>

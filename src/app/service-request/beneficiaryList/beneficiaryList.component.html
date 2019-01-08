@@ -1,0 +1,65 @@
+<div id="bodyToBeExtract">
+    <div *ngIf="isViewOnly" class='article-title-heading2 margin-btm10'>Beneficiary Change Summary </div>
+    <div [class.border-top]="isViewOnly" class="margin-btm20">
+        <div [class]="isViewOnly ? 'border-bottom article-heading-viewscreen col-md-12 margin-btm5' : 'border-box article-title-heading3 acc-box-title col-md-12' ">
+            Primary Beneficiaries
+            <span *ngIf="!isViewOnly" [ngbTooltip]="tooltipPrimaryBeneficiaries" triggers="click hover focus" position="top" container="body">
+                <mat-icon class="material-icons mat-white mat-18">help_outline</mat-icon>
+            </span>        
+        </div>
+        <div *ngFor="let item of primaryBenefModel">
+            <new-beneficiary #newBeneficiaryChild [componentid]="item.key" [isprintonly]="isPrintOnly" [viewonly]="isViewOnly" [model]="item.value" (onRemoved)="removePrimaryBeneficiary($event)"
+                (onComponentValueChanged)="onPrimaryValueChanged($event)" (onComponentValidated)="onPrimaryBeneficiaryValidated($event)"
+                [isbenefitvalid]="isPrimaryBenfValid" [statemodel]="stateModel" [countrymodel]="countryModel"></new-beneficiary>
+        </div>
+        <div class="row" *ngIf="!isViewOnly">
+            <div class="col-md-6 pull-left no-padding-left">
+                <button  *ngIf ="primaryBenefModel.length < 10" [disabled]="!enableAddPrimaryBeneficiary"  class="mat-button mat-primary" (click)="addPrimaryBeneficiary()">+ Add primary beneficiary</button>
+            </div>
+            <div class="col-md-6 col-xs-12 text-left text-md-right text-lg-right">
+                <div *ngIf="isPrimaryBenfValid font-italic">Total primary beneficiary percentage must equal 100%. </div>
+
+                <div *ngIf="!isPrimaryBenfValid" class="benefit-perc-warning">Your primary beneficiary percentage currently equals {{ primaryBenefit}}
+                    <br /> Total primary beneficiary percentage must equal 100%. 
+                    <br /><span *ngIf="isContainZeroPrimaryBenefit"> One of the primary beneficiary percentage currently equals 0 or blank. </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div [class]="isViewOnly ? 'margin-btm20 col-md-12 no-padding no-margin-left': 'margin-btm20'">
+        <div *ngIf="isViewOnly ?  (contingentBenefit > 0 ? true:false) : true" [class]="isViewOnly ? 'border-top border-bottom article-heading-viewscreen col-md-12 margin-btm5' : 'border-box article-title-heading3 acc-box-title col-md-12' ">
+            Contingent Beneficiaries
+            <span *ngIf="!isViewOnly" [ngbTooltip]="tooltipContingentBeneficiaries" triggers="click hover focus" position="top" container="body">
+                <mat-icon class="material-icons mat-white mat-18">help_outline</mat-icon>
+            </span>        
+        </div>
+        <div *ngFor="let item of contingentBenefModel">
+            <new-beneficiary #newBeneficiaryChild [componentid]="item.key" [isprintonly]="isPrintOnly" [viewonly]="isViewOnly" [model]="item.value" (onRemoved)="removeContingentBeneficiary($event)"
+                (onComponentValueChanged)="onContingentValueChanged($event)" (onComponentValidated)="onContingentBeneficiaryValidated($event)"
+                [isbenefitvalid]="isContingentBenfValid" [statemodel]="stateModel" [countrymodel]="countryModel"></new-beneficiary>
+        </div>
+
+        <div class="row" *ngIf="!isViewOnly">
+            <div class="col-md-6 col-sm-6 col-xs-12 no-padding-left pull-left">
+                <button *ngIf = "contingentBenefModel.length < 10" class="mat-button mat-primary" [disabled]='!enableAddContingentBeneficiary'  (click)="addContingentBeneficiary()">+ Add contingent beneficiary</button>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 text-left text-md-right text-lg-right">
+                <div *ngIf="isContingentBenfValid">Total contingent beneficiary percentage must equal 100%.</div>
+                <div *ngIf="!isContingentBenfValid" class="benefit-perc-warning">Your contingent beneficiary percentage currently equals {{ contingentBenefit}}
+                    <br/> Total contingent beneficiary percentage must equal 100%.
+                    <br/> <span *ngIf="isContainZeroContingentBenefit"> One of the contingent beneficiary percentage currently equals 0 or blank. </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<fgl-message [message]="message"></fgl-message>
+
+<ng-template #tooltipPrimaryBeneficiaries>
+    <strong>Primary beneficiaries:</strong> The person(s) to receive the death benefit, in the event of the Insured's / Owner's death.
+</ng-template>
+<ng-template #tooltipContingentBeneficiaries>
+    <strong>Contingent beneficiaries:</strong> The person(s) to receive the death benefit, if the primary beneficiaries are not alive at the
+    time of the Insured's / Owner's death.
+</ng-template>

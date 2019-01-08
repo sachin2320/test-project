@@ -1,0 +1,36 @@
+<form [formGroup]="formGroupName" class="mat-form-auth">
+    <fieldset>
+        <div class="box-body-fgl">
+            <div class="margin-btm5">
+                <div class="margin-btm5 form-group row">
+                    <!-- <div class="float-left col-md-0">
+                        <mat-icon class="material-icons">help</mat-icon>
+                    </div> -->
+                    <div class="float-right col-md-9 width90">
+                        <mat-form-field class="full-width">
+                            <mat-select class="full-width" (ngModelChange)="onQuestionChange($event)" [placeholder]="questionPlaceHolder" [formControlName]="questionFormControlName">
+                                <mat-option *ngFor="let question of securityQuestions" [value]="question.id">
+                                    {{ question.questionDescription }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="no-margin-bottom form-group padding-top10" *ngIf="isCustomQuestionSelected">
+
+                    <mat-form-field class="full-width mat-icon-left padding-left-security">
+                        <input maxlength="100" matInput type="text" autocomplete="off" [placeholder]="customQuestionPlaceHolder" [formControlName]="customQuestionFormControlName">
+                    </mat-form-field>
+                </div>
+
+                <div class="no-margin-bottom form-group padding-top10">
+                    <mat-form-field class="full-width mat-icon-left padding-left-security">
+                        <input [fglsensitiveinput]="{cssClass: 'fgl-masking'}" maxlength="100"   autocomplete="off" required matInput type="text" [placeholder]="answerPlaceHolder"
+                            [formControlName]="answerFormControlName">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

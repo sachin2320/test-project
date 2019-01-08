@@ -1,0 +1,23 @@
+<div *ngIf="isDataLoadCompleted">
+    <section class="container-fluid with-maxwidth chapter no-padding">
+        <article class="article col-md-12 row no-padding-bottom">
+            <div class="account-action full-width no-padding-right">
+                <div class="article-title-heading1 no-padding margin-btm10 margin-top75">My Policy Details</div>
+                <h2 class="article-title no-padding margin-btm10">{{policyInfo.name}}</h2>
+                <policy-detail [product]="'annuity'" [model]="policyInfo"></policy-detail>
+            </div>
+        </article>
+    </section>
+    <mat-tab-group [(selectedIndex)]="policyTabValue">
+        <mat-tab label="{{tab.name}}" *ngFor="let tab of policyInfo.policyTabs | sortBy: 'order': false">
+            <section class="box box-transparent section-reg-fgl margin-top30 overflow-none">
+                <dynamic-policy-tab [model]="tab" [policynumber]="policyNumber" [policyownercount]="policyInfo.ownerCount"></dynamic-policy-tab>
+            </section>
+        </mat-tab>
+        <mat-tab label="Documents" *ngIf="policyInfo.productSubTypeName !== 'Term Life' && policyInfo.isEnableDocumentsTab">
+            <section class="box box-transparent margin-top30 overflow-none">
+                <policy-document [policyNumber]="policyInfo.policyNumber"></policy-document>
+            </section>
+        </mat-tab>
+    </mat-tab-group>
+</div>

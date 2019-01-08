@@ -1,0 +1,43 @@
+<div class="alert alert-info text-center" role="alert" *ngIf="serviceRequests.length<=0">
+    <div *ngIf="isDataloadCompleted">There are no open service requests.
+    </div>
+    <img *ngIf="!isDataloadCompleted" src="assets/images/spinner.gif" />
+</div>
+
+<div *ngIf="serviceRequests.length>0" class="box box-default table-box table-flip-scroll-xxx mdl-shadow--2dp">
+    <table class="mdl-data-table-xxx table-bordered table-striped cf no-margin table-fixed mdl-data-table-rsp service-request">
+        <thead class="cf">
+            <tr>
+                <th class="col-width-sm">Policy number</th>
+                <th class="col-width-lg">Request title</th>
+                <th class="col-width-sm">Status</th>
+                <th class="col-width-md">Submitted</th>
+                <th class="col-width-md">Request number</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let serviceReq of serviceRequests">
+                <td class="col-width-sm">{{serviceReq.policyNumber}}</td>
+                <!-- <td class="col-width-sm">
+                    <a [routerLink]="[config.getConfig('appServiceDetailUrl') + '/' + serviceReq.requestXRefId]">
+                        {{serviceReq.policyNumber}}
+                    </a>
+                </td> -->
+                <td class="col-width-lg">{{serviceReq.requestSubject}}</td>
+                <td class="col-width-sm">{{serviceReq.requestStatus}}</td>
+                <td class="col-width-md">{{utility.convertUtcToLocalDate(serviceReq.submittedDate)}}</td>
+                <td class="col-width-md">
+                    <a class="fgl-link" [routerLink]="[config.getConfig('appServiceDetailUrl') + '/' + serviceReq.requestXRefId]">
+                        {{serviceReq.requestXRefId}}
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>   
+</div>
+
+<div *ngIf="isDataloadCompleted" class="margin-top30 margin-btm10 no-padding">
+    <!-- Sentence Casing -->
+    <a mat-button [routerLink]="[config.getConfig('appServiceRequestUrl')]" class="btn-fgl-bgcolor mat-raised-button mat-primary btn-wrap">Request a policy change or related service</a>
+    <!-- <a class="cursorpointer" [routerLink]="[config.getConfig('appServiceRequestUrl')]" >Request a policy change or related service</a> -->
+</div>

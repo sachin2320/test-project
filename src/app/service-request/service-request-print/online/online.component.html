@@ -1,0 +1,38 @@
+<div class="page-template">
+    <section class="container-fluid with-maxwidth chapter">
+        <div class="margin-top5">         
+            <img height="100" src="assets/images/FG_Logo_LoginPage.png">
+            <!-- <img src="assets/images/fgl-logo.png"> -->
+        </div>
+        <div class="article-title-heading1 margin-btm15">Service Request {{detailModel.requestXRefId}} - {{detailModel.requestType}}</div>
+
+        <!-- input Page -->
+        <div>
+            <form name="" class="mat-form-auth">
+                <fieldset>
+                    <div>
+                        <servicerequest-header isprintonly="true" issrdetailonly="true" disclosuretext="" [isviewonly]="isViewOnly" [model]="headerModel"></servicerequest-header>
+
+                        <div id="body" [innerHtml]="detailModel.serviceRequestHTML"></div>
+
+                        <div *ngIf="dataSource !=null && dataSource.length>0" class="article-heading-viewscreen margin-btm5">Documents</div>
+                        <div *ngIf="dataSource !=null && dataSource.length>0" class="print-row box box-default table-box table-flip-scroll-xxx mdl-shadow--2dp margin-btm20">
+                            <fgl-grid tableclasses="no-margin" [datasource]="dataSource" [columns]="columns"></fgl-grid>                           
+                        </div>
+
+                        <div class="margin-btm30">
+                            <servicerequest-footer isprintonly="true" [isviewonly]="isViewOnly" [model]="footerModel"></servicerequest-footer>
+                        </div>
+
+                        <div class="print-row row margin-btm15 margin-top30 bold font-italic padding-left10">
+                            <div class="print-col-8"> Submitted by {{headerModel.owner}} on {{utility.convertUtcDateToLocalDate(detailModel.submittedDate)}}
+                                at {{utility.convertUtcDateToLocalTime(detailModel.submittedDate)}}</div>
+                            <div class="print-col-3"> IP: {{detailModel.submittedIp}}</div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </form>         
+        </div>
+    </section>
+</div>

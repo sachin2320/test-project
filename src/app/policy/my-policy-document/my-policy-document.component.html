@@ -1,0 +1,27 @@
+<section class="container-fluid with-maxwidth chapter">
+    <div>
+        <div class="article-title-heading1 margin-btm10 margin-top75">My Policy Documents</div>
+        <div class="account-action margin-top30">
+            <div class="row account-container">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="width90">
+                        <mat-form-field class="full-width">
+                            <mat-select class="full-width" placeholder="Policy number" [(ngModel)]="policyNumber" (selectionChange)="onPolicyChange($event)">
+                                <mat-option *ngFor="let policy of policies" [value]="policy.policyNumber">
+                                    <div>
+                                        <!-- ALM-169 Showing Policy Number, Product, and Owner -->
+                                        <span class="padding-right10">{{ policy.policyNumber }} </span>
+                                        <span class="padding-right10">{{ policy.productName }}</span>
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top20">
+                <policy-document #policyDocumentComponent></policy-document>
+            </div>
+        </div>
+    </div>
+</section>

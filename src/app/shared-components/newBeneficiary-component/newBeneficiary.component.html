@@ -1,0 +1,199 @@
+<form *ngIf="!viewOnly" name="beneficiaryInfoForm" [formGroup]="beneficiaryInfoForm" class="mat-form-auth">
+    <fieldset>
+        <div class="margin-btm20 border-bottom2px">
+            <div class="row pull-right">
+                <button class="mat-button mat-primary" (click)="onRemoved()">Remove</button>
+            </div>
+            <div class="reg-user-type col-12 no-padding margin-top10 no-spacing-left">
+                <div class="col-md-10 pull-left no-padding-lg">
+                    <mat-radio-group formControlName="isIndividual" class="md-radio-group-spacing" (change)="onEntityChanged($event)">
+                        <mat-radio-button value="true" class="col-md-2 col-sm-2 col-xs-12">
+                            {{individualText}}
+                        </mat-radio-button>
+
+                        <mat-radio-button value="false" class="col-md-6 col-sm-6 col-xs-12">
+                            {{nonNaturalText}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+
+            <div class="form-group row row-lg col-md-12 no-margin-bottom">
+                <div [hidden]="model.isIndividual" class="col-md-9 col-xs-12">
+                    <mat-form-field class="full-width">
+                        <input maxlength="50" autocomplete="off" matInput type="text" autocomplete="off" formControlName="trustName" name="trustName"
+                            placeholder="Entity name*">
+                    </mat-form-field>
+                </div>
+
+                <div [hidden]="!model.isIndividual" class="col-md-4 col-xs-12">
+                    <mat-form-field class="full-width">
+                        <input maxlength="50" autocomplete="off" matInput type="text" name="firstName" formControlName="firstName" placeholder="First name*">
+                    </mat-form-field>
+                </div>
+                <div [hidden]="!model.isIndividual" class="col-md-1 col-xs-12">
+                    <mat-form-field class="full-width">
+                        <input maxlength="5" autocomplete="off" matInput type="text" name="initials" formControlName="initials" placeholder="Initial">
+                    </mat-form-field>
+                </div>
+                <div [hidden]="!model.isIndividual" class="col-md-4 col-xs-12">
+                    <mat-form-field class="full-width">
+                        <input maxlength="50" autocomplete="off" matInput type="text" name="lastName" formControlName="lastName" placeholder="Last name*">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-3 col-xs-12">
+                    <mat-form-field class="full-width">
+                        <input decimalinput maxlength="6" [class.benefit-perc-warning]="!isBenefitValid" autocomplete="off" matInput type="text"
+                            name="benefit" formControlName="benefit" placeholder="Benefit %*" (blur)="ChkValidationOnBlur($event)" (focus)="ChkValidationOnFocus()">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="form-group row row-lg col-md-12 no-margin-bottom">
+                <div class="col-md-3 pull-left margin-top15 text-small font-italic">Relationship to: (select one)</div>
+                <div class="col-md-6 pull-right margin-top15 no-padding">
+                    <mat-radio-group formControlName="isInsured" class="md-radio-group-spacing">
+                        <mat-radio-button value="false" class="col-md-3 col-sm-3 col-xs-12">
+                            {{ownerText}}
+                        </mat-radio-button>
+                        <mat-radio-button value="true" class="col-md-6 col-sm-6 col-xs-12">
+                            {{insuredOrAnnuitantText}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <mat-form-field class="full-width">
+                        <input maxlength="50" autocomplete="off" matInput type="text" name="relationship" formControlName="relationship" placeholder="Nature of relationship*">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="form-group row row-lg col-md-12 no-margin-bottom">
+                <div class="col-md-3">
+                    <mat-form-field class="full-width">
+                        <mat-select (selectionChange)="onCountryChange($event)" formControlName="country" class="full-width"
+                            placeholder="Country/Region*">
+                            <mat-option *ngFor="let detail of countryModel" [value]="detail.code">
+                                {{ detail.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field class="full-width">
+                        <input maxlength="50" autocomplete="off" matInput type="text" name="address" formControlName="address" placeholder="Address*">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field class="full-width">
+                        <input maxlength="50" autocomplete="off" matInput type="text" name="city" formControlName="city" placeholder="City*">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field class="full-width" *ngIf="stateModel ==null || stateModel.length <=0">
+                        <input maxlength="50" autocomplete="off" matInput type="text" name="state" formControlName="state" placeholder="State/Province*">
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" *ngIf="stateModel !=null && stateModel.length>0">
+                        <mat-select formControlName="state" 
+                            placeholder="State/Province*">
+                            <mat-option *ngFor="let state of stateModel" [value]="state.code">
+                                {{ state.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field class="full-width">
+                        <input numericwithspecialcharinput [maxLength]="zipMaxLength" autocomplete="off" matInput type="text" name="zipCode" formControlName="zipCode"
+                            placeholder="ZIP / Postal code*">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="form-group row row-lg col-md-12 no-margin-bottom">
+                <div class="col-md-3">
+                    <mat-form-field class="full-width date-control margin-btm-20">
+                        <input fglssninput="***-**-" numericwithspecialcharinput="-" maxlength="11" autocomplete="off" matInput type="text" name="ssn"
+                            formControlName="ssn" placeholder="{{ssnPlaceholder}}">
+                    </mat-form-field>
+                    <span class="pull-left no-margin no-padding date-format text-small">###-##-####</span>
+                </div>
+                <div [hidden]="!model.isIndividual" class="col-md-2">
+                    <mat-form-field class="full-width date-control margin-btm-20">
+                        <input numericwithspecialcharinput="/" maxlength="10" autocomplete="off" matInput type="text" name="dob" formControlName="dob"
+                            placeholder="Date of birth*">
+                    </mat-form-field>
+                    <span class="pull-left no-margin no-padding date-format text-small">MM/DD/YYYY</span>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field class="full-width date-control margin-btm-20">
+                        <input numericwithspecialcharinput="(,), ,+,-,x" maxlength="24" autocomplete="off" matInput type="text" name="phone" formControlName="phone"
+                            placeholder="Phone number">
+                    </mat-form-field>
+                    <span class="pull-left no-margin no-padding date-format text-small">
+                        [+##-]###-###-####[ x#####] where [+##-] is an optional international dialing prefix and [ x#####] is an optional extension.</span>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="full-width">
+                        <input maxlength="50" autocomplete="off" matInput type="text" name="emailAddress" formControlName="emailAddress" placeholder="Email">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<div *ngIf="viewOnly && canBeneficiaryDisplayInViewMode()" class="margin-btm30 text-small border-bottom">
+    <div class="print-row row no-margin-bottom no-padding no-spacing-left">
+        <div class="print-col-5 col-md-6 col-xs-12">
+            <span *ngIf="model.isIndividual" class="print-view-title">Name:</span>
+            <span *ngIf="model.isIndividual">{{fullName}} </span>
+
+            <span *ngIf="!model.isIndividual" class="print-view-title">Entity name:</span>
+            <span *ngIf="!model.isIndividual">{{model.trustName}}</span>
+        </div>
+
+        <div class="print-col-5 col-md-3 col-xs-12">
+            <span class="print-view-title">Relationship to {{relationshipTo}}: </span>
+            <span>{{model.relationship}}</span>
+        </div>
+
+        <div class="print-col-2 col-md-3 col-xs-12 print-padding-right print-padding-left">
+            <span class="print-view-title">Benefit %:</span>
+            <span>{{model.benefit}}</span>
+        </div>
+    </div>
+
+    <div class="print-row row no-margin-bottom no-padding no-spacing-left">
+        <div class="print-col-5 col-md-6 col-xs-12">
+            <span class="print-view-title">Address:</span>
+            <span>{{Address}}</span>
+        </div>
+        <div class="print-col-3 col-md-3 col-xs-12">
+            <span *ngIf="model.isIndividual" class="print-view-title">SSN:</span>
+            <span *ngIf="!model.isIndividual" class="print-view-title">TIN:</span>
+            <span data-mask="ssn">{{model.ssn}}</span>
+            <!-- <span>{{model.ssn | numberMaskingPipe}}</span> -->
+        </div>
+        <div class="print-col-4 col-md-3 col-xs-12">
+            <div *ngIf="model.isIndividual">
+                <span class="print-view-title">Date of birth:</span>
+                <span data-mask="dob">{{model.dob | date: dateFormat }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="print-row row no-margin-bottom no-padding no-spacing-left">
+        <div class="print-col-5 col-md-6 col-xs-12">
+            <span class="print-view-title">Phone number:</span>
+            <span>{{model.phone}}</span>
+        </div>
+
+        <div class="print-col-6 col-md-4 col-xs-12">
+            <span class="print-view-title">Email address:</span>
+            <span data-mask="email">{{model.emailAddress}}</span>
+        </div>
+    </div>
+</div>

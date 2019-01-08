@@ -1,0 +1,12 @@
+<section class="container-fluid with-maxwidth chapter no-padding-left no-padding-right">
+    <article class="article">
+        <div class="box-body-fgl">
+            <div *ngIf="policyInfo!=null">
+                <dynamic-policy-view [policyInfo]="policyInfo" [policyType]="policyType"></dynamic-policy-view>
+            </div>
+            <div class="alert alert-info validation-error margin-top100" role="alert" *ngIf="errorMessage!=''">
+                <strong>{{errorMessage}}</strong>
+            </div>
+        </div>
+    </article>
+</section>

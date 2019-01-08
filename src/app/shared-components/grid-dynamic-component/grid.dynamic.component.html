@@ -1,0 +1,69 @@
+<table class="table-bordered cf table-striped full-width {{gridColumns!=null && gridColumns.headerCells!=null ? 'dynamic-policy-table': ''}} {{tableClasses ? tableClasses : 'mdl-data-table'}}">
+    <thead *ngIf="gridColumns" class="cf">
+        <tr>
+            <th *ngFor="let cell of gridColumns.headerCells" class="{{cell.fieldProperty.displayLabelCss}}" [ngClass]="'text-'+ TextAlign[cell.fieldProperty.displayLabelAlign].toLowerCase()">
+                {{cell.fieldProperty.displayLabel}}
+                <fgl-tooltip-dynamic *ngIf='cell.fieldProperty.tooltipText' [class]="'mat-white md-18'" [tooltipText]="cell.fieldProperty?.tooltipText"></fgl-tooltip-dynamic>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of dataSource | sortBy: 'order': false; let rowIndex = index" class="{{row.cssClasses}}">
+            <td *ngFor="let cell of row.cells; let colIndex = index" 
+                [attr.data-label]="(gridColumns!=null && gridColumns.headerCells!=null && gridColumns.headerCells.length-1 >= colIndex) ? gridColumns.headerCells[colIndex].fieldProperty.displayLabel : ''" 
+                class="{{cell.fieldProperty.displayLabelCss}}" >
+                <div *ngIf="!cell.anchorUrl">
+                    <div *ngIf="cell.columnType!=8 || isViewOnly==true" [ngClass]="'text-'+ TextAlign[cell.fieldProperty.displayLabelAlign].toLowerCase()">
+                        {{renderCell(cell)}}
+                        <!-- Fast Follow Version
+                        <span *ngIf="cell.tooltipId">
+                            <fgl-tooltip [class]="'mat-18'" tooltipHtml="{{cell.tooltipId}}" 
+                                triggers="click hover focus" position="top" container="body"></fgl-tooltip>
+                        </span> -->
+                        <span *ngIf="colIndex==0 && isProductList && cell.tooltipId == 'tooltipLapsed'" 
+                            [ngbTooltip]="tooltipLapsed" triggers="click hover focus" position="top" container="body">
+                            <mat-icon class="material-icons mat-18 {{class}}">help_outline</mat-icon>
+                        </span>
+                        <span *ngIf="colIndex==0 && isProductList && cell.tooltipId == 'tooltipDetailsDisabled'" 
+                            [ngbTooltip]="tooltipDetailsDisabled" triggers="click hover focus" position="top" container="body">
+                            <mat-icon class="material-icons mat-18 {{class}}">help_outline</mat-icon>
+                        </span>
+                        <span *ngIf="colIndex==0 && isProductList && cell.tooltipId == 'tooltipMonthEndUnavailable'" 
+                            [ngbTooltip]="tooltipMonthEndUnavailable" triggers="click hover focus" position="top" container="body">
+                            <mat-icon class="material-icons mat-18 {{class}}">help_outline</mat-icon>
+                        </span>
+                        <fgl-tooltip-dynamic *ngIf='cell.fieldProperty.tooltipText' [class]="'mat-white mat-18'" [tooltipText]="cell.fieldProperty.tooltipText"></fgl-tooltip-dynamic>
+                    </div>
+                    <div *ngIf="cell.columnType==8">
+                        <input *ngIf="!isViewOnly" [attr.cellIndex]="colIndex" [attr.rowIndex]="rowIndex" decimalinput class="width100px text-center"
+                            maxlength="17" (change)="onTextBoxValueChange($event, row)" matInput type="text" autocomplete="off"
+                            [value]="renderCell(cell)">
+                    </div>
+                </div>
+                <div *ngIf="cell.anchorUrl">
+                    <a *ngIf="cell.isAttachAnchorClickEvent==false" [routerLink]="cell.anchorUrl" class="cursorpointer">
+                        {{renderCell(cell)}}
+                    </a>
+                    <a *ngIf="cell.isAttachAnchorClickEvent==true" class="cursorpointer" (click)="onLinkClicked(row)">
+                        {{renderCell(cell)}}
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #tooltipLapsed>
+    Details of this policy are unavailable due to lapsed policy status. Please visit
+    <strong>Contact Us</strong> or call 888-513-8797 if you have any questions.
+</ng-template>
+<ng-template #tooltipDetailsDisabled>
+    Details of this policy are unavailable due to policy status. Please visit
+    <strong>Contact Us</strong> or call 888-513-8797 if you have any questions.
+</ng-template>
+<ng-template #tooltipMonthEndUnavailable>
+    Policy values will be available after the first month end following your issue date. 
+    For current policy values, please <strong>Contact Us</strong>.
+</ng-template>
+
+<!-- Please, <a [routerLink]="[config.getConfig('appContactUsUrl')]"> contact us </a> if you have any questions. -->

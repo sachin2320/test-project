@@ -1,0 +1,19 @@
+<section class="container-fluid with-maxwidth chapter margin-top100">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="page-err">
+                <div class="err-container text-center">
+                    <div class="err">
+                        <div>
+                            <h2>{{errorMessage}}</h2>
+                        </div>
+                    </div>
+
+                    <div class="err-body" *ngIf="showHomeButton">
+                        <a mat-raised-button [routerLink]="[config.getConfig('appHomeUrl')]" class="btn-lg">Go Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

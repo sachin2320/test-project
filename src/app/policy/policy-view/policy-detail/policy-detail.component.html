@@ -1,0 +1,20 @@
+<div class="row account-container no-margin-left">
+    <div class="col-xs-12" [ngClass]="'col-md-' + (12/columns.length) + ' col-sm-' + (12/columns.length)" *ngFor="let column of columns">
+        <div class="row" *ngFor="let columnRow of column.policyDetailModels">
+            <div [ngClass]="'account-title col-md-6 col-sm-6 col-xs-12 text-'+ columnRow.textAlign">
+                {{columnRow?.key}}
+                <fgl-tooltip-dynamic *ngIf='columnRow.tooltipText' [class]="'mat-18'" [tooltipText]="columnRow?.tooltipText"></fgl-tooltip-dynamic>
+            </div>
+            <div [ngClass]="'account-desc col-md-6 col-sm-6 col-xs-12 no-padding-left text-'+ columnRow.valueAlign">
+                {{ columnRow?.type==1? (columnRow?.value | decimalPipe:DecimalType.Currency) : columnRow?.type==3 ? (columnRow?.value | date:
+                dateFormat) : columnRow?.value }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pull-left margin-top30">
+    <div class="col-md-12 col-sm-12 pull-left text-small no-padding font-italic-xxx">
+        {{model.assistanceText}}
+        <a [routerLink]="[config.getConfig('appContactUsUrl')]" [queryParams]="{policyNumber:model.policyNumber}" class="link-underline">contact us</a>.
+    </div>
+</div>

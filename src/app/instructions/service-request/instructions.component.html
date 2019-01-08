@@ -1,0 +1,121 @@
+<div class="page-auth">
+  <div class="main-body-reg-auth">
+    <div class="card card-white">
+      <div class="card-content-reg">
+
+        <div class="margin-btm10 box-body-fgl">
+
+          <div *ngIf="serviceType">
+            <div class="row">
+              <div class="col-md-12 col-xs-12 article-title-heading1">
+                Instructions:
+              </div>
+            </div>
+
+            <!-- Change Beneficiary -->
+            <div *ngIf="serviceType">
+              <div class="row">
+                <div class="col-md-12 col-xs-12 font-blue bold margin-top10">
+                  USE THIS FORM TO CHANGE OR UPDATE BENEFICIARIES ON YOUR ANNUITY CONTRACT OR LIFE INSURANCE POLICY. A CLEAR, CURRENT BENEFICIARY
+                  DESIGNATION IS EXTREMELY IMPORTANT TO BOTH THE POLICYHOLDER AND TO THE INSURANCE COMPANY.
+                </div>
+
+                <div class="col-md-12 col-xs-12 font-blue bold margin-top10">
+                  IDENTIFICATION
+                </div>
+                <div class="col-md-12 col-xs-12">
+                  We encourage all policyholders to name one or more contingent beneficiaries to their life insurance policies and annuity
+                  contracts in order to plan for the possibility that a primary beneficiary has predeceased the insured.
+                  Please carefully review your decisions and clearly identify intended beneficiaries. Review the following
+                  examples of common estate planning beneficiary instructions:
+                  <ul>
+                    <li> Insured's estate – “Executors or Administrators of the Insured's Estate.” </li>
+                    <li> Corporation – “The Brown Paper Company, Inc., an Iowa Corporation, its successors and assigns.” </li>
+                    <li> Partnership – “John Doe and Sons, a partnership consisting of John Doe, James Doe, and Robert Doe, its
+                      successors or assigns.” </li>
+                    <li> Corporate trustees – “Wells Fargo, Baltimore, MD, Trustee, or its successors in trust, under Trust Agreement
+                      dated February 12, 2015.” </li>
+                    <li> Individual trustee – “John J. Jones Insurance Trust naming Mary Smith as Trustee under Trust Agreement
+                      date February 15, 2015.” </li>
+                    <li> Assignee – “John Doe, assignee of Dave Smith.” </li>
+                  </ul>
+                </div>
+
+                <div class="col-md-12 col-xs-12 font-blue bold margin-top10">
+                  SIGNATURES
+                </div>
+                <div class="col-md-12 col-xs-12">
+                  For our company to make requested changes, we must have all required signatures. If the policy is owned by:
+                  <ul>
+                    <li>Individual(s) – All individual owners must sign.</li>
+                    <li> Corporation, LLC – Two officers of the company or managing member of the LLC must sign with title and
+                      provide either a corporate or board of director's resolution, a copy of the Articles of Incorporation
+                      or operating agreement for the LLC. Officer 2, sign in “Other Required Signature” section.</li>
+                    <li>Partnership – All partners must sign. </li>
+                    <li> Trust – All trustee(s) must sign with title “trustee” according to the terms of the Trust Agreement.</li>
+                    <li>Irrevocable beneficiary – Owner must have signed consent of beneficiary.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Change Name -->
+            <div *ngIf="serviceType==2">              
+            </div>
+
+            <!-- Change mailing address -->
+            <div *ngIf="serviceType==3">            
+            </div>
+
+            <!-- Term Life Insurance Cancellation -->
+            <div *ngIf="serviceType==4">
+              
+            </div>
+
+            <!-- Not implemented yet -->
+            <div *ngIf="serviceType==5">
+                           
+            </div>
+
+
+            <!-- Not implemented yet -->
+            <div *ngIf="serviceType==6">
+
+            </div>
+
+
+            <!-- Not implemented yet  -->
+            <div *ngIf="serviceType==7">
+             
+            </div>
+
+            <!-- Interest Crediting Reallocation -->
+            <div *ngIf="serviceType==8">
+            
+            </div>
+
+            <!-- Automatic Premium Bank Information -->
+            <div *ngIf="serviceType==9">
+            
+            </div>
+
+            <!-- Life loan -->
+            <div *ngIf="serviceType==11">
+            
+            </div>
+
+            <!-- Not implemented yet -->
+            <div *ngIf="serviceType==12">
+            
+            </div>
+
+            <!-- update-payment-mode -->
+            <div *ngIf="serviceType==13">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

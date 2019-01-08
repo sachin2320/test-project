@@ -1,0 +1,50 @@
+<form [formGroup]="changePaymentModeForm" name="changePaymentModeForm">
+<fieldset>
+<div class="box-body-fgl no-padding-left no-padding-right">
+
+    <div class="row box-body-fgl no-padding-left no-padding-right">
+        <div class="col-md-12 co-sm-12 col-xs-12 mat-dialog-title">
+            Instructions
+        </div>
+    </div>
+    <div class="row box-body-fgl no-padding-left no-padding-right">
+        <div class="col-md-12 co-sm-12 col-xs-12 mat-dialog-title">
+            Please select appropriate option:
+        </div>
+    </div>
+
+    <div class="row box-body-fgl no-padding-left no-padding-right">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <mat-radio-group (change)="onPremiumTypeChanged($event)" formControlName="premiumType" class="md-radio-group-spacing">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <mat-radio-button value="1">
+                               <span class="margin-left5"> 
+                                   Change premium mode (annual, semiannual, quarterly) and planned premium
+                                </span>
+                            </mat-radio-button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <mat-radio-button value="2">
+                                <span class="margin-left5">
+                                    Change premium mode (monthly) and planned premium
+                                </span>
+                            </mat-radio-button>
+                        </div>
+                    </div>
+                </mat-radio-group>
+            </div>
+    </div>
+
+    <service-request-offline-body (onservicerequestsaved)="onServiceRequestSavedFired($event)" (onbodyvaluechanged)="onBodyValueChanged($event)"
+        [servicetype]="serviceType" [policydetail]="policyDetail" [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"
+        [dataitems]="dataItems" [emailfaxdataitems]="emailFaxDataItems" [showlifeannuityfax]="false" [showlifefax]="true" [showinstructions]="false" 
+        [isemailfaxtabvisible]="isEmailFaxTabVisible" [isuploadtabvisible]="isUploadTabVisible" [premiummode]="premiumMode"
+        (onemailfaxoruploadlinkclicked)="onEmailFaxOrUploadLinkClickedFired($event)" >
+    </service-request-offline-body>
+</div>
+
+</fieldset>
+</form>

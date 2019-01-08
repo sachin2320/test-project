@@ -1,0 +1,22 @@
+<div *ngFor="let item of model">
+    <div class="margin-btm10 row">
+        <div *ngIf="viewOnly=='false'" class="col-md-5 col-xs-12 col-sm-6 print-view-title bold">{{item.description}}
+            ({{item.isRequired ? 'required' : 'if applicable'}}):</div>
+        <div *ngIf="viewOnly=='false'" class="col-md-7 col-xs-12 col-sm-6">
+            <div class="row">
+                <div class="col-md-5 col-xs-12 col-sm-12">
+                    <label class="fglFileUpload">
+                        <input id="file-input" [disabled]="controlDisabled" value="Browse" type="file" (change)="fileChange($event)"
+                            attr.FileId="{{item.id}}" accept="{{item.documentFileType}}" />
+                        <span>Browse</span>
+                    </label>
+                </div>
+                <div class="col-md-7 col-xs-12 col-sm-12 wrap-break-all"> {{item.fileName}}</div>
+            </div>
+        </div>
+        <div *ngIf="showInstructions=='true'" class="col-md-12 small pull-left print-view-title margin-left15-xxx">(File must be in PDF format and maximum of 25MB)</div>
+    </div>
+    <div *ngIf="viewOnly=='true'" class="margin-btm10 row no-padding">
+        <div class="col-md-12 col-sm-12 col-xs-12 wrap-break-all">{{item.fileName}}</div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<form [formGroup]="formGroup" name="formGroup" class="mat-form-auth">
+    <fieldset>
+        <div class="no-margin-bottom form-group" *ngIf="showCurrentEmail">
+            <mat-form-field class="full-width mat-icon-left no-margin-bottom">
+                <!-- <mat-icon class="material-icons">mail_outline</mat-icon> -->
+                <input readonly maxlength="50" matInput type="email" autocomplete="off" onCopy="return false" onPaste="return false" formControlName="currentEmail"
+                    name="currentEmail" [placeholder]="currentEmailPlaceholder">
+            </mat-form-field>
+        </div>
+
+        <div class="no-margin-bottom form-group">
+            <mat-form-field class="full-width mat-icon-left no-margin-bottom">
+                <!-- <mat-icon class="material-icons">mail_outline</mat-icon> -->
+                <input required maxlength="50" matInput type="email" formControlName="email" onCopy="return false" onPaste="return false"
+                    autocomplete="off" name="email" [placeholder]="newEmailPlaceholder">
+            </mat-form-field>
+        </div>
+
+        <div class="form-group  no-margin-bottom">
+            <mat-form-field class="full-width mat-icon-left no-margin-bottom">
+                <input required maxlength="50" matInput type="email" formControlName="confirmEmail" autocomplete="off" name="confirmEmail"
+                    onCopy="return false" onPaste="return false" [placeholder]="confirmEmailPlaceholder">
+            </mat-form-field>
+        </div>
+       
+        <div *ngIf="showIsEmailPrimarySection" class="margin-top10 padding-left40 no-margin-bottom">
+                <div class="full-width margin-top10">Would you like to save this email as your primary contact for your FGL Policy(ies)?</div>
+                <div class="full-width margin-top5">
+                    <mat-radio-group formControlName="isPrimaryEmail" class="md-radio-group-spacing">
+                        <mat-radio-button value="true">
+                            Yes
+                        </mat-radio-button>
+                        <mat-radio-button value="false" class="margin-left40">
+                            No
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+
+        <div class="col-12">
+            <div class="margin-btm10">
+                  <fgl-message message="The email and confirmation email do not match. Please verify and re-enter the information again."
+                 *ngIf="formGroup.controls.confirmEmail.errors?.confirmEmailNotMatch"></fgl-message> 
+            </div> 
+        </div>
+    </fieldset>
+</form>

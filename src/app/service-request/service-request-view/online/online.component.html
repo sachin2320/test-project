@@ -1,0 +1,69 @@
+<section *ngIf="isDataLoadCompleted" class="container-fluid with-maxwidth chapter">
+    <div class="article-title-heading1 margin-top75">Service Requests</div>
+    <div class="article-title-heading2 margin-btm20">Service Request {{serviceRequestModel.requestXRefId}} - {{serviceRequestModel.requestType}}</div>
+    <div>
+        <form name="" class="mat-form-auth">
+            <fieldset>
+                <div>
+                    <servicerequest-header disclosuretext="Policy Information" [isviewonly]="isViewOnly" [issrdetailonly]="isSrDetailOnly" [model]="headerModel"></servicerequest-header>
+                    <div class="article-title-heading2 margin-service-request-view">Service Request Details</div>
+                    <div class="margin-btm20">
+                        <table class="col-md-4">
+                            <tr class="border">
+                                <td>Status:</td>
+                                <td>{{serviceRequestModel.requestStatus}}</td>
+                            </tr>
+                            <tr class="border">
+                                <td>Submission date:</td>
+                                <td>{{utility.convertUtcToLocalDate(serviceRequestModel.submittedDate)}}</td>
+                            </tr>
+                            <tr class="border">
+                                <td>Last updated:</td>
+                                <td>{{utility.convertUtcToLocalDate(serviceRequestModel.lastUpdateDate)}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div id="body" [innerHtml]="serviceRequestModel.serviceRequestHTML"></div>
+
+                    <div *ngIf="dataSource !=null && dataSource.length>0" class="article-title-heading2 margin-btm10">Documents</div>
+                    <div *ngIf="dataSource !=null && dataSource.length>0" class="box box-default table-box mdl-shadow--2dp margin-btm20">
+                        <fgl-grid baseclass="mdl-data-table-rsp service-request-document auto-height" tableclasses="no-margin" [datasource]="dataSource"
+                            [columns]="columns"></fgl-grid>
+                    </div>
+
+                    <div class="article-title-heading2 margin-btm10">Comments</div>
+                    <div class="margin-btm30">
+                        <div class="col-md-12 no-padding border-box">  <!-- [class.border-bottom-none]="!isRequestInReadonlyMode" -->
+                            <div class="padding-left5" *ngFor="let comment of zendeskCommentModel">
+                                <span class="small print-view-title font-italic">
+                                    On {{utility.convertUtcToLocalDate(comment.commentDate)}} at {{utility.convertUtcToLocalTime(comment.commentDate)}}, {{comment.commentBy}}
+                                    wrote:
+                                </span>
+                                <br/>
+                                <span class="text-small">{{comment.description}}</span>
+                            </div>
+                        </div>
+                        <div class="row margin-top30">
+                            <div class="col-md-12 col-sm-12 col-xs-12 no-spacing-left">
+                                <textarea [hidden]="isRequestInReadonlyMode" [(ngModel)]="userComment" [ngModelOptions]="{standalone: true}" style="resize:none;"
+                                    class="border-box full-width" placeholder="Enter comment" maxlength="2000" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin-btm5 row text-center">
+                        <fgl-message [message]="errorMessage" class="col-md-12 col-sm-12 col-xs-12"></fgl-message>
+                    </div>
+                    <div class="row margin-btm15 margin-top30-xxx margin-btm30">
+                        <div class="col-md-12 col-sm-12 col-xs-12 margin-btm30">
+                            <button color="primary" (click)="cancelRequest()" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor margin-right10">Cancel</button>
+
+                            <button [disabled]="userComment=='' || isRequestInReadonlyMode" color="primary" (click)="submitComment()" mat-raised-button
+                                type="button" class="float-md-right float-lg-right btn-fgl-bgcolor">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>

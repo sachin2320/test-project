@@ -1,0 +1,11 @@
+<section class="container-fluid with-maxwidth chapter">
+    <div class="article-title-heading1 margin-top75">{{ homeType =='MP'?'My Policies':'Home' }}</div>
+    <article class="article">
+        <policy-list> </policy-list>
+      
+        <div *ngIf="homeType !='MP'">
+            <h2 class="article-title">Open Service Requests</h2>
+            <fgl-serviceRequest [indicator]="1"></fgl-serviceRequest>
+        </div>
+    </article>
+</section>

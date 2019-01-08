@@ -1,0 +1,36 @@
+<section class="container-fluid with-maxwidth chapter">
+    <div>
+        <div class="article-title-heading1">Statements</div>
+        <div class="account-action margin-top30">
+            <div class="row account-container">
+                <div class="col-md-3">
+                    <div class="width90">
+                        <mat-form-field class="full-width">
+                            <mat-select class="full-width" placeholder="Policy number" (selectionChange)="onPolicyChange($event)">
+                                <mat-option *ngFor="let policy of policies" [value]="policy.number">
+                                    {{ policy.number }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row account-action" *ngIf="statementDocModel">
+                <div class="col-md-12 mat-select-trigger margin-top20">
+                    Annual Statements for policy {{statementDocModel.policyNo}}
+                </div>
+                <div class="col-md-12 margin-top10">
+                    <!-- <mat-icon class="material-icons">file_download</mat-icon>  -->
+                    <div class="margin-right10 pull-left">
+                        <i class="fa fa-file-pdf-o pdf-font-size" aria-hidden="true"></i>
+                    </div>
+                    <div class="pull-left margin-top10">
+                        <a href="#">{{statementDocModel.documentTitle}}.pdf</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

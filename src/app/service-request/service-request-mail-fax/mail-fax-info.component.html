@@ -1,0 +1,93 @@
+
+<div class="row" *ngIf="serviceType!=4 && serviceType!=9 && serviceType!=12">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        <div *ngIf="serviceType==8">
+            Return letter with any required documentation via U.S. mail, overnight mail or fax to:
+        </div>
+        <div *ngIf="serviceType!=8">
+            Return the completed forms with any required documentation via U.S. mail, overnight mail or fax to:
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="serviceType!=4 && serviceType!=9 && serviceType!=13 && serviceType!=12">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        Fidelity & Guaranty Life Insurance Company Service Center.
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12 margin-top20 text-green bold">
+        Postal Mail
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        Fidelity & Guaranty Life Insurance Company Service Center
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        P.O. Box 81497
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        Lincoln, NE 68501-1497
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12 margin-top20 text-green bold">
+        Overnight Mail
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        Fidelity & Guaranty Life Insurance Company Service Center
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        777 Research Drive
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        Lincoln, NE 68521
+    </div>
+</div>
+
+<div class="row" *ngIf="serviceType!=12">
+    <div class="col-md-12 col-xs-12 col-sm-12 margin-top20 text-green bold">
+        Fax
+    </div>
+</div>
+<div *ngIf="serviceType!=7 && serviceType!=16 && serviceType!=17 && serviceType!=12">  
+<div class="row" *ngIf="showLifeAnnuityFax">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        Annuity PHS: 402-328-2266
+    </div>
+</div>
+<div class="row" *ngIf="showLifeAnnuityFax">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        Life PHS: 800-281-5777
+    </div>
+</div>
+
+<div class="row" *ngIf="!showLifeAnnuityFax && !showLifeFax">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        Annuity PHS: 402-328-2266
+    </div>
+</div>
+<div class="row" *ngIf="!showLifeAnnuityFax && showLifeFax">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        800-281-5777
+    </div>
+</div>
+</div>
+<div class="row" *ngIf="serviceType ==7 || serviceType ==16 || serviceType ==17">  
+        <div class="col-md-12 col-xs-12 col-sm-12">
+               800-281-5777
+            </div>
+    </div>

@@ -1,0 +1,61 @@
+<section class="container-fluid with-maxwidth chapter">
+    <div class="article-title-heading1 margin-btm15">Service Requests</div>
+
+    <!-- Policy & Service Type Selection -->
+    <div>
+        <div class="article-title-heading1 margin-btm10">Create Service Request</div>
+        <div class="account-action">
+            <div class="row account-container">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <section class="account-item">
+                        <div class="float-left width90">
+                            <mat-form-field class="full-width margin-btm-15">
+                                <mat-select class="full-width" placeholder="Select a policy*" (ngModelChange)="policyChanged($event)"
+                                    [(ngModel)]="selectedPolicy">
+                                    <mat-option *ngFor="let policy of serviceRequestPolicies" [value]="policy">
+                                        <div>
+                                            <span class="padding-right10">{{policy.policyNumber}} </span>
+                                            <span class="padding-right10">{{ policy.productName}}</span>
+                                            <!-- ALM-169 Showing Policy Number, Product, and Owner -->
+                                            <!-- <span class="padding-right10">{{ policy.ownerName}}</span> -->
+                                        </div>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="selectedPolicy" class="account-action">
+            <div class="row account-container">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <section class="account-item">
+                        <div class="float-left width90">
+                            <mat-form-field class="full-width">
+                                <!-- ALM-118 -->
+                                <!-- <mat-select class="full-width" placeholder="Select the service request you wish to complete*" (ngModelChange)="serviceTypeChange($event)" -->
+                                <mat-select class="full-width" placeholder="Select a service request*" (ngModelChange)="serviceTypeChange($event)"
+                                    [(ngModel)]="serviceType">
+                                    <mat-option *ngFor="let serviceRequestType of serviceRequestTypes" [value]="serviceRequestType">
+                                        {{ serviceRequestType.requestTypeName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 margin-btm20 margin-top10 no-padding">
+        For service requests not listed above or questions regarding inactive policies, please
+        <a [routerLink]="[config.getConfig('appContactUsUrl')]" [queryParams]="{policyNumber:selectedPolicyNumber}" class="link-underline">
+            contact us</a>.
+    </div>
+    <div class="col-md-12 margin-btm20 no-padding">
+        Online service requests may only be submitted for policies with a single, individual owner. For policies
+        with joint or corporate ownership, owners may download, complete and upload a form to request changes or
+        services related to their policy.
+    </div>
+</section>

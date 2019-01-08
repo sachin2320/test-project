@@ -1,0 +1,53 @@
+<ul class="nav left-nav-bg" myAccordionNav myAppendSubmenuIcon mySlimScroll myHighlightActiveItems>
+
+  <li>
+    <a mat-button [routerLink]="[config.getConfig('appHomeUrl')]" routerLinkActive="nav-active-link" [routerLinkActiveOptions]="{exact:true}" class="no-margin-right">
+      <!-- <i class="nav-icon material-icons">home</i> -->
+      <span class="nav-text">Home</span>
+    </a>
+  </li>
+
+  <li>
+    <a mat-button [routerLink]="[config.getConfig('appHomeUrl')]" [queryParams]="{Type:'MP'}" routerLinkActive="nav-active-link"
+      [routerLinkActiveOptions]="{exact:true}" class="no-margin-right">
+      <!-- <i class="nav-icon material-icons">folder_open</i> -->
+      <span class="nav-text">My Policies</span>
+    </a>
+  </li>
+
+  <li>
+    <a mat-button [routerLink]="[config.getConfig('appMyPolicyDocListUrl')]" routerLinkActive="nav-active-link" [routerLinkActiveOptions]="{exact:true}" class="no-margin-right">
+      <!-- <i class="nav-icon material-icons">description</i> -->
+      <span class="nav-text">My Policy Documents</span>
+    </a>
+  </li>
+
+  <li>
+    <a mat-button [routerLink]="[config.getConfig('appServiceListUrl')]" routerLinkActive="nav-active-link" [routerLinkActiveOptions]="{exact:true}" class="no-margin-right">
+      <!-- <i class="nav-icon material-icons">settings</i> -->
+      <span class="nav-text">My Service Requests</span>
+    </a>
+  </li>
+
+  <li>
+    <a mat-button [routerLink]="[config.getConfig('appAccountActionUrl')]" routerLinkActive="nav-active-link" [routerLinkActiveOptions]="{exact:true}" class="no-margin-right">
+      <!-- <i class="nav-icon material-icons">perm_identity</i> -->
+      <span class="nav-text">My Profile</span>
+    </a>
+  </li>
+
+  <li>
+    <a mat-button [routerLink]="[config.getConfig('appContactUsUrl')]" routerLinkActive="nav-active-link" [routerLinkActiveOptions]="{exact:true}" class="no-margin-right">
+      <!-- <i class="nav-icon material-icons">phone</i> -->
+      <span class="nav-text">Contact Us</span>
+    </a>
+  </li>
+
+  <li>
+    <a mat-button target="_blank" [href]="[config.getConfig('zendeskHelpCenterUrl')]" class="no-margin-right">
+      <!-- <i class="nav-icon material-icons">help</i> -->
+      <span class="nav-text">Help</span>
+    </a>
+  </li>
+  
+</ul>

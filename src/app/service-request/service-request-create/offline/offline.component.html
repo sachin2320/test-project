@@ -1,0 +1,123 @@
+<section class="container-fluid with-maxwidth chapter no-padding">
+
+    <ng-container *ngIf="userNotAuthorizedMessage == ''; then userAuthorized; else userNotAuthorized">
+    </ng-container>
+
+    <ng-template #userNotAuthorized>
+        <div class="alert alert-info validation-error margin-top100" role="alert">
+            <strong>{{userNotAuthorizedMessage}}</strong>
+        </div>
+    </ng-template>
+
+    <ng-template #userAuthorized>
+        <article *ngIf="!isSubmissionSuccess" class="article">
+            <div class="box-body">
+                <div class="no-padding-left">
+                    <servicerequest-offline-header [model]="headerModel"></servicerequest-offline-header>
+                </div>
+
+                <div class="no-padding">
+                    <!-- Change Beneficiary -->
+                    <div *ngIf="serviceType==1">
+                        <change-beneficiary-offline (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType" [policydetail]="policyDetail"
+                            [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></change-beneficiary-offline>
+                    </div>
+
+                    <!-- Change Name -->
+                    <div *ngIf="serviceType==2">
+                        <change-name-offline (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType" [policydetail]="policyDetail"
+                            [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode">
+                        </change-name-offline>
+                    </div>
+
+                    <!-- Change Mailing Address -->
+                    <div *ngIf="serviceType==3">
+                        <change-address-offline (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType" [policydetail]="policyDetail"
+                            [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></change-address-offline>
+                    </div>
+
+                    <!-- Term Life Insurance Cancellation -->
+                    <div *ngIf="serviceType==4">
+                        <term-life-insurance-cancellation-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType"
+                            [policydetail]="policyDetail" [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></term-life-insurance-cancellation-download>
+                    </div>
+
+                    <!-- Duplicate Life Insurance -->
+                    <div *ngIf="serviceType==12">
+                        <duplicate-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType" [policydetail]="policyDetail"
+                            [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></duplicate-download>
+                    </div>
+
+                    <!-- Required Minimum Distribution -->
+                    <div *ngIf="serviceType==7">
+                        <required-minimum-distribution-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType"
+                            [policydetail]="policyDetail" [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></required-minimum-distribution-download>
+                    </div>
+
+                    <!-- Interest Crediting Reallocation-->
+                    <div *ngIf="serviceType==8">
+                        <interest-crediting-reallocation-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType"
+                            [policydetail]="policyDetail" [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></interest-crediting-reallocation-download>
+                    </div>
+
+                    <!-- Automatic Premium Bank Information -->
+                    <div *ngIf="serviceType==9">
+                        <automatic-premium-bank-information-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType"
+                            [policydetail]="policyDetail" [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></automatic-premium-bank-information-download>
+                    </div>
+
+                    <!-- Life Loan -->
+                    <div *ngIf="serviceType==11">
+                        <life-loan-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType" [policydetail]="policyDetail"
+                            [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></life-loan-download>
+                    </div>
+
+                    <!-- Change Payment Mode -->
+                    <div *ngIf="serviceType==13">
+                        <change-payment-mode-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType" [policydetail]="policyDetail"
+                            [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></change-payment-mode-download>
+                    </div>
+
+                    <!-- Disbursement Life Insurance -->
+                    <div *ngIf="serviceType==10">
+                        <disbursement-life-insurance-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType"
+                            [policydetail]="policyDetail" [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></disbursement-life-insurance-download>
+                    </div>
+
+                    <!-- Disbursement Systematic Withdrawl (Qualified Annuity) -->
+                    <div *ngIf="serviceType==16">
+                        <qualified-disbursement-systematic-withdrawl-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType"
+                            [policydetail]="policyDetail" [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></qualified-disbursement-systematic-withdrawl-download>
+                    </div>
+
+                    <!-- Disbursement Systematic Withdrawl (Non-Qualified Annuity) -->
+                    <div *ngIf="serviceType==17">
+                        <non-qualified-disbursement-systematic-withdrawl-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType"
+                            [policydetail]="policyDetail" [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></non-qualified-disbursement-systematic-withdrawl-download>
+                    </div>
+
+                    <!-- Interest Crediting Reallocation - Fixed Index Annuities -->
+                    <div *ngIf="serviceType==19">
+                        <interest-crediting-reallocation-fia-download (onservicerequestsaved)="onServiceRequestSaved($event)" [servicetype]="serviceType"
+                            [policydetail]="policyDetail" [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"></interest-crediting-reallocation-fia-download>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- Confirmation Page -->
+        <div class="bold" *ngIf="isSubmissionSuccess && (policyNumber !='' && serviceType  != '0') ">
+            <div class="no-padding-left">
+                <servicerequest-offline-header [model]="headerModel"></servicerequest-offline-header>
+            </div>           
+            <div class="col-12 text-center margin-top30">
+                {{confirmationMessage}}
+            </div>
+            <div class="col-12 text-center margin-top10" *ngIf="aditionalConfirmationDisclosure">
+                {{aditionalConfirmationDisclosure}}
+            </div>
+            <div class="text-center col-12 margin-top50">
+                <button [routerLink]="[config.getConfig('appServiceListUrl')]" color="primary" mat-raised-button type="button" class="width200px btn-fgl-bgcolor no-padding ">Okay</button>
+            </div>
+        </div>
+    </ng-template>
+</section>

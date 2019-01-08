@@ -1,0 +1,43 @@
+<div id="" class="page-auth">
+    <div class="main-body-forgot-auth">
+        <div class="card-reg card-white">
+            <div class="card-content-user">
+                <div class="logo-reg">
+                    <fgl-logo [isWhiteLogo]="false" [height]="60"></fgl-logo>
+                </div>
+
+                <div *ngIf="!isEmailChanged" class="col-11">
+                    <div class="profile article-title-heading5">Change Email Address</div>
+
+                    <div>
+                        <form name="emailInfoForm" class="mat-form-auth form-validation" [formGroup]="emailInfoForm">
+                            <fieldset>
+                                <email [showIsEmailPrimarySection]="showPrimaryEmailSection" (emailComponentValueChanged)="onEmailComponentValueChanged($event)" showCurrentEmail="true"></email>
+
+                                <div class="margin-btm5">
+                                    <fgl-message [message]="errorMessage"></fgl-message>
+                                </div>
+                                <div class="row">
+                                    <div class="pull-left float-md-left float-lg-left margin-left20 col-6">
+                                        <button [routerLink]="[config.getConfig('appAccountActionUrl')]" color="primary" mat-raised-button type="button" class="pull-left btn-fgl-bgcolor margin-left15">Cancel</button>
+                                    </div>
+                                    <div class="pull-right float-md-left float-lg-right margin-left-m20 col-6">
+                                        <button [disabled]="!emailInfoForm.valid" (click)="changeEmail()" color="primary" mat-raised-button type="button" class="pull-right btn-fgl-bgcolor margin-left-m20">Submit</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div *ngIf="isEmailChanged" class="margin-btm30">
+                    <div class="section-heading">
+                        <span [innerHTML]="successMessage"></span>
+                    </div>
+                    <div class="pull-right col-12 no-padding">
+                        <button [routerLink]="[config.getConfig('appLoginUrl')]" color="primary" mat-raised-button type="button" class="pull-right btn-fgl-bgcolor no-padding">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

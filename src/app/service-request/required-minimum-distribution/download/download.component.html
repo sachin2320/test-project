@@ -1,0 +1,11 @@
+<section class="container-fluid with-maxwidth chapter no-padding-left no-padding-right">
+    <article class="article">
+        <div class="box-body-fgl">
+            <service-request-offline-body (onservicerequestsaved)="onServiceRequestSavedFired($event)" (onbodyvaluechanged)="onBodyValueChanged($event)"
+            [servicetype]="serviceType" [policydetail]="policyDetail" [documents]="serviceTypeDocuments" [downloadfilecode]="downloadFileCode"
+            [dataitems]="dataItems" [emailfaxdataitems]="emailFaxDataItems"
+            [showlifeannuityfax]="false" [showlifefax]="false">
+            </service-request-offline-body>
+        </div>
+    </article>
+</section>

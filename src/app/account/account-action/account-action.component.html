@@ -1,0 +1,44 @@
+<section class="container-fluid with-maxwidth chapter">
+  <div *ngIf="accountDetail">   
+
+    <div class="article-title-heading1 margin-top75">My Profile</div>
+    <h2 class="article-title margin-top10 margin-btm5">Contact Information</h2>
+
+    <div class="account-action margin-top30">
+      <div class="row account-container margin-btm20">
+        <div class="col-md-2 no-spacing-left">
+          <div class="mat-dialog-title no-padding pull-left">Name</div>
+        </div>
+        <div class="col-md-8">
+          <div class="account-desc no-padding">{{accountDetail.name}}</div>
+        </div>
+      </div>
+
+      <div class="row account-container margin-btm20">
+        <div class="col-md-2 no-spacing-left">
+          <div class="mat-dialog-title no-padding pull-left">Phone number</div>
+        </div>
+        <div class="col-md-8">
+          <div class="account-desc no-padding">{{ accountDetail.phone }}</div>
+        </div>
+      </div>
+
+      <div class="row account-container">
+        <div class="col-md-2 no-spacing-left">
+          <div class="mat-dialog-title no-padding pull-left">Email address</div>
+        </div>
+        <div class="col-md-8">
+          <div class="account-desc no-padding wrap">{{accountDetail.email}}</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="account-action margin-top50">
+      <a mat-button (click)="changePhoneNumber()" [style.width.px]="240" class="btn-fgl-bgcolor mat-raised-button mat-primary margin-btm30">Change phone number</a>
+      <a mat-button (click)="changeEmail()" [style.width.px]="240" class="btn-fgl-bgcolor mat-raised-button mat-primary margin-btm30">Change email address</a>
+      <a mat-button [routerLink]="[config.getConfig('appChangePasswordUrl')]" [style.width.px]="240" class="btn-fgl-bgcolor mat-raised-button mat-primary margin-btm30">Change password</a>
+      <a mat-button [routerLink]="[config.getConfig('changeSecurityQuestionsUrl')]" [style.width.px]="240" class="btn-fgl-bgcolor mat-raised-button mat-primary margin-btm30">Change security questions</a>
+    </div>
+  </div>
+</section>

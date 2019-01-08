@@ -1,0 +1,850 @@
+<form class="mat-form-auth" [formGroup]="qualifiedDisbursementSystematicWithdrawlForm" name="qualifiedDisbursementSystematicWithdrawlForm">
+    <fieldset>
+        <div *ngIf="!isViewOnly" class="margin-btm10 no-spacing-left">
+
+            <div class="col-md-12 col-sm-12 col-xs-12 border-bottom">
+                <div class="row">
+                    <div class="col-md-12 pull-left no-padding">If you have questions regarding this form, please call
+                        the Service Center.</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 pull-left no-padding  margin-top10 text-green bold">I would like to request:</div>
+                </div>
+
+                <div class="row no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Select one:</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding">
+                        <mat-radio-group (change)="onPremiumTypeChanged($event)" formControlName="premiumType" class="md-radio-group-spacing">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 ">
+                                    <mat-radio-button value="1">
+                                        {{partialSurrenderTypeText}}
+                                    </mat-radio-button>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 "></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7 col-sm-7 col-xs-7">
+                                    <mat-radio-button value="2">
+                                        {{fullSurrenderTypeText}}
+                                    </mat-radio-button>
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-5"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 ">
+                                    <mat-radio-button value="3">
+                                        {{systematicWithdrawalText}}
+                                    </mat-radio-button>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 "></div>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <!--  PartialSurrender -->
+                <div *ngIf="model.premiumType==policySurrenderType.Partial">
+                    <div class="row border-bottom-black border-top2px margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 article-heading-viewscreen ">
+                            Partial Surrender
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding margin-top5">
+                            This partial surrender is to be in accordance with and is subject to the provisions of the
+                            policy.
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row no-padding">
+                            <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Select
+                                one:</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                <mat-radio-group formControlName="partialSurrenderType" (change)="onPartialSurrenderChanged($event)"
+                                    class="md-radio-group-spacing">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                            <mat-radio-button value="true">
+                                                <span class="padding-left10">{{partialSurrenderAmountText}}</span>
+                                            </mat-radio-button>
+                                            $
+                                            <mat-form-field>
+                                                <input decimalinput class="width200px" maxlength="11" autocomplete="off"
+                                                    matInput type="text" [readonly]="model.partialSurrenderType=='false'"
+                                                    [(value)]="formattedPartialSurrenderAmount" (blur)="transformPartialSurrenderAmount($event)"
+                                                    (focus)="normalizePartialSurrenderAmount($event)" name="partialSurrenderAmount"
+                                                    formControlName="partialSurrenderAmount" placeholder="">
+                                            </mat-form-field>
+                                            (must be at least $500)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <mat-radio-button value="false">
+                                            <span class="padding-left10">
+                                                {{partialSurrenderMaximumAmountText}}
+                                            </span>
+                                        </mat-radio-button>
+                                    </div>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="row no-padding">
+                            <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Select
+                                one:</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                                <mat-radio-group formControlName="isGrossAmountForPartialSurrender" class="md-radio-group-spacing">
+                                    <div class="row">
+                                        <mat-radio-button value="true">
+                                            <span class="padding-left10" [innerHtml]="grossAmountForPartialSurrenderText">
+                                            </span>
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="row">
+                                        <mat-radio-button value="false">
+                                            <span class="padding-left10" [innerHtml]="netAmountForPartialSurrenderText">
+                                            </span>
+                                        </mat-radio-button>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-3"></div>
+
+                                </mat-radio-group>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--  Full Surrender -->
+                <div *ngIf="model.premiumType==policySurrenderType.Full">
+                    <div class="row article-heading-viewscreen border-bottom-black border-top2px">Full Surrender</div>
+                    <div class="row no-padding margin-top10 margin-btm20">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10 no-padding">
+                            <mat-checkbox [ngModel]="model.isSurrenderChargesAgreed" (change)="onSurrenderChargesAgreedChecked($event)"
+                                formControlName="isSurrenderChargesAgreed">
+                            </mat-checkbox>
+                            {{agreeToSurrenderChargesText}}
+                        </div>
+                    </div>
+                    <div class="row article-heading-viewscreen border-bottom-black border-top2px">Policy Return</div>
+                    <div class="row margin-top5 margin-btm20">
+                        <span class="bold margin-top5">Please return policy with this request</span>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding">
+                            <mat-radio-group formControlName="isReturnPolicyAgreed" class="md-radio-group-spacing">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left ">
+                                        <mat-radio-button value="true">
+                                            {{agreeToReturnPolicyText}}
+                                        </mat-radio-button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left ">
+                                        <mat-radio-button value="false" class="no-margin-right">
+                                        </mat-radio-button>
+                                        <span>
+                                            {{policyLostText}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <!--  Systematic WITHDRAWALS -->
+                <div *ngIf="model.premiumType==policySurrenderType.SystematicWithdrawal">
+                    <div class="row article-heading-viewscreen border-bottom-black border-top1px margin-top10">Systematic
+                        Withdrawals</div>
+                    <div class="row no-padding">
+                        <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Please select
+                            one:</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left">
+                            <mat-radio-group formControlName="systematicWithdrawalType" (change)="onSystematicWithdrawalTypeChange($event)"
+                                class="md-radio-group-spacing">
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <mat-radio-button value="1">
+                                        </mat-radio-button>
+                                        {{systematicWithdrawalInterestOnlyText}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding">
+                                        <mat-radio-button class="no-margin-right" value="2">
+                                        </mat-radio-button>
+                                        {{systematicWithdrawalSpecificDollarAmountText}}
+                                        <mat-form-field>
+                                            <input decimalinput maxlength="11" autocomplete="off" matInput type="text"
+                                                [(value)]="formattedSpecificDollarAmount" (blur)="transformSpecificDollarAmount($event)"
+                                                (focus)="normalizeSpecificDollarAmount($event)" name="specificDollarAmount"
+                                                formControlName="specificDollarAmount">
+                                        </mat-form-field>
+                                    </div>
+
+                                </div>
+                                <!--Don't remove this code- as per nagesh mail & ALM#463.-->
+                                <!-- <div class="row">
+                                    <mat-radio-button value="3">
+                                        <span class="padding-left10">{{systematicWithdrawalGuaranteeMinimumWithdrawalBenefitText}}</span>
+                                    </mat-radio-button>
+                                </div>
+                                <div class="row">
+                                    <mat-radio-button value="4">
+                                        <div class="padding-left10">
+                                            {{systematicWithdrawalEnhancedGuaranteedMinimumWithdrawalBenefitText}}
+                                            <span class="font-italic-xxx">(additional documentation required)</span>
+                                        </div>
+                                    </mat-radio-button>
+                                </div> -->
+                            </mat-radio-group>
+                        </div>
+                    </div>
+
+                    <div class="row border-bottom-black border-top1px margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding">
+                            <span class="article-heading-viewscreen">Payment Frequency - </span>
+                            <span class="bold margin-top5">
+                                not all policies are eligible for systematic withdrawals
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row no-padding">
+                        <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Select one:</div>
+                    </div>
+                    <div class="row margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding">
+                            <mat-radio-group formControlName="paymentFrequencyMode" class="md-radio-group-spacing">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <mat-radio-button value="1">
+                                            {{paymentFrequencyModeMonthlyText}}
+                                        </mat-radio-button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <mat-radio-button value="2">
+                                            {{paymentFrequencyModeQuarterlyText}}
+                                        </mat-radio-button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <mat-radio-button value="3">
+                                            {{paymentFrequencyModeSemiannualText}}
+                                        </mat-radio-button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <mat-radio-button value="4">
+                                            {{paymentFrequencyModeAnnualText}}
+                                        </mat-radio-button>
+                                    </div>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <div class="row no-padding border-bottom-black">
+                        <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Payment start
+                            date*:</div>
+                    </div>
+                    <div class="row margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding">
+                            <mat-radio-group formControlName="paymentStartDateMode" (change)="onPaymentStartDateModeChanged($event)"
+                                class="md-radio-group-spacing">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 ">
+                                        <mat-radio-button value="true">
+                                            {{paymentStartDateImmediatelyText}}
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 "></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-7 col-xs-7">
+                                        <mat-radio-button value="false">
+                                            {{paymentStartDateOtherText}}
+                                            <br />
+                                            <mat-hint class="small" align="start">
+                                                <i>Please specify</i>
+                                            </mat-hint>
+                                        </mat-radio-button>
+                                        <mat-form-field class="date-control">
+                                            <input class="width200px " maxlength="10" autocomplete="off" matInput type="text"
+                                                name="paymentStartDate" formControlName="paymentStartDate"
+                                                numericwithspecialcharinput="/" placeholder="">
+                                            <mat-hint class="input-hint-text" align="start">MM/DD/YYYY</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5 col-sm-5 col-xs-5"></div>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+
+                    <div class="row no-padding margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12  pull-left no-padding margin-top10">
+                            <span class="bold">Note:</span>
+                            <span>
+                                <i> First payment must be at least one payment mode after policy issue date.</i>
+                            </span>
+                            <br />
+                            <span class="bold">Payments may not:</span>
+                            <br />
+                            <span>
+                                <i>(a) begin prior to one modal period from the issue date </i>
+                            </span>
+                            <br />
+                            <span>
+                                <i>(b) conflict with the buy date on FIAs (1st, 8th, 15th or 22nd), or</i>
+                            </span>
+                            <br />
+                            <span>
+                                <i>(c) be sent monthly on the 29th, 30th or 31st</i>
+                            </span>
+                            <br />
+                            <span>
+                                <i>
+                                    If restricted dates are requested, the next available day after the day requested
+                                    will become the payment date.
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row no-padding margin-top10 border-bottom-black">
+                        <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Payment end
+                            date*:</div>
+                    </div>
+                    <div class="row no-padding margin-top5 ">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding ">
+                            I elect to have my payments end on the date specified. If not specified, payments will
+                            continue until you notify us that
+                            you wish payments to stop.
+                        </div>
+                    </div>
+                    <div class="row no-padding margin-top10 ">
+                        <div class="col-md-3 col-sm-3 col-xs-3 bold pull-left no-padding margin-top10">
+                            Specified end date:
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <mat-form-field class="date-control">
+                                <input class="width200px" maxlength="10" autocomplete="off" matInput type="text" name="paymentEndDate"
+                                    formControlName="paymentEndDate" numericwithspecialcharinput="/" placeholder="">
+                                <mat-hint class="input-hint-text" align="start">MM/DD/YYYY</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6"></div>
+                    </div>
+                    <div class="row no-padding margin-top10 border-bottom-black">
+                        <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">
+                            Method of distribution*
+                        </div>
+                    </div>
+                    <div class="row margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding">
+                            <mat-radio-group formControlName="isDistributionMethodCheck" (change)="onDistributionMethodCheckChange($event)"
+                                class="md-radio-group-spacing">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 ">
+                                        <mat-radio-button value="true">
+                                            <span class="padding-left10">{{distributionTypeCheckText}}</span>
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 "></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <mat-radio-button value="false">
+                                            <span class="padding-left10">
+                                                {{distributionTypeEftText}}
+                                            </span>
+                                        </mat-radio-button>
+                                    </div>
+                                </div>
+
+                            </mat-radio-group>
+                        </div>
+                    </div>
+
+
+                    <div class="row margin-left30">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                    <div class="row bold">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10">
+                                            <mat-radio-group formControlName="isAccountTypeCheckings" class="md-radio-group-spacing">
+                                                <div class="row margin-left10">
+                                                    <div class="col-md-3 col-sm-12 col-xs-12 no-padding">
+                                                        <mat-radio-button value="true">
+                                                            {{checkingAccountText}}:
+                                                        </mat-radio-button>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-12 col-xs-12 no-padding">
+                                                        <mat-radio-button value="false">
+                                                            {{savingAccountText}}:
+                                                        </mat-radio-button>
+                                                    </div>
+                                                </div>
+                                            </mat-radio-group>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" no-padding row margin-top10">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3 col-xs-3 bold">
+                                            <mat-form-field class="full-width">
+                                                <input maxlength="9" fglsensitiveinput numericinput autocomplete="off"
+                                                    matInput type="text" name="routingNumber" formControlName="routingNumber"
+                                                    placeholder="Routing number*">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-3 bold">
+                                            <mat-form-field class="full-width">
+                                                <input maxlength="9" fglsensitiveinput numericinput autocomplete="off"
+                                                    matInput type="text" name="confirmRoutingNumber" formControlName="confirmRoutingNumber"
+                                                    placeholder="Re-enter routing number">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <fgl-message message="The routing number and re-enter routing number do not match. Please verify and re-enter the information again."
+                                            *ngIf="qualifiedDisbursementSystematicWithdrawlForm.controls.confirmRoutingNumber.errors?.confirmControlNotMatch"></fgl-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" no-padding row col-md-12 margin-top10">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3 col-xs-3 bold">
+                                            <mat-form-field class="full-width">
+                                                <input maxlength="34" fglsensitiveinput autocomplete="off" matInput
+                                                    type="text" name="accountNumber" formControlName="accountNumber"
+                                                    placeholder="Account number*">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-3 bold">
+                                            <mat-form-field class="full-width">
+                                                <input maxlength="34" fglsensitiveinput autocomplete="off" matInput
+                                                    type="text" name="confirmAccountNumber" formControlName="confirmAccountNumber"
+                                                    placeholder="Re-enter account number">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <fgl-message message="The account number and re-enter account number do not match. Please verify and re-enter the information again. "
+                                            *ngIf="qualifiedDisbursementSystematicWithdrawlForm.controls.confirmAccountNumber.errors?.confirmControlNotMatch"></fgl-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-top5 row" [hidden]="isFileUploadDisable">
+                                <div class="col-md-12 pull-left article-title-heading2 margin-btm10">Upload documents</div>
+                            </div>
+                            <div>
+                                <file-upload (onFileSelected)="onFileSelected($event)" (onInvalidFileSelected)="onInvalidFileSelected($event)"
+                                    [model]="fileUploadModel" [isControlDisabled]="isFileUploadDisable"
+                                    #fileUploadComponent viewonly="false" showInstructions="true"></file-upload>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- NOTICE OF TAX AND WITHHOLDING ELECTION (MUST BE COMPLETED) -->
+                <div *ngIf="model.premiumType!=''">
+                    <div class="row article-heading-viewscreen border-bottom-black border-top2px margin-top10">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            Notice of Tax and Withholding Election (must be completed)
+                        </div>
+                    </div>
+                    <div class="row no-padding margin-top10 margin-left0">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="row no-padding">
+                                All, or part, of the distribution you receive may be includable in your gross income
+                                for tax purposes. The taxable portion
+                                of the distribution is subject to federal (and potentially state) withholding unless
+                                you
+                                elect not to have withholding apply. You may elect not to have withholding apply by
+                                marking
+                                the appropriate box below.
+                            </div>
+                            <div class="row no-padding margin-top10">
+                                <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-padding margin-top10">Select
+                                    one:</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 pull-left margin-top10">
+                                    <mat-radio-group formControlName="incomeTaxWithhold" (change)="onIncomeWithHoldChanged($event)"
+                                        class="md-radio-group-spacing">
+                                        <div class="row">
+                                            <mat-radio-button [id]="taxWithHoldingOption.NotElect" [value]="taxWithHoldingNotElectText"
+                                                [checked]="incomeTaxWithholdOption === taxWithHoldingOption.NotElect">
+                                                <span class="padding-left10">{{taxWithHoldingNotElectText}}</span>
+                                            </mat-radio-button>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                <mat-radio-button [id]="taxWithHoldingOption.Elect" [value]="taxWithHoldingElectText"
+                                                    [checked]="incomeTaxWithholdOption === taxWithHoldingOption.Elect">
+                                                    <span class="padding-left10">
+                                                        {{taxWithHoldingElectText}}
+                                                    </span>
+                                                </mat-radio-button>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <span class="col-md-1 col-sm-1 col-xs-1 padding-left35 margin-top20">
+                                                Federal
+                                            </span>
+                                            <span class="col-md-2 col-sm-2 col-xs-2">
+                                                <mat-form-field class="width70" *ngIf="currencySignModel !=null && currencySignModel.length>0">
+                                                    <mat-select (selectionChange)="onCurrencyChangedFederal($event)"
+                                                        formControlName="currencySignFederal">
+                                                        <mat-option *ngFor="let currency of currencySignModel" [value]="currency.value">
+                                                            {{ currency.value }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </span>
+                                            <span class="col-md-2 col-sm-2 col-xs-2">
+                                                <mat-form-field>
+                                                    <input decimalinput [maxlength]="maxFederalLength" autocomplete="off"
+                                                        [readonly]="isIncomeTaxReadOnly" matInput type="text" [(value)]="formattedWithholdFederalIncomeTax"
+                                                        (blur)="transformWithholdFederalIncomeTaxAndChkValidationOnBlur($event)"
+                                                        (focus)="normalizeWithholdFederalIncomeTaxAndChkValidationOnFocus($event)"
+                                                        name="withholdFederalIncomeTax" formControlName="withholdFederalIncomeTax">
+                                                </mat-form-field>
+                                            </span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="col-md-1 col-sm-1 col-xs-1 padding-left35 margin-top20">
+                                                State
+                                            </span>
+                                            <span class="col-md-2 col-sm-2 col-xs-2">
+                                                <mat-form-field class="width70" *ngIf="currencySignModel !=null && currencySignModel.length>0">
+                                                    <mat-select (selectionChange)="onCurrencyChangedState($event)"
+                                                        formControlName="currencySignState">
+                                                        <mat-option *ngFor="let currency of currencySignModel" [value]="currency.value">
+                                                            {{ currency.value }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </span>
+                                            <span class="col-md-2 col-sm-2 col-xs-2 margin-right15">
+                                                <mat-form-field>
+                                                    <input decimalinput [maxlength]="maxStateLength" autocomplete="off"
+                                                        [readonly]="isIncomeTaxReadOnly" matInput type="text" [(value)]="formattedWithholdStateIncomeTax"
+                                                        (blur)="transformWithholdStateIncomeTaxAndChkValidationOnBlur($event)"
+                                                        (focus)="normalizeWithholdStateIncomeTaxAndChkValidationOnFocus($event)"
+                                                        (keyup)="resetResidenceState()" name="withholdStateIncomeTax"
+                                                        formControlName="withholdStateIncomeTax">
+                                                </mat-form-field>
+                                            </span>
+                                            <span class="col-md-4 col-sm-4 col-xs-4">
+                                                <mat-form-field class="full-width" *ngIf="residenceStateModel !=null && residenceStateModel.length>0">
+                                                    <mat-select (selectionChange)="onCurrencyChanged($event)"                                                       
+                                                        formControlName="residenceState" class="full-width" placeholder="Your State of residence">
+                                                        <mat-option *ngFor="let state of residenceStateModel" [value]="state.name">
+                                                            {{ state.name }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </span>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 col-xs-12 padding-left35">
+                                                <fgl-message isalignleft="true" message="The combined total of Federal and State withholdings must be greater than zero."
+                                                    *ngIf="(qualifiedDisbursementSystematicWithdrawlForm.controls.withholdFederalIncomeTax.errors?.ControlValuesSumEqualsZero) || (qualifiedDisbursementSystematicWithdrawlForm.controls.withholdStateIncomeTax.errors?.ControlValuesSumEqualsZero)"></fgl-message>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 col-xs-12 padding-left35">
+                                                <fgl-message isalignleft="true" message="The percentage total must not be greater than 100."
+                                                    *ngIf="(qualifiedDisbursementSystematicWithdrawlForm.controls.withholdFederalIncomeTax.errors?.ControlValuesSumGreaterThanHundred) || (qualifiedDisbursementSystematicWithdrawlForm.controls.withholdStateIncomeTax.errors?.ControlValuesSumGreaterThanHundred)"></fgl-message>
+                                            </div>
+                                        </div>
+
+                                        <div class="row margin-btm30 no-padding margin-top10">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+                                                *If you elect federal tax withholding, some states may require state
+                                                tax withholding. Please consult your state taxing authority
+                                                regarding state tax withholding.
+                                                <br />
+                                                <br />
+                                                <mat-radio-button class="radio-button-text-wrap" [id]="taxWithHoldingOption.NeitherElect"
+                                                    [value]="taxWithHoldingNeitherElectText" [checked]="incomeTaxWithholdOption === taxWithHoldingOption.NeitherElect">
+                                                    <span class="hanging-indent">
+                                                        {{taxWithHoldingNeitherElectText}}
+                                                    </span>
+                                                </mat-radio-button>
+                                            </div>
+                                        </div>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<div id="bodyToBeExtract" *ngIf="isViewOnly" class="margin-btm20 no-spacing-left">
+    <div class="print-row row no-padding">
+        <div class="col-md-12 col-sm-12 col-xs-12 bold pull-left no-spacing-left">
+            <span>
+                I hereby request a {{ model.premiumType=='1'?'Partial surrender of':(model.premiumType=='2'?'full
+                surrender of':'systematic
+                withdrawal from') }} the above mentioned policy.
+            </span>
+        </div>
+    </div>
+    <div class="print-row row bold article-title-heading2 padding-left15 padding-right15 ">
+        <div class="col-md-12 col-sm-12 col-xs-12 pull-left no-padding-left padding-bottom5 border-bottom-black">
+            {{model.premiumType=='1'?'Partial Surrender':(model.premiumType=='2'?'Full Surrender':'Systematic
+            Withdrawal')}} Request
+            Summary
+        </div>
+    </div>
+
+    <div *ngIf="model.premiumType=='1'">
+        <div class="print-row row margin-top10 padding-right15 padding-left15 ">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6 pull-left no-padding">
+                <span class="text-green bold">Partial surrender:</span>
+            </div>
+            <div class="print-col-8 col-md-9 col-sm-9 col-xs-6 pull-left no-padding-left">
+                <span>
+                    I would like to request {{ model.partialSurrenderType=='true'?'partial surrender of
+                    '+(model.partialSurrenderAmount|currency:'USD':true:'2.2-4'):'maximum
+                    available without application of surrender charge and any applicable market value adjustment' }}
+                </span>
+            </div>
+        </div>
+        <div class="print-row row padding-right15 padding-left15">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6 pull-left no-padding"></div>
+            <div class="print-col-8 col-md-9 col-sm-9 col-xs-6 pull-left no-padding-left">
+                <span *ngIf="model.isGrossAmountForPartialSurrender=='true'" [innerHtml]="grossAmountForPartialSurrenderText">
+                </span>
+
+                <span *ngIf="model.isGrossAmountForPartialSurrender=='false'" [innerHtml]="netAmountForPartialSurrenderText">
+                </span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="model.premiumType=='2'">
+        <div class="print-row row margin-top10 padding-right15 padding-left15 ">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6 pull-left no-padding">
+                <span class="text-green bold">Full surrender:</span>
+            </div>
+            <div class="print-col-8 col-md-9 col-sm-9 col-xs-6 pull-left no-padding-left">
+                <span>
+                    I hereby request the present cash surrender value of my policy listed above. I understand that
+                    surrender charges and any
+                    applicable market value adjustment may apply.
+                </span>
+            </div>
+        </div>
+        <div class="print-row row padding-right15 padding-left15 margin-top10">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6 pull-left no-padding">
+                <span class="text-green bold">Policy return:</span>
+            </div>
+            <div class="print-col-8 col-md-9 col-sm-9 col-xs-6 pull-left  no-padding-left">
+                <span>
+                    {{ model.isReturnPolicyAgreed=='true'? 'By selecting this, I hereby agree to mail the above
+                    mentioned policy to complete
+                    this online request': 'By selecting this, I hereby represent that the above-referenced policy has
+                    been
+                    lost, mislaid, or destroyed, as I have been unable to find it after careful search and inquiry. By
+                    my
+                    signature below, I agree to hold the Company harmless from all loss, expense and liability for
+                    which
+                    the Company may become liable as a direct or indirect result of accepting this transaction without
+                    requiring
+                    the return of the policy.' }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="model.premiumType=='3'">
+        <div class="print-row row margin-top10 padding-right15 padding-left15 ">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6 pull-left no-padding">
+                <span class="text-green bold">Systematic Withdrawal:</span>
+            </div>
+            <div class="print-col-8 col-md-9 col-sm-9 col-xs-6 pull-left  no-padding-left">
+                <span>
+                    {{ model.systematicWithdrawalType=='1' ? "Interest only" : (model.systematicWithdrawalType=='2' ?
+                    "Specific dollar amount
+                    of "+ (model.specificDollarAmount|currency:'USD':true:'2.2-4') :
+                    (model.systematicWithdrawalType=='3' ? "Guarantee
+                    minimum withdrawal benefit": "Enhanced guaranteed minimum withdrawal benefit")) }}
+                </span>
+            </div>
+        </div>
+
+        <div class="print-row row padding-right15 padding-left15">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6 pull-left no-padding">
+                <span class="text-green bold">Payment frequecy:</span>
+            </div>
+            <div class="print-col-7 col-md-9 col-sm-9 col-xs-6 pull-left  no-padding-left">
+                <span>{{model.paymentFrequencyMode=='1'?'Monthly':(model.paymentFrequencyMode=='2'?'Quaterly':(model.paymentFrequencyMode=='3'?'Semiannual':'Annual'))}}</span>
+            </div>
+        </div>
+        <div class="print-row row padding-right15 padding-left15">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6 pull-left no-padding">
+                <span class="text-green bold">Payment start date:</span>
+            </div>
+            <div class="print-col-7 col-md-9 col-sm-9 col-xs-6 pull-left  no-padding-left">
+                <span>{{model.paymentStartDateMode=='true'?'Immediately':'Other -'+model.paymentStartDate}}</span>
+            </div>
+        </div>
+        <!-- ALM-199 Multiple UAT issues from the Nancy spreadsheet - Allow optional, payment end date for all systematic withdrawals. -->
+        <!-- <div class="print-row row padding-right15 padding-left15" *ngIf="model.paymentStartDateMode=='false'"> -->
+        <div class="print-row row padding-right15 padding-left15">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6 pull-left no-padding">
+                <span class="text-green bold">Payment end date:</span>
+            </div>
+            <div class="print-col-7 col-md-9 col-sm-9 col-xs-6 pull-left no-padding-left">
+                <span>{{model.paymentEndDate ? model.paymentEndDate : "None"}}</span>
+            </div>
+        </div>
+        <div class="print-row row padding-right15 padding-left15">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6 pull-left no-padding">
+                <span class="text-green bold">Method of distribution:</span>
+            </div>
+            <div class="print-col-7 col-md-9 col-sm-9 col-xs-6 pull-left no-padding-left">
+                <span>{{model.isDistributionMethodCheck=='true'?'Check':'EFT'}}</span>
+            </div>
+        </div>
+        <div *ngIf="model.isDistributionMethodCheck=='false'">
+            <div class="print-row row padding-right15 padding-left15">
+                <div class="print-col-3 col-md-3 col-sm-3 col-xs-4 pull-left no-padding">
+                </div>
+                <div class="print-col-3 col-md-3 col-sm-3 col-xs-4 pull-left  no-padding-left">
+                    <span class="text-green bold">Account type:</span>
+                </div>
+                <div class="print-col-4 col-md-6 col-sm-6 col-xs-4 pull-left no-padding-left">
+                    <span>{{model.isAccountTypeCheckings=='true'?'Checking account':'Savings account'}}</span>
+                </div>
+            </div>
+            <div class="print-row row padding-right15 padding-left15">
+                <div class="print-col-3 col-md-3 col-sm-3 col-xs-4 pull-left no-padding">
+                </div>
+                <div class="print-col-3 col-md-3 col-sm-3 col-xs-4 pull-left no-padding-left">
+                    <span class="text-green bold">Routing #: </span>
+                </div>
+                <div class="print-col-4 col-md-6 col-sm-6 col-xs-4 pull-left no-padding-left">
+                    {{model.routingNumber}}
+                </div>
+            </div>
+            <div class="print-row row padding-right15 padding-left15">
+                <div class="print-col-3 col-md-3 col-sm-3 col-xs-4 pull-left no-padding">
+                </div>
+                <div class="print-col-3 col-md-3 col-sm-3 col-xs-4 pull-left no-padding-left">
+                    <span class="text-green bold">Account #: </span>
+                </div>
+                <div class="print-col-4 col-md-6 col-sm-6 col-xs-4 pull-left no-padding-left">
+                    <span data-mask="account-number">{{model.accountNumber}}</span>
+                </div>
+            </div>
+            <div class="print-row row padding-right15 padding-left15">
+                <div class="print-col-3 col-md-3 col-sm-3 col-xs-4 pull-left no-padding">
+                </div>
+                <div class="print-col-3 col-md-3 col-sm-3 col-xs-4 pull-left no-padding-left">
+                    <span class="text-green bold">Document upload: </span>
+                </div>
+                <div class="print-col-4 col-md-6 col-sm-6 col-xs-4 pull-left no-padding-left">
+                    <span>{{fileUploadModel[0].fileName}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+        <div class="print-row row margin-top10">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6">
+                <span class="text-green bold">Tax election:</span>
+            </div>
+            <div class="print-col-8 col-md-9 col-sm-9 col-xs-6 padding-left10">
+                <span *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.NotElect">
+                    {{taxWithHoldingNotElectText}}
+                </span>
+                <span *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.Elect">
+                    {{taxWithHoldingElectText}}
+                </span>
+                <span *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.NeitherElect">
+                    {{taxWithHoldingNeitherElectText}}
+                </span>
+            </div>
+        </div>
+        <div class="print-row row margin-btm5" *ngIf="incomeTaxWithholdOption == taxWithHoldingOption.Elect">
+            <div class="print-col-3 col-md-3 col-sm-3 col-xs-6"> </div>
+            <div class="print-col-8 col-md-9 col-sm-9 col-xs-6 padding-left10">
+                <span *ngIf="model.withholdFederalIncomeTax !='' && model.withholdFederalIncomeTax != undefined">
+                    <span class="text-left print-view-title">Federal:</span>
+                    <span class="text-left">
+                        {{ model.currencySignFederal == '%' ? (model.withholdFederalIncomeTax |
+                        decimalPipe:DecimalType.Percentage) : (model.withholdFederalIncomeTax
+                        | currency:'USD':true:'2.2-4')}}
+                    </span>
+                    <br />
+                </span>
+                <span *ngIf="model.withholdStateIncomeTax !='' && model.withholdStateIncomeTax != undefined">
+                    <span class="text-left print-view-title">State:</span>
+                    <span class="text-left">
+                        {{ model.currencySignState == '%' ? (model.withholdStateIncomeTax |
+                        decimalPipe:DecimalType.Percentage) : (model.withholdStateIncomeTax
+                        | currency:'USD':true:'2.2-4')}}
+                    </span>
+                    <br />
+                </span>
+                <span *ngIf="model.residenceState !='' && model.residenceState != undefined">
+                    <span class="text-left print-view-title">State of residence: </span>
+                    <span class="text-left">{{model.residenceState}}</span>
+                    <br />
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTICE OF TAX AND WITHHOLDING ELECTION -->
+    <div *ngIf="model.premiumType!=''" class="padding-left15 padding-right15 margin-top10">
+        <div class="print-row row article-heading-viewscreen border-top2px border-bottom2px">Notice of Tax and
+            Withholding Election (must be completed)</div>
+        <div class="print-row row no-padding margin-btm10">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <span [innerHTML]="noticeOfTaxDisclosure"></span>
+            </div>
+        </div>
+        <div class="print-row row no-padding border-top-xxx">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding-left bold padding-top10">
+                <strong>
+                    The Internal Revenue Service does not require your consent to any provision of this document other
+                    than the certification
+                    required to avoid backup withholding.
+                </strong>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div id="login" class="page-auth">
+  <div class="main-body">
+    <div class="card card-white logo">
+      <div class="card-content">
+        <div class="no-margin-btm">
+          <div class="logo logo-sign-out">
+            <fgl-logo [isWhiteLogo]="false" [height]="100"></fgl-logo>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-white">
+      <div class="card-content">
+        <div class="no-margin-btm">
+          <div class="row">
+            <div class="col-md-12 col-xs-12 margin-top10 text-center">
+              Sign out successful.
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-xs-12 margin-top10 text-center">
+              For security reasons, please close your web browser.
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-xs-12 margin-top10 text-center">
+              Thank you for choosing
+              <span class="text-green bold">Fidelity & Guaranty Life.</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-xs-12 bold margin-top20">
+              <button (click)="navigateToLogin($event)" mat-raised-button type="button" color="primary" class="pull-right btn-fgl-bgcolor">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

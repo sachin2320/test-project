@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
+</head><body>
+</body>
+</html>
+<script>
+      
+      var result = getJsonResponse('env.config.json', function handleReponse(error, response) {
+        if (error) {
+          throw error;
+        }
+        var result = getJsonResponse('app.config.'+ response.env +'.json', function handleReponse(error, response) {
+          if (error) {
+            throw error;
+          }
+          console.log(response);
+          jQuery.ajax({
+                url: response.apiBaseUrl + '/api/healthcheck/phpwebapihealth',
+                success: function (result) {
+                  //document.write(result);
+                },
+                error: function(error)
+                {
+                    //if(error)
+                    // document.write(error.statusText);
+                },
+                async: false
+            });
+        });
+      });
+      
+      function getJsonResponse(jsonFilePath, callbackFunction) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', jsonFilePath, true);
+      xhr.responseType = 'json';
+      xhr.onload = function (e) {
+        if (this.status == 200) {
+          callbackFunction(null, this.response);
+        } else {
+          callbackFunction(this.status, null);
+        }
+      }
+      xhr.send();
+    }  
+        
+</script>

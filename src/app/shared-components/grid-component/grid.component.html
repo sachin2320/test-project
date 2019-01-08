@@ -1,0 +1,68 @@
+<table class="{{baseClass}} table-bordered cf table-striped full-width {{tableClasses}}">
+    <thead *ngIf="gridColumns.length>0" class="cf">
+        <tr>
+            <th *ngFor="let column of gridColumns" class="{{column.cssClasses}}">
+                {{column.columnTitle}}
+                <fgl-tooltip [class]="'mat-white mat-18'" [title]="column.columnTitle" [product]="product" [policy]="policy"></fgl-tooltip>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of dataSource; let rowIndex = index" class="{{row.cssClasses}}">
+            <td *ngFor="let columnData of row.columns; let colIndex = index" class="{{columnData.cssClasses}}">
+                <div *ngIf="!columnData.anchorUrl">
+                    <div *ngIf="columnData.columnType!=8 || isViewOnly==true">
+                        {{renderColumnData(columnData)}}
+                        <!-- Fast Follow Version
+                        <span *ngIf="columnData.tooltipId">
+                            <fgl-tooltip [class]="'mat-18'" tooltipHtml="{{columnData.tooltipId}}" 
+                                triggers="click hover focus" position="top" container="body"></fgl-tooltip>
+                        </span> -->
+                        <span *ngIf="colIndex==0 && isProductList && columnData.tooltipId == 'tooltipLapsed'" 
+                            [ngbTooltip]="tooltipLapsed" triggers="click hover focus" position="top" container="body">
+                            <mat-icon class="material-icons mat-18 {{class}}">help_outline</mat-icon>
+                        </span>
+                        <span *ngIf="colIndex==0 && isProductList && columnData.tooltipId == 'tooltipDetailsDisabled'" 
+                            [ngbTooltip]="tooltipDetailsDisabled" triggers="click hover focus" position="top" container="body">
+                            <mat-icon class="material-icons mat-18 {{class}}">help_outline</mat-icon>
+                        </span>
+                        <span *ngIf="colIndex==0 && isProductList && columnData.tooltipId == 'tooltipMonthEndUnavailable'" 
+                            [ngbTooltip]="tooltipMonthEndUnavailable" triggers="click hover focus" position="top" container="body">
+                            <mat-icon class="material-icons mat-18 {{class}}">help_outline</mat-icon>
+                        </span>
+                        <fgl-tooltip [class]="'mat-white mat-18'" [title]="columnData.value" [product]="product" [policy]="policy"></fgl-tooltip>
+                    </div>
+                    <div *ngIf="columnData.columnType==8">
+                        <input *ngIf="!isViewOnly" [attr.cellIndex]="colIndex" [attr.rowIndex]="rowIndex" decimalinput class="width100px text-center"
+                            maxlength="17" (keyup)="onTextBoxValueInput($event, row)"
+                            (change)="onTextBoxValueChange($event, row)" matInput type="text" autocomplete="off"
+                            [value]="renderColumnData(columnData)">
+                    </div>
+                </div>
+                <div *ngIf="columnData.anchorUrl">
+                    <a *ngIf="columnData.isAttachAnchorClickEvent==false" [routerLink]="columnData.anchorUrl" class="cursorpointer">
+                        {{renderColumnData(columnData)}}
+                    </a>
+                    <a *ngIf="columnData.isAttachAnchorClickEvent==true" class="cursorpointer" (click)="onLinkClicked(row)">
+                        {{renderColumnData(columnData)}}
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #tooltipLapsed>
+    Details of this policy are unavailable due to lapsed policy status. Please visit
+    <strong>Contact Us</strong> or call 888.513.8797 (M-F 8AM–6PM ET) if you have any questions.
+</ng-template>
+<ng-template #tooltipDetailsDisabled>
+    Details of this policy are unavailable due to policy status. Please visit
+    <strong>Contact Us</strong> or call 888.513.8797 (M-F 8AM–6PM ET) if you have any questions.
+</ng-template>
+<ng-template #tooltipMonthEndUnavailable>
+    Policy values will be available after the first month end following your issue date. 
+    For current policy values, please <strong>Contact Us</strong>.
+</ng-template>
+
+<!-- Please, <a [routerLink]="[config.getConfig('appContactUsUrl')]"> contact us </a> if you have any questions. -->

@@ -1,0 +1,21 @@
+
+<div class="row no-margin-right" style="margin-left: 0px;" *ngFor="let row of model.policyTabRootTable.policyTabBaseTableRows">
+    <div class="col-xs-12 margin-btm20 no-padding-left" [ngClass]="'col-md-' + (row.isFullWidth ? '12' : (row.policyTabRootTableColumns.length ==1 ? '6' : (12/ row.policyTabRootTableColumns.length))) + ' col-sm-' + (row.isFullWidth ? '12' : ((row.isFullTable ? '12' : (row.policyTabRootTableColumns.length ==1 ? '6' : (12/ row.policyTabRootTableColumns.length)))))" *ngFor="let col of row.policyTabRootTableColumns">
+        <div *ngFor="let tbl of col.policyTabInnerTables | sortBy: 'order': false">
+            <div class="box box-default table-box margin-btm10 mdl-shadow--2dp">
+                <fgl-dynamic-grid [tableclasses]="tbl.cssClasses" [datasource]="tbl.rows" [columns]="tbl.header"></fgl-dynamic-grid>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="margin-btm20 pull-left" *ngIf="model && model.footerText">
+    <div class="col-md-12 col-sm-12 pull-left text-small no-padding" [innerHTML]='model.footerText'>
+    </div>
+</div>
+
+<div class="margin-btm20 pull-left">
+    <div class="col-md-12 col-sm-12 pull-left text-small no-padding margin-btm30" *ngFor="let b of model.policyTabButtons">
+        <!-- Sentence Casing -->
+        <a mat-button (click)="navigatetoChangeInfo(policyOwnerCount, policyNumber, b.serviceRequestType);" class="btn-fgl-bgcolor mat-raised-button mat-primary btn-wrap">{{b.caption}}</a>
+    </div>
+</div>

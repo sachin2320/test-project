@@ -1,0 +1,12 @@
+<div *ngIf="isDataLoading" class="full-width margin-top30 text-center">
+    <img src="assets/images/spinner.gif" />
+</div>
+
+<div *ngIf="policyDocuments?.length > 0" class="box box-default table-box table-flip-scroll-xxx mdl-shadow--2dp margin-btm20">
+    <fgl-grid baseclass="mdl-data-table-xxx mdl-data-table-rsp policy-document" tableclasses="no-margin" [datasource]="dataSource"
+        [columns]="columns" (onanchorclicked)="linkClicked($event)"></fgl-grid>
+</div>
+
+<div class="alert alert-info text-center" role="alert" *ngIf="isDataLoadComplete && policyDocuments?.length <= 0">
+    <div>There are no available documents.</div>
+</div>

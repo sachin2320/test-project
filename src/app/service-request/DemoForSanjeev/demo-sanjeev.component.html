@@ -1,0 +1,107 @@
+<kendo-pdf-export #pdf>
+<section class="container-fluid with-maxwidth chapter">
+    
+        <div class="article-title-heading1 margin-btm20">My Service Requests</div>
+        <div class="section-para-title margin-btm10">Service request R65489632</div>
+
+        <article class="article margin-btm20">
+
+            <div class="col-md-12 col-sm-12 no-padding">
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left margin-right30 margin-btm30">
+                    <div class="box box-default table-box table-flip-scroll mdl-shadow--2dp margin-btm50">
+                        <fgl-grid tableclasses="no-margin" [datasource]="dataSource" [columns]="columns"></fgl-grid>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 no-padding margin-btm20">
+                    <div class="section-para-title margin-btm10">Details</div>
+                    <div class="section-para-title margin-btm10">Primary beneficiaries</div>
+
+                    <div class="box box-default table-box table-responsive mdl-shadow--2dp" style="box-shadow: 0 0 0px !important;">
+                        <table class="mdl-data-table table-bordered-fgl cf table-striped full-width border-none">
+                            <thead>
+                                <tr>
+                                    <th style="background-color:#fff; color:#001a71 !important" *ngFor="let column of parimaryBenfColumns">{{column.columnTitle}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of parimaryBenfDataSource">
+                                    <td *ngFor="let columnData of row.columns">
+                                        <div>{{ columnData?.value}}</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 col-sm-12 no-padding margin-btm20">
+                    <div class="section-para-title margin-btm10">Contingent beneficiaries</div>
+
+                    <div class="box box-default table-box table-responsive table-flip-scroll mdl-shadow--2dp" style="box-shadow: 0 0 0px !important;">
+                        <table class="no-margin mdl-data-table table-bordered-fgl cf table-striped full-width border-none">
+                            <thead class="cf">
+                                <tr>
+                                    <th style="background-color:#fff; color:#001a71 !important" *ngFor="let column of contigentBenfColumns">{{column.columnTitle}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of contigentBenfDataSource">
+                                    <td *ngFor="let columnData of row.columns">
+                                        <div>{{ columnData?.value}}</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 no-padding section-para-title margin-btm10">Documents</div>
+
+                <div class="col-md-12 no-padding margin-btm20">
+                    <div class="box box-default table-box table-flip-scroll mdl-shadow--2dp 
+                            col-md-7 col-sm-7 col-xs-12 no-padding pull-left margin-btm20 margin-right10">
+                        <fgl-grid tableclasses="no-margin" [datasource]="documentDataSource" [columns]="documentColumns"></fgl-grid>
+                    </div>
+                    <span class="space"></span>
+                    <div class="col-md-4 col-sm-4 col-xs-12 margin-btm5 pull-left no-padding">
+                        <button color="primary" (click)="addDocuments()" mat-raised-button type="button" class="btn-fgl-bgcolor align-bottom">Add Dcouments</button>
+                    </div>
+                </div>
+
+                <div class="col-md-12 row margin-btm20 margin-top20">
+                    <div class="col-md-12 no-padding section-para-title margin-top10 margin-btm10">Comments</div>           
+                    <div class="col-md-12 no-padding border-box" style="height: 100px">
+                        <span class="hint small" style="padding: 5px;"> 8/16/2017 at 6:30 PM, Bobby Smith wrote: </span><br/>
+                        <span class="hint" style="padding: 5px;">I uploaded the Power of Attorney documents required by Sarah.</span>
+                    </div>
+                </div>
+
+                <div class="col-md-12 no-padding">
+                    <div class="col-md-6 col-sm-6 col-xs-12 no-padding pull-left margin-btm20 margin-right10">
+                        <textarea style="resize:none;" class="border-box" matInput placeholder="" maxlength="2000" rows="3"></textarea>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 margin-btm5 pull-left no-padding">
+                        <button color="primary" (click)="addComment()" mat-raised-button type="button" class="btn-fgl-bgcolor align-bottom">Add Comment</button>
+                    </div>
+                </div>
+
+                <div class="row col-md-12 margin-btm20 no-padding text-left padding-top20">
+                    <div class="text-lg-right text-md-right no-padding col-md-12 margin-left15">
+                        <button color="primary" (click)="exit()" mat-raised-button type="button" class="btn-fgl-bgcolor margin-btm10 margin-top20 padding-right10">Exit</button>
+                    
+                        <button color="primary" kendo-button (click)="print(pdf)" mat-raised-button type="button" class="btn-fgl-bgcolor padding-right10">Print</button>
+
+                        <button color="primary" kendo-button (click)="printPdf(pdf)" mat-raised-button type="button" class="btn-fgl-bgcolor padding-right10">Print Pdf</button>
+                    
+                        <button color="primary" (click)="save()" mat-raised-button type="button" class="btn-fgl-bgcolor">Save</button>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+    
+</section>
+</kendo-pdf-export>
